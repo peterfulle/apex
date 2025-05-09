@@ -1,0 +1,464 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ApexDev Studio | Elite Software Development Agency{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Dark + Premium -->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-black">
+    <!-- Gradient orbs background -->
+    <div class="absolute inset-0 overflow-hidden opacity-20">
+        <div class="absolute -top-40 -left-20 w-96 h-96 bg-accent-primary opacity-30 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/4 right-10 w-80 h-80 bg-accent-secondary opacity-20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-1/3 w-72 h-72 bg-accent-third opacity-20 rounded-full blur-3xl"></div>
+    </div>
+
+    <!-- Code particles effect (optional) -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="code-particles"></div>
+    </div>
+    
+    <div class="container relative px-4 mx-auto sm:px-6 lg:px-8 z-10 pt-20">
+        <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+            <div data-aos="fade-right">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="inline-block h-1 w-10 bg-accent-primary rounded-full"></span>
+                    <span class="text-accent-primary font-medium">Next-Level Development</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-tight text-white">
+                    We Engineer <span class="text-gradient">Digital Excellence</span>
+                </h1>
+                
+                <p class="mt-8 text-xl leading-relaxed text-gray-400">
+                    Transforming visionary ideas into exceptional digital solutions with cutting-edge technology and unparalleled expertise.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 mt-10">
+                    <a href="#contact" class="px-8 py-4 text-lg font-medium text-white rounded-md bg-gradient-to-r from-accent-primary to-accent-secondary hover:shadow-lg hover:shadow-accent-primary/20 transition duration-300">
+                        Start Your Project
+                    </a>
+                    <a href="#services" class="px-8 py-4 text-lg font-medium rounded-md text-accent-primary border border-accent-primary/30 hover:bg-accent-primary/10 transition duration-300">
+                        Our Services
+                    </a>
+                </div>
+                
+                <!-- Trusted by -->
+                <div class="mt-16">
+                    <p class="text-sm font-medium text-gray-500 mb-6">TRUSTED BY INNOVATIVE COMPANIES</p>
+                    <div class="flex flex-wrap items-center gap-x-8 gap-y-4 opacity-60">
+                        <img src="https://cdn.worldvectorlogo.com/logos/airbnb.svg" alt="Airbnb" class="h-6 grayscale">
+                        <img src="https://cdn.worldvectorlogo.com/logos/spotify-1.svg" alt="Spotify" class="h-7 grayscale">
+                        <img src="https://cdn.worldvectorlogo.com/logos/slack-1.svg" alt="Slack" class="h-6 grayscale">
+                        <img src="https://cdn.worldvectorlogo.com/logos/netflix-3.svg" alt="Netflix" class="h-5 grayscale">
+                        <img src="https://cdn.worldvectorlogo.com/logos/uber-2.svg" alt="Uber" class="h-5 grayscale">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative order-first lg:order-last" data-aos="fade-left">
+                <div class="relative glass-card p-6 sm:p-8 rounded-2xl overflow-hidden shadow-xl shadow-accent-primary/10">
+                    <!-- Code snippet -->
+                    <div class="code-effect w-full rounded-lg overflow-hidden font-mono text-sm">
+                        <div class="flex items-center bg-dark-300 px-4 py-2 space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 text-center text-xs text-gray-400">apex-solution.tsx</div>
+                        </div>
+                        <pre class="p-4 overflow-x-auto">
+<span class="text-purple-400">import</span> <span class="text-white">{ useState, useEffect }</span> <span class="text-purple-400">from</span> <span class="text-green-400">'react'</span>;
+<span class="text-purple-400">import</span> <span class="text-white">{ motion }</span> <span class="text-purple-400">from</span> <span class="text-green-400">'framer-motion'</span>;
+<span class="text-purple-400">import</span> <span class="text-white">{ buildAPI }</span> <span class="text-purple-400">from</span> <span class="text-green-400">'@apex/core'</span>;
+
+<span class="text-gray-500">// Apex intelligent solution</span>
+<span class="text-purple-400">const</span> <span class="text-accent-secondary">ApexSolution</span> <span class="text-white">= ({</span> <span class="text-accent-primary">clientVision</span> <span class="text-white">}) => {</span>
+  <span class="text-purple-400">const</span> <span class="text-white">[solution, setSolution] = useState(null);</span>
+  
+  <span class="text-purple-400">useEffect</span><span class="text-white">(() => {</span>
+    <span class="text-purple-400">const</span> <span class="text-accent-third">createSolution</span> <span class="text-white">= async () => {</span>
+      <span class="text-purple-400">const</span> <span class="text-white">api = buildAPI();</span>
+      <span class="text-purple-400">const</span> <span class="text-white">result = await api</span>
+        <span class="text-white">.analyze(clientVision)</span>
+        <span class="text-white">.enhance()</span>
+        <span class="text-white">.optimize();</span>
+        
+      <span class="text-white">setSolution(result);</span>
+    <span class="text-white">};</span>
+    
+    <span class="text-accent-third">createSolution</span><span class="text-white">();</span>
+  <span class="text-white">}, [clientVision]);</span>
+  
+  <span class="text-purple-400">return</span> <span class="text-white">(</span>
+    <span class="text-accent-primary">&lt;motion.div</span>
+      <span class="text-white">initial={ opacity: 1 }</span>
+      <span class="text-white">animate={ opacity: 1 }</span>
+    <span class="text-accent-primary">&gt;</span>
+      <span class="text-white">{solution && (</span>
+        <span class="text-accent-primary">&lt;DeploymentEngine</span> <span class="text-white">solution={solution} /&gt;</span>
+      <span class="text-white">)}</span>
+    <span class="text-accent-primary">&lt;/motion.div&gt;</span>
+  <span class="text-white">);</span>
+<span class="text-white">};</span>
+
+<span class="text-purple-400">export default</span> <span class="text-accent-secondary">ApexSolution</span><span class="text-white">;</span></pre>
+                    </div>
+                    
+                    <!-- Floating elements -->
+                    <div class="absolute -top-6 -right-6 w-20 h-20 bg-accent-primary/20 rounded-full blur-xl floating"></div>
+                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-accent-secondary/20 rounded-full blur-xl floating" style="animation-delay: -2s;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Down arrow -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+        <a href="#services" class="animate-bounce block">
+            <i class="fa-solid fa-chevron-down text-accent-primary text-2xl"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-32 bg-dark-100 relative">
+    <!-- Background elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-20 right-0 w-64 h-64 bg-accent-primary/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 left-10 w-80 h-80 bg-accent-secondary/5 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container relative px-4 mx-auto sm:px-6 lg:px-8 z-10">
+        <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+            <div class="inline-flex items-center px-4 py-2 rounded-full border border-accent-primary/20 bg-accent-primary/5 mb-6">
+                <span class="w-2 h-2 rounded-full bg-accent-primary mr-2"></span>
+                <span class="text-accent-primary text-sm font-medium">Our Expertise</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-white leading-tight">
+                Premium Development <span class="text-gradient">Services</span>
+            </h2>
+            
+            <p class="mt-6 text-xl text-gray-400">
+                We deliver cutting-edge solutions tailored to your specific business needs and challenges.
+            </p>
+        </div>
+        
+        <div class="grid gap-8 mt-20 md:grid-cols-2 lg:grid-cols-3">
+            {% for service in services %}
+            <div class="glass-card p-8 rounded-2xl hover:shadow-xl hover:shadow-accent-primary/5 transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:"-1" }}00">
+                <div class="inline-flex items-center justify-center w-16 h-16 text-white rounded-xl bg-gradient-to-r from-accent-primary to-accent-secondary">
+                    <i class="text-2xl fa-solid {{ service.icon }}"></i>
+                </div>
+                <h3 class="mt-6 text-2xl font-semibold text-white">{{ service.title }}</h3>
+                <p class="mt-4 text-gray-400 leading-relaxed">{{ service.description }}</p>
+                <a href="#contact" class="inline-flex items-center mt-6 font-medium text-accent-primary hover:text-accent-secondary transition-colors">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+            {% empty %}
+            <!-- Default services if none exist in database -->
+            <div class="glass-card p-8 rounded-2xl hover:shadow-xl hover:shadow-accent-primary/5 transition-all duration-300"
+                 data-aos="fade-up">
+                <div class="inline-flex items-center justify-center w-16 h-16 text-white rounded-xl bg-gradient-to-r from-accent-primary to-accent-secondary">
+                    <i class="text-2xl fa-solid fa-code"></i>
+                </div>
+                <h3 class="mt-6 text-2xl font-semibold text-white">Custom Web Development</h3>
+                <p class="mt-4 text-gray-400 leading-relaxed">
+                    We build modern, responsive web applications that drive business growth with cutting-edge technologies like React, Next.js, and TypeScript.
+                </p>
+                <a href="#contact" class="inline-flex items-center mt-6 font-medium text-accent-primary hover:text-accent-secondary transition-colors">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+            
+            <div class="glass-card p-8 rounded-2xl hover:shadow-xl hover:shadow-accent-primary/5 transition-all duration-300"
+                 data-aos="fade-up" data-aos-delay="100">
+                <div class="inline-flex items-center justify-center w-16 h-16 text-white rounded-xl bg-gradient-to-r from-accent-primary to-accent-secondary">
+                    <i class="text-2xl fa-solid fa-mobile-screen"></i>
+                </div>
+                <h3 class="mt-6 text-2xl font-semibold text-white">Mobile App Development</h3>
+                <p class="mt-4 text-gray-400 leading-relaxed">
+                    Create seamless experiences across all devices with our native and cross-platform mobile development expertise using React Native and Flutter.
+                </p>
+                <a href="#contact" class="inline-flex items-center mt-6 font-medium text-accent-primary hover:text-accent-secondary transition-colors">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+            
+            <div class="glass-card p-8 rounded-2xl hover:shadow-xl hover:shadow-accent-primary/5 transition-all duration-300"
+                 data-aos="fade-up" data-aos-delay="200">
+                <div class="inline-flex items-center justify-center w-16 h-16 text-white rounded-xl bg-gradient-to-r from-accent-primary to-accent-secondary">
+                    <i class="text-2xl fa-solid fa-database"></i>
+                </div>
+                <h3 class="mt-6 text-2xl font-semibold text-white">Backend Engineering</h3>
+                <p class="mt-4 text-gray-400 leading-relaxed">
+                    Scalable, secure backend systems designed for performance using Python, Node.js, and cloud infrastructure tailored to your specific needs.
+                </p>
+                <a href="#contact" class="inline-flex items-center mt-6 font-medium text-accent-primary hover:text-accent-secondary transition-colors">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Technologies Section -->
+<section id="technologies" class="py-32 bg-black relative">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+            <div class="inline-flex items-center px-4 py-2 rounded-full border border-accent-secondary/20 bg-accent-secondary/5 mb-6">
+                <span class="w-2 h-2 rounded-full bg-accent-secondary mr-2"></span>
+                <span class="text-accent-secondary text-sm font-medium">Our Tech Stack</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-white leading-tight">
+                Cutting-Edge <span class="text-gradient">Technologies</span>
+            </h2>
+            
+            <p class="mt-6 text-xl text-gray-400">
+                We leverage advanced tools and frameworks to build powerful, scalable digital solutions.
+            </p>
+        </div>
+        
+        <!-- Tech stack display -->
+        <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8" data-aos="fade-up">
+            <!-- Frontend -->
+            <div class="glass-card rounded-2xl p-8 col-span-2">
+                <h3 class="text-accent-secondary mb-6 text-xl font-semibold">Front-end Technologies</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <i class="fab fa-react text-4xl text-accent-secondary"></i>
+                        </div>
+                        <span class="text-white">React</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none">
+                                <path d="M24 0H0V24H24V0Z" fill="#000000"/>
+                                <path d="M11.5003 24.0001C10.1773 24.0001 8.9453 23.2491 8.3273 22.0001L0.8323 8.00011C0.3183 7.08911 0.1593 6.03811 0.3903 5.01811C0.6223 3.99911 1.2353 3.09811 2.1463 2.58311C3.0573 2.06911 4.1093 1.91011 5.1283 2.14111C6.1473 2.37211 7.0483 2.98611 7.5633 3.89711L11.5003 10.7721L15.4363 3.89711C15.9513 2.98611 16.8533 2.37211 17.8723 2.14111C18.8913 1.91011 19.9433 2.06811 20.8543 2.58311C21.7653 3.09811 22.3783 3.99911 22.6103 5.01811C22.8413 6.03811 22.6833 7.08911 22.1693 8.00011L14.6733 22.0001C14.0553 23.2491 12.8233 24.0001 11.5003 24.0001Z" fill="#ffffff"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">Next.js</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <i class="fab fa-js-square text-4xl text-accent-secondary"></i>
+                        </div>
+                        <span class="text-white">TypeScript</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-10 h-10" viewBox="0 0 54 33" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M27 0C19.8 0 15.3 3.6 13.5 10.8C16.2 7.2 19.35 5.85 23.1 6.9C25.2 7.5 26.7 9 28.35 10.8C30.9 13.5 33.9 16.5 40.5 16.5C47.7 16.5 52.2 12.9 54 5.7C51.3 9.3 48.15 10.65 44.4 9.6C42.3 9 40.8 7.5 39.15 5.7C36.6 3 33.6 0 27 0ZM13.5 16.5C6.3 16.5 1.8 20.1 0 27.3C2.7 23.7 5.85 22.35 9.6 23.4C11.7 24 13.2 25.5 14.85 27.3C17.4 30 20.4 33 27 33C34.2 33 38.7 29.4 40.5 22.2C37.8 25.8 34.65 27.15 30.9 26.1C28.8 25.5 27.3 24 25.65 22.2C23.1 19.5 20.1 16.5 13.5 16.5Z" fill="#38BDF8"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">Tailwind CSS</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                                <path d="M14.3406 24.0007H9.65968V18.8809H14.3406V24.0007Z" fill="#E44D26"/>
+                                <path d="M12 19.7254L9.65967 18.8809V23.1562L12 24.0006V19.7254Z" fill="#F16529"/>
+                                <path d="M23.6972 4.69415L21.5634 19.7254H12L9.65967 18.8809H2.30283L0.302832 0H23.6972V4.69415Z" fill="#E44D26"/>
+                                <path d="M12 0V19.7254L21.5634 19.7254L23.6972 4.69415V0H12Z" fill="#F16529"/>
+                                <path d="M3.77905 2.30664H20.084L19.5675 7.64219H7.35002L7.73619 12.0961H19.1618L18.3187 19.7264H12.0156L5.87681 19.726L3.77905 2.30664Z" fill="#EBEBEB"/>
+                                <path d="M20.084 2.30664H12V7.64219H19.567L20.084 2.30664ZM19.1618 12.0961H12V14.4025H16.7191L16.3245 19.7264H12V22.0328L18.3187 19.7264L19.1618 12.0961Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">HTML5/CSS3</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                                <path d="M12.0001 0L1.31982 3.74464V17.8211L12.0001 24L22.6803 17.8211V3.74464L12.0001 0Z" fill="#222" stroke="#ffffff" stroke-width="0.5"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9738 3.00073L5.41846 6.72819V14.1703L11.9738 17.9105L18.5419 14.1703V6.72819L11.9738 3.00073ZM6.95193 12.8352V8.06854L11.9738 5.68521L17.0084 8.06854V12.8352L11.9738 15.2185L6.95193 12.8352Z" fill="#38BDF8"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">Three.js</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Backend -->
+            <div class="glass-card rounded-2xl p-8 col-span-2">
+                <h3 class="text-accent-primary mb-6 text-xl font-semibold">Back-end Technologies</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <i class="fab fa-python text-4xl text-accent-primary"></i>
+                        </div>
+                        <span class="text-white">Python</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <i class="fab fa-node-js text-4xl text-accent-primary"></i>
+                        </div>
+                        <span class="text-white">Node.js</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                                <path d="M12.9547 22.5195C12.9771 22.8731 12.6343 23.2093 12.1403 23.1142C5.61965 21.9678 0.885254 16.3931 0.885254 9.67376C0.885254 8.65198 1.01718 7.66154 1.2667 6.71313C1.39361 6.24426 1.90175 5.99112 2.33104 6.16745C2.76033 6.34379 3.14999 6.84302 3.01766 7.31058C2.80136 8.10632 2.68637 8.93368 2.68637 9.78209C2.68637 15.5477 6.72528 20.3505 12.2583 21.3541C12.7523 21.4507 12.9323 22.166 12.9547 22.5195ZM20.053 4.88457C20.053 4.88457 19.3797 6.9351 17.4823 7.80887C16.1624 8.40165 15.1853 9.24929 14.0865 10.1346C13.4129 10.6771 13.1798 11.6058 13.1798 12.4687C13.1798 13.3317 13.1798 14.348 13.1798 14.348C13.1798 14.348 14.1967 14.348 14.543 14.348C15.0985 14.348 15.559 14.8085 15.559 15.364V16.3809C15.559 16.9364 15.0985 17.3969 14.543 17.3969H11.4878C10.9323 17.3969 10.4718 16.9364 10.4718 16.3809V14.7728C10.4718 14.7728 10.4718 12.553 10.4718 10.8372C10.4718 9.12135 11.0512 7.14698 13.1798 5.70103C15.3084 4.25509 17.109 4.06368 17.109 4.06368C17.109 4.06368 16.8923 3.05831 16.8923 2.55671C16.8923 2.05511 17.1339 1.69765 17.6854 2.02051C20.053 3.39924 22.0185 5.42853 23.2737 7.85506C23.5337 8.339 23.4236 8.89082 22.9289 9.08429C22.4342 9.27777 21.9115 9.04981 21.648 8.56722C21.0361 7.4639 20.2631 6.46674 19.3685 5.61696C19.2734 5.52186 19.4452 5.18125 19.6429 5.10224C19.8405 5.02323 20.053 4.88457 20.053 4.88457Z" fill="currentColor" class="text-accent-primary"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">Django</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24">
+                                <path d="M24 18.588a1.529 1.529 0 01-1.543 1.5c-1.543 0-1.543-1.5-1.543-1.5V10.5h-1.543v8.594a3.094 3.094 0 003.086 3c1.3 0 2.4-.813 2.836-1.9a3 3 0 002.457 1.406c1.718 0 3.086-1.313 3.086-3V10.5h-1.543v8.088c0 .75-.375 1.5-1.543 1.5s-1.543-.75-1.543-1.5V10.5h-1.543v8.088zm-7.629 3.094v-6.75a3 3 0 00-2.063-2.813 3.001 3.001 0 00-3.063.75v-6.75H9.702v15.563h1.543v-.75a3.094 3.094 0 003.086 1.313c1.29 0 2.347-.938 2.627-2.156a1.5 1.5 0 01-.587 1.594z" fill="none" />
+                                <path fill="currentColor" class="text-accent-primary" d="M0 0v24h24V0H0zm16.371 18.588a1.529 1.529 0 01-1.543 1.5c-1.543 0-1.543-1.5-1.543-1.5V10.5h-1.543v8.594a3.094 3.094 0 003.086 3c1.3 0 2.4-.813 2.836-1.9a3 3 0 002.457 1.406c1.718 0 3.086-1.313 3.086-3V10.5h-1.543v8.088c0 .75-.375 1.5-1.543 1.5s-1.543-.75-1.543-1.5V10.5h-1.543v8.088zm-7.629 3.094v-6.75a3 3 0 00-2.063-2.813 3.001 3.001 0 00-3.063.75v-6.75H2.074v15.563h1.543v-.75a3.094 3.094 0 003.086 1.313c1.29 0 2.347-.938 2.627-2.156a1.5 1.5 0 01-.587 1.594z"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">GraphQL</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-12 h-12" viewBox="0 0 32 32">
+                                <path d="M16 0C7.164 0 0 7.164 0 16s7.164 16 16 16 16-7.164 16-16S24.836 0 16 0zm-5.607 21.886v-4.015l7.205-5.859 7.214 5.859v4.015l-7.214-5.859z" fill="currentColor" class="text-accent-primary"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">PostgreSQL</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 flex items-center justify-center mb-4">
+                            <svg class="w-12 h-12" viewBox="0 0 16 16">
+                                <path d="M4.929 6.429H1.357V16h3.572V6.429zm5.714 0H7.071V16h3.572V6.429zM16 6.429h-3.571V16H16V6.429zM4.929 0H1.357v4.286h3.572V0zm5.714 0H7.071v4.286h3.572V0zM16 0h-3.571v4.286H16V0z" fill="currentColor" class="text-accent-primary"/>
+                            </svg>
+                        </div>
+                        <span class="text-white">AWS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-32 bg-dark-100 relative">
+    <!-- Background elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-40 left-20 w-72 h-72 bg-accent-primary/5 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-20 right-10 w-80 h-80 bg-accent-secondary/5 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up">
+            <div class="inline-flex items-center px-4 py-2 rounded-full border border-accent-primary/20 bg-accent-primary/5 mb-6">
+                <span class="w-2 h-2 rounded-full bg-accent-primary mr-2"></span>
+                <span class="text-accent-primary text-sm font-medium">Get in Touch</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-white leading-tight">
+                Start Your <span class="text-gradient">Next Project</span>
+            </h2>
+            
+            <p class="mt-6 text-xl text-gray-400">
+                Have a project in mind? Let's discuss how we can help you achieve your goals.
+            </p>
+        </div>
+        
+        <div class="grid gap-8 lg:grid-cols-2">
+            <!-- Contact Form -->
+            <div class="glass-card p-8 rounded-2xl" data-aos="fade-right">
+                <h3 class="text-2xl font-semibold text-white mb-6">Send us a message</h3>
+                
+                <!-- Form with HTMX -->
+                <form hx-post="{% url 'contact' %}" hx-target="#form-response" class="space-y-6">
+                    {% csrf_token %}
+                    <div>
+                        <label for="id_name" class="block mb-2 font-medium text-gray-300">Name</label>
+                        {{ contact_form.name|default:'<input type="text" id="id_name" name="name" class="w-full px-4 py-3 bg-dark-300 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary text-white" placeholder="Your name">' }}
+                    </div>
+                    <div>
+                        <label for="id_email" class="block mb-2 font-medium text-gray-300">Email</label>
+                        {{ contact_form.email|default:'<input type="email" id="id_email" name="email" class="w-full px-4 py-3 bg-dark-300 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary text-white" placeholder="Your email">' }}
+                    </div>
+                    <div>
+                        <label for="id_subject" class="block mb-2 font-medium text-gray-300">Subject</label>
+                        {{ contact_form.subject|default:'<input type="text" id="id_subject" name="subject" class="w-full px-4 py-3 bg-dark-300 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary text-white" placeholder="Project subject">' }}
+                    </div>
+                    <div>
+                        <label for="id_message" class="block mb-2 font-medium text-gray-300">Message</label>
+                        {{ contact_form.message|default:'<textarea id="id_message" name="message" rows="5" class="w-full px-4 py-3 bg-dark-300 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary text-white" placeholder="Tell us about your project"></textarea>' }}
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-medium rounded-lg transition duration-300 hover:shadow-lg hover:shadow-accent-primary/20">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Form Response Display Area -->
+                <div id="form-response" class="mt-4"></div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div data-aos="fade-left">
+                <div class="glass-card p-8 rounded-2xl mb-8">
+                    <h3 class="text-2xl font-semibold text-white mb-6">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-accent-primary/10 text-accent-primary mr-4">
+                                <i class="fa-solid fa-envelope text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium mb-1">Email</h4>
+                                <a href="mailto:hello@apexdev.studio" class="text-gray-400 hover:text-accent-primary transition-colors">hello@apexdev.studio</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-accent-primary/10 text-accent-primary mr-4">
+                                <i class="fa-solid fa-phone text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium mb-1">Phone</h4>
+                                <a href="tel:+12345678901" class="text-gray-400 hover:text-accent-primary transition-colors">+1 (234) 567-8901</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-accent-primary/10 text-accent-primary mr-4">
+                                <i class="fa-solid fa-location-dot text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium mb-1">Location</h4>
+                                <p class="text-gray-400">San Francisco, CA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social links -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold text-white mb-6">Connect With Us</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-lg bg-dark-300 text-gray-400 hover:text-accent-primary hover:bg-dark-200 transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-lg bg-dark-300 text-gray-400 hover:text-accent-primary hover:bg-dark-200 transition-colors">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-lg bg-dark-300 text-gray-400 hover:text-accent-primary hover:bg-dark-200 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-lg bg-dark-300 text-gray-400 hover:text-accent-primary hover:bg-dark-200 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-center w-12 h-12 rounded-lg bg-dark-300 text-gray-400 hover:text-accent-primary hover:bg-dark-200 transition-colors">
+                            <i class="fab fa-dribbble text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
