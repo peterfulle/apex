@@ -4,22 +4,23 @@ frontend:
     preBuild:
       commands:
         - echo "Iniciando fase de pre-construcción"
-        - ls -la
     build:
       commands:
         - echo "Iniciando fase de construcción"
-        - echo "Verificando estructura del proyecto"
-        - find . -name "*.html" | sort
         - echo "Construcción completada"
   artifacts:
     baseDirectory: .
     files:
-      - '**/*.html'
-      - '**/*.css'
-      - '**/*.js'
-      - '**/*.png'
-      - '**/*.jpg'
-      - '**/*.jpeg'
-      - '**/*.gif'
-      - '**/*.svg'
-      - '**/*.ico'
+      - '**/*'
+    discard-paths: no
+  cache:
+    paths: []
+  customHeaders:
+    - pattern: '**/*.html'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=0, no-cache, no-store, must-revalidate'
+    - pattern: '**/*.{js,css,png,jpg,jpeg,gif,svg}'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=31536000'
