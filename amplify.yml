@@ -9,7 +9,7 @@ frontend:
     build:
       commands:
         - echo "Iniciando fase de construcción"
-        - pip install -r requirements.txt
+        - pip install -r requirements-deploy.txt
         - echo "Construcción completada"
   artifacts:
     baseDirectory: .
@@ -17,10 +17,4 @@ frontend:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
       - .pip-cache/**/*
-  customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: 'Cache-Control'
-          value: 'max-age=86400'
