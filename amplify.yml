@@ -3,12 +3,24 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "Iniciando fase de pre-construcción"
         - python --version
         - pip install --upgrade pip
     build:
       commands:
+        - echo "Iniciando fase de construcción"
         - pip install -r requirements.txt
+        - echo "Construcción completada"
   artifacts:
-    baseDirectory: /
+    baseDirectory: .
     files:
       - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .pip-cache/**/*
+  customHeaders:
+    - pattern: '**/*'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=86400'
