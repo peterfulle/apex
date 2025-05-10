@@ -1,5 +1,5 @@
 version: 1
-frontend: # Esta es la definición que Amplify está buscando
+frontend:
   phases:
     preBuild:
       commands:
@@ -9,6 +9,6 @@ frontend: # Esta es la definición que Amplify está buscando
       commands:
         - pip install -r requirements.txt
   artifacts:
-    baseDirectory: / # Directorio base después de la compilación
+    baseDirectory: /
     files:
-      - '**/*' # Todos los archivos a incluir en el despliegue
+      - '**/*'
