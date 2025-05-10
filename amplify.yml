@@ -4,17 +4,22 @@ frontend:
     preBuild:
       commands:
         - echo "Iniciando fase de pre-construcción"
-        - python --version
-        - pip install --upgrade pip
+        - ls -la
     build:
       commands:
         - echo "Iniciando fase de construcción"
-        - pip install -r requirements-deploy.txt
+        - echo "Verificando estructura del proyecto"
+        - find . -name "*.html" | sort
         - echo "Construcción completada"
   artifacts:
     baseDirectory: .
     files:
-      - '**/*'
-  cache:
-    paths:
-      - .pip-cache/**/*
+      - '**/*.html'
+      - '**/*.css'
+      - '**/*.js'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.jpeg'
+      - '**/*.gif'
+      - '**/*.svg'
+      - '**/*.ico'
