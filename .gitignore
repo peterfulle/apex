@@ -42,3 +42,9 @@ venv.bak/
 *.swp
 *.swo
 .DS_Store" > .gitignore
+
+# amplify
+node_modules
+.amplify
+amplify_outputs*
+amplifyconfiguration*
