@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Servicios - Aplyfly{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen bg-gray-900 py-20">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-5 text-cyan-400/30 text-xs font-mono transform rotate-12 animate-float">
+            def create_amazing_software():
+        </div>
+        <div class="absolute top-32 right-10 text-emerald-400/30 text-xs font-mono transform -rotate-6 animate-float-delayed">
+            return "Innovation + Quality"
+        </div>
+        <div class="absolute bottom-40 left-8 text-purple-400/30 text-xs font-mono transform rotate-6 animate-float">
+            while client.is_satisfied():
+        </div>
+        <div class="absolute bottom-20 right-5 text-orange-400/30 text-xs font-mono transform -rotate-12 animate-float-delayed">
+            deliver_excellence()
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                Nuestros <span class="text-cyan-400">Servicios</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Soluciones digitales a medida para impulsar tu negocio hacia el futuro
+            </p>
+            <div class="w-24 h-1 bg-cyan-400 mx-auto mt-8"></div>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {% for service in services %}
+            <div class="group bg-gray-800 rounded-xl p-8 hover:bg-gray-750 transition-all duration-300 hover:transform hover:scale-105 border border-gray-700 hover:border-cyan-500/50">
+                <!-- Service Icon -->
+                <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center mb-6 group-hover:from-cyan-400 group-hover:to-cyan-500 transition-all duration-300">
+                    <i class="{{ service.icon }} text-2xl text-black"></i>
+                </div>
+                
+                <!-- Service Content -->
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">
+                    {{ service.title }}
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    {{ service.description }}
+                </p>
+                
+                <!-- Service Features -->
+                <div class="space-y-2">
+                    {% if service.title == "Desarrollo Web Personalizado" %}
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>React, Vue, Django, Node.js</span>
+                        </div>
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Responsive & PWA</span>
+                        </div>
+                    {% elif service.title == "Aplicaciones Móviles" %}
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>iOS & Android nativo</span>
+                        </div>
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>React Native & Flutter</span>
+                        </div>
+                    {% elif service.title == "Sistemas Empresariales" %}
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>ERP & CRM personalizados</span>
+                        </div>
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Integración con sistemas existentes</span>
+                        </div>
+                    {% else %}
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Tecnologías modernas</span>
+                        </div>
+                        <div class="flex items-center text-sm text-cyan-400">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Soporte especializado</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="lg:col-span-3">
+                <div class="bg-gray-800 rounded-xl p-12 text-center border border-gray-700">
+                    <i class="fas fa-code text-6xl text-cyan-400 mb-6"></i>
+                    <p class="text-xl text-gray-300">Cargando nuestros servicios...</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="bg-gradient-to-r from-cyan-500/10 to-cyan-600/10 rounded-2xl p-12 text-center border border-cyan-500/20">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                ¿Listo para transformar tu idea en realidad?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Nuestro equipo de expertos está listo para llevar tu proyecto al siguiente nivel con tecnologías de vanguardia.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'index' %}#contact" 
+                   class="px-8 py-4 bg-cyan-500 text-black font-semibold rounded-lg hover:bg-cyan-400 transition-colors inline-flex items-center justify-center">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Iniciar Proyecto
+                </a>
+                <a href="{% url 'index' %}" 
+                   class="px-8 py-4 bg-gray-800 text-white font-semibold rounded-lg border border-gray-600 hover:bg-gray-700 transition-colors inline-flex items-center justify-center">
+                    <i class="fas fa-home mr-2"></i>
+                    Ver Portfolio
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technologies Section -->
+<section class="bg-gray-800 py-16">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Tecnologías que <span class="text-cyan-400">Dominamos</span>
+            </h2>
+            <p class="text-xl text-gray-300">
+                Trabajamos con las herramientas más avanzadas del mercado
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 hover:bg-cyan-500/20 transition-colors">
+                    <i class="fab fa-python text-2xl text-cyan-400"></i>
+                </div>
+                <span class="text-gray-300 text-sm">Python</span>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 hover:bg-cyan-500/20 transition-colors">
+                    <i class="fab fa-js-square text-2xl text-cyan-400"></i>
+                </div>
+                <span class="text-gray-300 text-sm">JavaScript</span>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 hover:bg-cyan-500/20 transition-colors">
+                    <i class="fab fa-react text-2xl text-cyan-400"></i>
+                </div>
+                <span class="text-gray-300 text-sm">React</span>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 hover:bg-cyan-500/20 transition-colors">
+                    <i class="fab fa-node-js text-2xl text-cyan-400"></i>
+                </div>
+                <span class="text-gray-300 text-sm">Node.js</span>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 hover:bg-cyan-500/20 transition-colors">
+                    <i class="fab fa-docker text-2xl text-cyan-400"></i>
+                </div>
+                <span class="text-gray-300 text-sm">Docker</span>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 hover:bg-cyan-500/20 transition-colors">
+                    <i class="fab fa-aws text-2xl text-cyan-400"></i>
+                </div>
+                <span class="text-gray-300 text-sm">AWS</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(12deg); }
+        50% { transform: translateY(-20px) rotate(12deg); }
+    }
+    @keyframes float-delayed {
+        0%, 100% { transform: translateY(0px) rotate(-6deg); }
+        50% { transform: translateY(-15px) rotate(-6deg); }
+    }
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+        animation: float-delayed 6s ease-in-out infinite 2s;
+    }
+    .bg-gray-750 {
+        background-color: #374151;
+    }
+</style>
+{% endblock %}

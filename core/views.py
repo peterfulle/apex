@@ -54,5 +54,6 @@ class ContactFormView(FormView):
         return super().form_invalid(form)
 
 def services_view(request):
+    """Vista para la página de servicios con branding Aplyfly"""
     services = Service.objects.all()
-    return render(request, 'core/services.html', {'services': services})
+    return render(request, 'core/services_aplyfly.html', {'services': services})

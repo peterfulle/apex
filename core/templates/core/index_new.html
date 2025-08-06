@@ -1,0 +1,494 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Peter Fullé | Full-Stack Developer & Digital Architect{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
+    
+    <!-- Floating code elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 text-emerald-400/20 text-sm font-mono transform rotate-12 animate-pulse">const dev = "passionate";</div>
+        <div class="absolute top-40 right-20 text-blue-400/20 text-sm font-mono transform -rotate-6 animate-pulse">function create() {}</div>
+        <div class="absolute bottom-32 left-20 text-purple-400/20 text-sm font-mono transform rotate-6 animate-pulse">&lt;innovation /&gt;</div>
+        <div class="absolute bottom-20 right-16 text-orange-400/20 text-sm font-mono transform -rotate-12 animate-pulse">git commit -m "life"</div>
+    </div>
+    
+    <div class="container relative px-4 mx-auto sm:px-6 lg:px-8 z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Status Badge -->
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></div>
+                <span class="text-emerald-400 font-medium text-sm tracking-wide">Disponible para proyectos</span>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                Hola, soy <span class="bg-gradient-to-r from-emerald-400 to-blue-500 bg-clip-text text-transparent">Peter</span>
+            </h1>
+            
+            <!-- Typewriter Effect -->
+            <div class="text-2xl sm:text-3xl md:text-4xl text-gray-300 mb-8 font-light">
+                <span id="typewriter" class="border-r-2 border-emerald-400"></span>
+            </div>
+            
+            <!-- Description -->
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-12">
+                Transformo ideas complejas en soluciones digitales elegantes. Con <strong class="text-white">+5 años</strong> creando experiencias que importan, 
+                desde startups hasta empresas Fortune 500.
+            </p>
+            
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-emerald-400 mb-2" data-count="50">0</div>
+                    <div class="text-gray-400 text-sm">Proyectos Completados</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-400 mb-2" data-count="5">0</div>
+                    <div class="text-gray-400 text-sm">Años de Experiencia</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-400 mb-2" data-count="98">0</div>
+                    <div class="text-gray-400 text-sm">% Satisfacción Cliente</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-400 mb-2" data-count="24">0</div>
+                    <div class="text-gray-400 text-sm">Soporte 24/7</div>
+                </div>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#projects" class="group relative px-8 py-4 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105">
+                    <span class="relative z-10">Ver mis proyectos</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                <a href="#contact" class="px-8 py-4 border-2 border-gray-400 text-gray-400 font-semibold rounded-lg hover:border-emerald-400 hover:text-emerald-400 transition-all duration-300">
+                    Hablemos
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-400 animate-bounce">
+        <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-white">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Sobre mí</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Desarrollador apasionado con más de 5 años transformando ideas en realidades digitales
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Image/Avatar -->
+                <div class="relative">
+                    <div class="w-full max-w-md mx-auto relative">
+                        <div class="aspect-square bg-gradient-to-br from-emerald-400 to-blue-500 rounded-2xl p-1">
+                            <div class="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-user text-6xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <!-- Floating tech icons -->
+                        <div class="absolute -top-4 -right-4 bg-white rounded-full p-3 shadow-lg">
+                            <i class="fab fa-react text-2xl text-blue-500"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 bg-white rounded-full p-3 shadow-lg">
+                            <i class="fab fa-python text-2xl text-green-500"></i>
+                        </div>
+                        <div class="absolute top-1/2 -right-8 bg-white rounded-full p-3 shadow-lg">
+                            <i class="fab fa-node-js text-2xl text-green-600"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Desarrollador Full-Stack & Arquitecto Digital</h3>
+                    
+                    <div class="space-y-4 mb-8">
+                        <p class="text-gray-600 leading-relaxed">
+                            Especializado en crear soluciones escalables que combinan diseño elegante con funcionalidad robusta. 
+                            Mi enfoque se centra en entender las necesidades del negocio para construir productos que realmente importen.
+                        </p>
+                        
+                        <p class="text-gray-600 leading-relaxed">
+                            Desde aplicaciones web complejas hasta sistemas empresariales, me apasiona usar la tecnología 
+                            para resolver problemas reales y crear experiencias excepcionales.
+                        </p>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Tecnologías principales</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">React</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Python</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">Django</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">Docker</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">AWS</span>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA -->
+                    <a href="/static/cv.pdf" class="inline-flex items-center px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors">
+                        <i class="fas fa-download mr-2"></i>
+                        Descargar CV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-20 bg-gray-50">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Servicios</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Soluciones completas para llevar tu negocio al siguiente nivel
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for service in services %}
+                <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="{{ service.icon }} text-2xl text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ service.title }}</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">{{ service.description }}</p>
+                    <a href="#contact" class="inline-flex items-center text-emerald-600 font-semibold hover:text-emerald-700 transition-colors">
+                        Saber más
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 bg-white">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Proyectos Destacados</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Algunos de mis trabajos más recientes y significativos
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                {% for project in featured_projects %}
+                <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Project Image -->
+                    <div class="aspect-video bg-gradient-to-br from-emerald-100 to-blue-100 relative overflow-hidden">
+                        {% if project.images.first %}
+                            <img src="{{ project.images.first.image.url }}" alt="{{ project.title }}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fas fa-code text-4xl text-gray-400"></i>
+                            </div>
+                        {% endif %}
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
+                    </div>
+                    
+                    <!-- Project Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ project.title }}</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">{{ project.description|truncatewords:20 }}</p>
+                        
+                        <!-- Technologies -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            {% for tech in project.technologies.all %}
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Links -->
+                        <div class="flex items-center gap-4">
+                            {% if project.url %}
+                            <a href="{{ project.url }}" target="_blank" 
+                               class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                                <i class="fas fa-external-link-alt mr-2"></i>
+                                Ver proyecto
+                            </a>
+                            {% endif %}
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank" 
+                               class="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                <i class="fab fa-github mr-2"></i>
+                                Código
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="{% url 'project_list' %}" 
+                   class="inline-flex items-center px-8 py-3 border-2 border-emerald-600 text-emerald-600 font-semibold rounded-lg hover:bg-emerald-600 hover:text-white transition-all duration-300">
+                    Ver todos los proyectos
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Lo que dicen mis clientes</h2>
+                <p class="text-xl text-gray-600">
+                    Testimonios reales de clientes satisfechos
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                {% for testimonial in testimonials %}
+                <div class="bg-white rounded-xl p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-emerald-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">{{ testimonial.client_name }}</h4>
+                            <p class="text-gray-600 text-sm">{{ testimonial.client_company }}</p>
+                        </div>
+                    </div>
+                    <blockquote class="text-gray-700 italic leading-relaxed">
+                        "{{ testimonial.content }}"
+                    </blockquote>
+                    <div class="flex mt-4">
+                        {% for i in "12345" %}
+                        <i class="fas fa-star text-yellow-400"></i>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-900 text-white">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Listo para empezar?</h2>
+                <p class="text-xl text-gray-400">
+                    Hablemos sobre tu próximo proyecto
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-8">Contacto directo</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">Email</p>
+                                <a href="mailto:peter@fullé.dev" class="text-white hover:text-emerald-400 transition-colors">peter@fullé.dev</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">Teléfono</p>
+                                <a href="tel:+1234567890" class="text-white hover:text-emerald-400 transition-colors">+123 456 7890</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">Ubicación</p>
+                                <p class="text-white">Remote Worldwide</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold mb-4">Sígueme</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div>
+                    <form method="post" class="space-y-6">
+                        {% csrf_token %}
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Nombre completo</label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-emerald-500 focus:outline-none transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-emerald-500 focus:outline-none transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-400 mb-2">Asunto</label>
+                            <input type="text" id="subject" name="subject" required
+                                   class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-emerald-500 focus:outline-none transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Mensaje</label>
+                            <textarea id="message" name="message" rows="6" required
+                                      class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 focus:border-emerald-500 focus:outline-none transition-colors resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full px-8 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Enviar mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Typewriter effect
+const texts = [
+    "Full-Stack Developer",
+    "Digital Architect", 
+    "Problem Solver",
+    "Tech Enthusiast"
+];
+
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typewriterElement = document.getElementById('typewriter');
+
+function typeWriter() {
+    const currentText = texts[textIndex];
+    
+    if (isDeleting) {
+        typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+    } else {
+        typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+    }
+    
+    let typeSpeed = isDeleting ? 50 : 100;
+    
+    if (!isDeleting && charIndex === currentText.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        typeSpeed = 500;
+    }
+    
+    setTimeout(typeWriter, typeSpeed);
+}
+
+// Counter animation
+function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            counter.textContent = Math.floor(current);
+        }, 16);
+    });
+}
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Initialize animations when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    typeWriter();
+    
+    // Trigger counter animation when section comes into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    const heroSection = document.querySelector('#home');
+    if (heroSection) observer.observe(heroSection);
+});
+</script>
+{% endblock %}
