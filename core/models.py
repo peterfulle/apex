@@ -28,10 +28,10 @@ class Testimonial(models.Model):
     class Meta:
         ordering = ['order']
 
-# Renombrado de ContactMessage a Contact para que coincida con la importación
-class Contact(models.Model):
+class ContactMessage(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
+    company = models.CharField(max_length=200, blank=True, null=True)
     subject = models.CharField(max_length=200)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -42,20 +42,3 @@ class Contact(models.Model):
     
     class Meta:
         ordering = ['-created_at']
-        
-        
-class Project(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    image = models.ImageField(upload_to='projects/', blank=True, null=True)
-    url = models.URLField(blank=True, null=True)
-    github_url = models.URLField(blank=True, null=True)
-    technologies = models.TextField(help_text="Comma-separated list of technologies")
-    featured = models.BooleanField(default=False)
-    order = models.PositiveIntegerField(default=0)
-    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        ordering = ['order']

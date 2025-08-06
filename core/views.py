@@ -1,38 +1,57 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, DetailView
-from .forms import ContactForm
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.contrib import messages
+from datetime import datetime
 from .models import Service, Testimonial
+from .forms import ContactForm
+from portfolio.models import Project
 
 class IndexView(TemplateView):
-    template_name = 'core/index.html'  # o 'core/index.html' dependiendo de tu estructura
+    template_name = 'core/index_aplyfly.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['services'] = Service.objects.all()
         context['testimonials'] = Testimonial.objects.filter(active=True)
-        # Eliminamos la referencia a featured_projects
-        context['contact_form'] = ContactForm()
+        context['featured_projects'] = Project.objects.filter(featured=True)[:3]
+        context['form'] = ContactForm()
+        context['current_year'] = datetime.now().year
         return context
 
-
-def contact_view(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse(
-                '<div class="p-4 rounded-lg bg-gradient-to-r from-accent-primary/20 to-accent-secondary/20 border border-accent-primary/30">'
-                '<p class="text-white"><i class="fa-solid fa-check-circle mr-2 text-accent-primary"></i> '
-                'Your message has been sent successfully. We will get back to you shortly.</p>'
-                '</div>'
-            )
-        else:
-            return HttpResponse(
-                '<div class="p-4 rounded-lg bg-red-500/20 border border-red-500/30">'
-                '<p class="text-white"><i class="fa-solid fa-exclamation-circle mr-2 text-red-400"></i> '
-                'There was an error with your submission. Please check the form and try again.</p>'
-                '</div>'
-            )
+class ContactFormView(FormView):
+    form_class = ContactForm
+    template_name = 'core/contact_success.html'
+    success_url = reverse_lazy('index')
     
-    return HttpResponse('Method not allowed', status=405)
+    def form_valid(self, form):
+        # Guardar el mensaje
+        form.save()
+        
+        if self.request.htmx:
+            return HttpResponse(
+                '<div class="p-4 mb-4 text-green-800 bg-green-100 rounded-lg">'
+                'Gracias por tu mensaje. Te contactaremos pronto.'
+                '</div>',
+                headers={'HX-Trigger': 'contactFormSubmitted'}
+            )
+        
+        messages.success(self.request, 'Mensaje enviado correctamente.')
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        if self.request.htmx:
+            return HttpResponse(
+                '<div class="p-4 mb-4 text-red-800 bg-red-100 rounded-lg">'
+                'Por favor corrige los errores en el formulario.'
+                '</div>' + form.as_p(),
+                status=400
+            )
+        
+        return super().form_invalid(form)
+
+def services_view(request):
+    services = Service.objects.all()
+    return render(request, 'core/services.html', {'services': services})

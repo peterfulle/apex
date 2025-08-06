@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import IndexView, contact_view
+from . import views
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
-    path('contact/', contact_view, name='contact'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('servicios/', views.services_view, name='services'),
+    path('contacto/', views.ContactFormView.as_view(), name='contact'),
 ]

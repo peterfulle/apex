@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 # Cargar variables de entorno
 load_dotenv()
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
     # Aplicaciones propias
     'core',
     'portfolio',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -68,12 +70,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mydevsite.wsgi.application'
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Usar PostgreSQL en producción y SQLite en desarrollo
+if os.getenv('DATABASE_URL'):
+    # Configuración para producción (Render)
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
-}
+else:
+    # Configuración para desarrollo local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
