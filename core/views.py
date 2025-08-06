@@ -24,7 +24,6 @@ class IndexView(TemplateView):
 class ContactFormView(FormView):
     form_class = ContactForm
     template_name = 'core/contact_success.html'
-    success_url = reverse_lazy('index')
     
     def form_valid(self, form):
         # Guardar el mensaje
@@ -38,8 +37,8 @@ class ContactFormView(FormView):
                 headers={'HX-Trigger': 'contactFormSubmitted'}
             )
         
-        messages.success(self.request, 'Mensaje enviado correctamente.')
-        return super().form_valid(form)
+        # En lugar de redireccionar, renderizar la página de éxito
+        return self.render_to_response(self.get_context_data(form=form))
     
     def form_invalid(self, form):
         if self.request.htmx:
@@ -49,6 +48,8 @@ class ContactFormView(FormView):
                 '</div>' + form.as_p(),
                 status=400
             )
+        
+        return super().form_invalid(form)
         
         return super().form_invalid(form)
 
