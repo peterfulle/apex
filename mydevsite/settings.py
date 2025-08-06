@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     # Aplicaciones propias
     'core',
     'portfolio',
-    'accounts',
 ]
 
 MIDDLEWARE = [
