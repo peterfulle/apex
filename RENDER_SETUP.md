@@ -1,116 +1,138 @@
-# 🚀 Configuración de Render para Aplyfly
+# 🚀 Guía de Deployment en Render - Aplyfly
 
-## 📋 Variables de Entorno Requeridas
+## 📋 Configuración de Web Service en Render
 
-Agrega estas variables en la sección **Environment** de tu servicio en Render:
+### 1. **Información Básica**
+- **Name:** `aplyfly-site` (o el nombre que prefieras)
+- **Language:** Python 3
+- **Branch:** `main`
+- **Region:** Oregon (US West) o la región que prefieras
 
-### Variables Principales
-```
-DATABASE_URL=<URL_DE_POSTGRESQL>
-SECRET_KEY=<TU_SECRET_KEY_SEGURA>
-DEBUG=False
-ALLOWED_HOSTS=equisalud.onrender.com,aplyfly.onrender.com
-DJANGO_SETTINGS_MODULE=mydevsite.settings
-```
-
-### Variables de Email (Opcionales)
-```
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER=tu-email@gmail.com
-EMAIL_HOST_PASSWORD=tu-app-password
-DEFAULT_FROM_EMAIL=info@aplyfly.com
-```
-
-## 🗄️ Base de Datos PostgreSQL
-
-### Opción 1: PostgreSQL en Render (Recomendado)
-1. En tu dashboard de Render, crea un nuevo **PostgreSQL Database**
-2. Copia la **Internal Database URL** 
-3. Agrégala como variable `DATABASE_URL` en tu web service
-
-### Opción 2: PostgreSQL Externa
-- **ElephantSQL** (gratuito hasta 20MB)
-- **Supabase** (gratuito hasta 500MB)
-- **Railway** (gratuito con limitaciones)
-
-## ⚙️ Configuración del Servicio
-
-### Build Command
+### 2. **Comandos de Build y Start**
 ```bash
+# Build Command:
 ./build.sh
-```
 
-### Start Command
-```bash
+# Start Command:
 gunicorn mydevsite.wsgi:application
 ```
 
-### Variables de Entorno Específicas
-- **ROOT_DIRECTORY**: Dejar vacío
-- **AUTO_DEPLOY**: On Commit (recomendado)
-- **BRANCH**: main
+### 3. **Variables de Entorno Requeridas**
 
-## 🔐 Usuario Admin Inicial
+Agrega estas variables de entorno en Render:
 
-El script creará automáticamente un usuario admin:
-- **Usuario**: admin
-- **Email**: admin@aplyfly.com  
-- **Contraseña**: admin123
+| Variable | Valor | Descripción |
+|----------|-------|-------------|
+| `PYTHON_VERSION` | `3.11.7` | Versión de Python |
+| `SECRET_KEY` | `tu-clave-secreta-super-larga-y-segura` | Clave secreta de Django |
+| `DEBUG` | `False` | Modo debug (debe ser False en producción) |
+| `DATABASE_URL` | *(se genera automáticamente)* | URL de PostgreSQL |
 
-⚠️ **IMPORTANTE**: Cambia la contraseña después del primer login.
-
-## 📊 Datos Iniciales
-
-El comando `populate_aplyfly_data` creará:
-- ✅ 6 servicios de Aplyfly
-- ✅ 3 proyectos destacados
-- ✅ 3 testimonios de clientes
-- ✅ Categorías y tecnologías
-
-## 🔄 Flujo de Deploy
-
-1. **Primera vez**: Se crea toda la estructura y datos
-2. **Deploys posteriores**: Solo se actualizan migraciones y código
-3. **Los datos persisten** entre deploys gracias a PostgreSQL
-
-## 🐛 Troubleshooting
-
-### Error de Base de Datos
-- Verifica que `DATABASE_URL` esté configurada
-- Asegúrate de que la BD PostgreSQL esté accesible
-
-### Error de Migraciones
-- Los datos existentes se mantienen
-- Solo se aplican nuevas migraciones
-
-### Error de Archivos Estáticos
-- Verifica que WhiteNoise esté configurado
-- Los archivos se recopilan en cada build
-
-## 📝 Comandos Útiles
-
-```bash
-# Ejecutar localmente con PostgreSQL
-python manage.py migrate
-python manage.py populate_aplyfly_data
-python manage.py runserver
-
-# Crear superusuario adicional
-python manage.py createsuperuser
-
-# Ver estado de migraciones
-python manage.py showmigrations
+#### 🔐 Generar SECRET_KEY
+Usa este comando para generar una clave secreta segura:
+```python
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 ```
 
-## 🔄 Backup de Datos
+### 4. **Base de Datos PostgreSQL**
 
-Para hacer backup de la BD PostgreSQL desde Render:
-1. Ir a tu PostgreSQL database en Render
-2. Usar la sección **Backups** 
-3. O exportar manualmente con pg_dump
+1. En el dashboard de Render, ve a **"New"** → **"PostgreSQL"**
+2. Configura:
+   - **Name:** `aplyfly-db`
+   - **Database:** `aplyfly`
+   - **User:** `aplyfly_user`
+   - **Region:** Misma región que tu web service
+3. Una vez creada, conecta la base de datos:
+   - Ve a tu Web Service → **"Environment"**
+   - Agrega la variable: `DATABASE_URL` con el valor de la BD PostgreSQL
+
+### 5. **Proceso de Deployment**
+
+El script `build.sh` ejecutará automáticamente:
+```bash
+1. 📦 Instalar dependencias (pip install -r requirements.txt)
+2. 📁 Recopilar archivos estáticos (collectstatic)
+3. 🗄️ Aplicar migraciones (migrate)
+4. 📊 Poblar datos iniciales de Aplyfly
+```
+
+### 6. **Configuración de Instancia**
+
+#### Para Desarrollo/Testing:
+- **Instance Type:** Free ($0/mes)
+- **RAM:** 512 MB
+- **CPU:** 0.1
+
+#### Para Producción:
+- **Instance Type:** Starter ($7/mes) o superior
+- **RAM:** 512 MB+
+- **CPU:** 0.5+
+
+### 7. **Verificación Post-Deployment**
+
+Una vez desplegado, verifica:
+
+1. ✅ **Sitio accesible:** https://tu-app.onrender.com
+2. ✅ **Formulario de contacto funcional:** Prueba enviar un mensaje
+3. ✅ **Admin panel:** https://tu-app.onrender.com/admin
+4. ✅ **Datos poblados:** Servicios, proyectos y testimonios visibles
+
+### 8. **Crear Superusuario en Producción**
+
+Usa el shell de Render para crear un superusuario:
+
+```bash
+# En el shell de Render:
+python manage.py createsuperuser
+```
+
+### 9. **Dominios Personalizados (Opcional)**
+
+Para usar un dominio personalizado:
+1. Ve a **"Settings"** → **"Custom Domains"**
+2. Agrega tu dominio
+3. Configura los registros DNS según las instrucciones
+
+### 🎯 **URLs Importantes**
+
+- **Sitio Principal:** https://tu-app.onrender.com
+- **Panel Admin:** https://tu-app.onrender.com/admin
+- **Contacto:** https://tu-app.onrender.com/contacto/
+- **Servicios:** https://tu-app.onrender.com/servicios/
+
+### 🔧 **Troubleshooting**
+
+#### Error de Build:
+- Verifica que `build.sh` tenga permisos de ejecución
+- Revisa los logs de build en Render
+
+#### Error de Database:
+- Confirma que `DATABASE_URL` esté configurado
+- Verifica conexión a PostgreSQL
+
+#### Error 500:
+- Revisa `DEBUG=False` en producción
+- Verifica `SECRET_KEY` esté configurado
+- Revisa logs de la aplicación
+
+### 📊 **Monitoreo**
+
+Render provee métricas automáticas:
+- CPU/RAM usage
+- Response times
+- Error rates
+- Request volume
 
 ---
 
-**¡Tu aplicación Aplyfly estará lista para producción!** 🎉
+## 🎉 ¡Listo!
+
+Tu sitio de Aplyfly estará funcionando en: **https://tu-app.onrender.com**
+
+Con todas las funcionalidades:
+- 🏢 Identidad corporativa Aplyfly
+- 🌙 Tema oscuro profesional
+- 💻 Simulador de código Python
+- 📝 Formulario de contacto funcional
+- 📊 Datos de ejemplo poblados
+- 🗄️ Base de datos persistente
