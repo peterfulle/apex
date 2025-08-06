@@ -57,3 +57,7 @@ def services_view(request):
     """Vista para la página de servicios con branding Aplyfly"""
     services = Service.objects.all()
     return render(request, 'core/services_aplyfly.html', {'services': services})
+
+def servicios_ia_view(request):
+    """Vista para la página de servicios de IA"""
+    return render(request, 'core/servicios_ia.html')
