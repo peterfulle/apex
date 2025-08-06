@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Clientes - Aplyfly</title>
+    <meta name="description" content="Accede a tu plataforma de cliente Aplyfly">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"></script>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 min-h-screen">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-72 h-72 bg-cyan-500 rounded-full filter blur-3xl"></div>
+        <div class="absolute top-1/2 right-0 w-72 h-72 bg-blue-500 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/2 w-72 h-72 bg-purple-500 rounded-full filter blur-3xl"></div>
+    </div>
+    
+    <!-- Back to Home -->
+    <div class="absolute top-6 left-6 z-10">
+        <a href="{% url 'index' %}" class="inline-flex items-center text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Volver al inicio
+        </a>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Header -->
+            <div class="text-center">
+                <div class="mx-auto w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8">
+                    <i class="fas fa-user-shield text-white text-2xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-2">
+                    Acceso de Clientes
+                </h2>
+                <p class="text-gray-400">
+                    Ingresa a tu dashboard personalizado
+                </p>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-gray-700">
+                <form method="post" class="space-y-6" x-data="{ showPassword: false }">
+                    {% csrf_token %}
+                    
+                    <!-- Messages -->
+                    {% if messages %}
+                        <div class="space-y-3">
+                            {% for message in messages %}
+                                <div class="p-4 rounded-lg {% if message.tags == 'error' %}bg-red-900/50 border border-red-700 text-red-200{% else %}bg-green-900/50 border border-green-700 text-green-200{% endif %}">
+                                    <div class="flex items-center">
+                                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %} mr-3"></i>
+                                        {{ message }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Form Errors -->
+                    {% if form.errors %}
+                        <div class="p-4 rounded-lg bg-red-900/50 border border-red-700 text-red-200">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-circle mr-3"></i>
+                                <span class="font-medium">Error en el formulario</span>
+                            </div>
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <p class="text-sm ml-6">{{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Username Field -->
+                    <div>
+                        <label for="id_username" class="block text-sm font-medium text-gray-300 mb-2">
+                            Usuario o Email
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" 
+                                   name="username" 
+                                   id="id_username"
+                                   required
+                                   class="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
+                                   placeholder="Ingresa tu usuario o email"
+                                   value="{{ form.username.value|default:'' }}">
+                        </div>
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div>
+                        <label for="id_password" class="block text-sm font-medium text-gray-300 mb-2">
+                            Contraseña
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input :type="showPassword ? 'text' : 'password'" 
+                                   name="password" 
+                                   id="id_password"
+                                   required
+                                   class="w-full pl-10 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
+                                   placeholder="Ingresa tu contraseña">
+                            <button type="button" 
+                                    @click="showPassword = !showPassword"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white">
+                                <i class="fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-cyan-500/25">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Iniciar Sesión
+                    </button>
+                </form>
+                
+                <!-- Register Link -->
+                <div class="mt-6 text-center border-t border-gray-700 pt-6">
+                    <p class="text-gray-400">
+                        ¿No tienes cuenta?
+                        <a href="{% url 'clients:register' %}" class="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+                            Regístrate aquí
+                        </a>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-project-diagram text-cyan-400"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm">Gestiona tus proyectos</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-comments text-green-400"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm">Comunicación directa</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-chart-line text-purple-400"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm">Seguimiento en tiempo real</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

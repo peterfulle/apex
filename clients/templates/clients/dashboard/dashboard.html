@@ -1,0 +1,264 @@
+{% extends 'clients/base_dashboard.html' %}
+
+{% block title %}Dashboard - Aplyfly{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block page_subtitle %}Bienvenido de vuelta, {{ user.get_full_name }}{% endblock %}
+
+{% block content %}
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Total Projects -->
+    <div class="stat-card">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-400 text-sm font-medium">Total Proyectos</p>
+                <p class="text-3xl font-bold text-white">{{ total_projects }}</p>
+                <p class="text-green-400 text-sm">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    +12% este mes
+                </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <i class="fas fa-folder-open text-white text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Active Projects -->
+    <div class="stat-card">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-400 text-sm font-medium">Proyectos Activos</p>
+                <p class="text-3xl font-bold text-white">{{ active_projects }}</p>
+                <p class="text-cyan-400 text-sm">
+                    <i class="fas fa-cog fa-spin mr-1"></i>
+                    En desarrollo
+                </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                <i class="fas fa-code text-white text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Completed Projects -->
+    <div class="stat-card">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-400 text-sm font-medium">Completados</p>
+                <p class="text-3xl font-bold text-white">{{ completed_projects }}</p>
+                <p class="text-green-400 text-sm">
+                    <i class="fas fa-check-circle mr-1"></i>
+                    Finalizados
+                </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                <i class="fas fa-check-double text-white text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pending Requests -->
+    <div class="stat-card">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-400 text-sm font-medium">Solicitudes Pendientes</p>
+                <p class="text-3xl font-bold text-white">{{ pending_requests }}</p>
+                <p class="text-yellow-400 text-sm">
+                    <i class="fas fa-clock mr-1"></i>
+                    En revisión
+                </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center">
+                <i class="fas fa-hourglass-half text-white text-xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <!-- New Project -->
+    <a href="{% url 'clients:project_create' %}" class="card hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-plus text-white text-2xl"></i>
+            </div>
+            <h3 class="text-white text-lg font-semibold mb-2">Nuevo Proyecto</h3>
+            <p class="text-gray-400 text-sm">Crea un nuevo proyecto y comienza a trabajar con nosotros</p>
+        </div>
+    </a>
+    
+    <!-- Request Service -->
+    <a href="{% url 'clients:service_request_create' %}" class="card hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-concierge-bell text-white text-2xl"></i>
+            </div>
+            <h3 class="text-white text-lg font-semibold mb-2">Solicitar Servicio</h3>
+            <p class="text-gray-400 text-sm">Solicita una cotización para servicios específicos</p>
+        </div>
+    </a>
+    
+    <!-- View Messages -->
+    <a href="{% url 'clients:notifications' %}" class="card hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bell text-white text-2xl"></i>
+            </div>
+            <h3 class="text-white text-lg font-semibold mb-2">Notificaciones</h3>
+            <p class="text-gray-400 text-sm">Revisa las últimas actualizaciones y mensajes</p>
+        </div>
+    </a>
+</div>
+
+<!-- Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Recent Projects -->
+    <div class="card">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-semibold text-white">Proyectos Recientes</h3>
+            <a href="{% url 'clients:projects' %}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                Ver todos <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+        
+        {% if recent_projects %}
+            <div class="space-y-4">
+                {% for project in recent_projects %}
+                    <div class="bg-gray-700/30 rounded-lg p-4 hover:bg-gray-700/50 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h4 class="text-white font-medium">{{ project.title }}</h4>
+                                <p class="text-gray-400 text-sm">{{ project.description|truncatechars:60 }}</p>
+                                <div class="flex items-center mt-2">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-{{ project.get_status_color }}-900 text-{{ project.get_status_color }}-200">
+                                        {{ project.get_status_display }}
+                                    </span>
+                                    <span class="text-gray-400 text-xs ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>
+                                        {{ project.created_at|date:"d M Y" }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <a href="{% url 'clients:project_detail' project.pk %}" class="text-cyan-400 hover:text-cyan-300">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-8">
+                <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-folder-open text-gray-400 text-2xl"></i>
+                </div>
+                <p class="text-gray-400">No tienes proyectos aún</p>
+                <a href="{% url 'clients:project_create' %}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                    Crear tu primer proyecto
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Recent Service Requests -->
+    <div class="card">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-semibold text-white">Solicitudes Recientes</h3>
+            <a href="{% url 'clients:service_requests' %}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                Ver todas <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+        
+        {% if recent_requests %}
+            <div class="space-y-4">
+                {% for request in recent_requests %}
+                    <div class="bg-gray-700/30 rounded-lg p-4 hover:bg-gray-700/50 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h4 class="text-white font-medium">{{ request.title }}</h4>
+                                <p class="text-gray-400 text-sm">{{ request.get_service_type_display }}</p>
+                                <div class="flex items-center mt-2">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-{{ request.get_status_color }}-900 text-{{ request.get_status_color }}-200">
+                                        {{ request.get_status_display }}
+                                    </span>
+                                    <span class="text-gray-400 text-xs ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>
+                                        {{ request.created_at|date:"d M Y" }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <a href="{% url 'clients:service_request_detail' request.pk %}" class="text-cyan-400 hover:text-cyan-300">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-8">
+                <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-concierge-bell text-gray-400 text-2xl"></i>
+                </div>
+                <p class="text-gray-400">No tienes solicitudes aún</p>
+                <a href="{% url 'clients:service_request_create' %}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                    Crear tu primera solicitud
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Recent Notifications -->
+{% if notifications %}
+<div class="mt-8">
+    <div class="card">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-semibold text-white">
+                Notificaciones Recientes
+                <span class="bg-red-500 text-white text-xs rounded-full px-2 py-1 ml-2">{{ notifications.count }}</span>
+            </h3>
+            <a href="{% url 'clients:notifications' %}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                Ver todas <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+        
+        <div class="space-y-3">
+            {% for notification in notifications %}
+                <div class="flex items-start space-x-4 p-3 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-colors">
+                    <div class="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-bell text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-white font-medium">{{ notification.title }}</p>
+                        <p class="text-gray-400 text-sm">{{ notification.message|truncatechars:80 }}</p>
+                        <p class="text-gray-500 text-xs mt-1">{{ notification.created_at|timesince }} ago</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-refresh dashboard stats every 5 minutes
+    setInterval(() => {
+        fetch('{% url "clients:api_dashboard_stats" %}')
+            .then(response => response.json())
+            .then(data => {
+                // Update stats if needed
+                console.log('Dashboard stats updated', data);
+            })
+            .catch(error => console.error('Error updating stats:', error));
+    }, 300000); // 5 minutes
+</script>
+{% endblock %}

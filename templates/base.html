@@ -73,7 +73,10 @@
                 </div>
                 
                 <!-- CTA Button -->
-                <div class="hidden md:block">
+                <div class="hidden md:flex space-x-3">
+                    <a href="{% url 'clients:login' %}" class="px-4 py-2 font-medium text-cyan-400 border border-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-gray-900 transition-all">
+                        Acceso Clientes
+                    </a>
                     <a href="#contact" class="px-5 py-2 font-medium text-gray-900 transition-all rounded-lg bg-cyan-400 hover:bg-cyan-300">Cotizar proyecto</a>
                 </div>
                 <!-- Mobile menu button -->
@@ -104,6 +107,7 @@
                     <a href="{% url 'servicios_ia' %}" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-800 hover:text-cyan-400">Servicios IA</a>
                     <a href="#projects" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-800 hover:text-cyan-400">Proyectos</a>
                     <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-800 hover:text-cyan-400">Contacto</a>
+                    <a href="{% url 'clients:login' %}" class="block px-3 py-2 text-base font-medium text-cyan-400 border border-cyan-400 rounded-md hover:bg-cyan-400 hover:text-gray-900 transition-all">Acceso Clientes</a>
                     <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md bg-cyan-400 hover:bg-cyan-300">Cotizar proyecto</a>
                 </div>
             </div>

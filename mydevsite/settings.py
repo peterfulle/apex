@@ -33,12 +33,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Aplicaciones de terceros
-    'compressor',
+    # 'compressor',  # Temporarily disabled due to compatibility issues
     'django_htmx',
     
     # Aplicaciones propias
     'core',
     'portfolio',
+    'clients',
 ]
 
 MIDDLEWARE = [
@@ -116,12 +117,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    # 'compressor.finders.CompressorFinder',  # Temporarily disabled
 ]
 
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
+# COMPRESS_PRECOMPILERS = (
+#     ('text/x-scss', 'django_libsass.SassCompiler'),
+# )
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -134,6 +135,14 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'webmaster@localhost')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL = 'clients.CustomUser'
+
+# Login/Logout URLs
+LOGIN_URL = '/clients/login/'
+LOGIN_REDIRECT_URL = '/clients/dashboard/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Archivos estáticos en producción
 if not DEBUG:
