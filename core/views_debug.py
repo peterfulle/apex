@@ -47,17 +47,25 @@ def chat_debug_status(request):
             from core.ai_agent import AplyflyChatAgent
             agent = AplyflyChatAgent()
             debug_info["openai_status"] = {
-                "client_initialized": hasattr(agent, 'client'),
+                "client_initialized": hasattr(agent, 'client') and agent.client is not None,
                 "azure_endpoint": os.environ.get('AZURE_OPENAI_ENDPOINT', 'NOT_SET'),
-                "model_name": os.environ.get('AZURE_OPENAI_MODEL_NAME', 'NOT_SET'),
+                "deployment_name": os.environ.get('AZURE_OPENAI_DEPLOYMENT_NAME', 'NOT_SET'),
                 "api_version": os.environ.get('AZURE_OPENAI_API_VERSION', 'NOT_SET'),
                 "has_api_key": bool(os.environ.get('AZURE_OPENAI_API_KEY')),
-                "error": getattr(agent, '_init_error', None)
+                "init_error": getattr(agent, '_init_error', None),
+                "client_status": "connected" if (hasattr(agent, 'client') and agent.client is not None) else "disconnected"
             }
+        except ImportError as ie:
+            debug_info["openai_status"] = {
+                "error": f"Import error: {str(ie)}",
+                "client_status": "module_not_found"
+            }
+            debug_info["errors"].append(f"OpenAI Import Error: {str(ie)}")
         except Exception as e:
             debug_info["openai_status"] = {
                 "error": str(e),
-                "traceback": traceback.format_exc()
+                "traceback": traceback.format_exc(),
+                "client_status": "error"
             }
             debug_info["errors"].append(f"OpenAI Error: {str(e)}")
         
@@ -99,22 +107,49 @@ def chat_debug_status(request):
         # Verificar archivos estáticos
         try:
             import os
-            static_root = settings.STATIC_ROOT
-            if static_root and os.path.exists(static_root):
-                debug_info["static_files"] = {
-                    "static_root": static_root,
-                    "exists": True,
-                    "chat_js_exists": os.path.exists(os.path.join(static_root, 'js', 'chat_widget.js')),
-                    "ai_png_exists": os.path.exists(os.path.join(static_root, 'images', 'ai.png')),
-                }
+            static_root = getattr(settings, 'STATIC_ROOT', None)
+            static_files_info = {
+                "static_root": static_root,
+                "static_url": getattr(settings, 'STATIC_URL', '/static/'),
+                "exists": False,
+                "files": {}
+            }
+            
+            if static_root:
+                static_files_info["exists"] = os.path.exists(static_root)
+                if static_files_info["exists"]:
+                    # Verificar archivos críticos
+                    critical_files = {
+                        "chat_js": os.path.join(static_root, 'js', 'chat_widget.js'),
+                        "ai_png": os.path.join(static_root, 'images', 'ai.png'),
+                        "css_main": os.path.join(static_root, 'css', 'style.css'),
+                    }
+                    
+                    for file_key, file_path in critical_files.items():
+                        try:
+                            static_files_info["files"][file_key] = {
+                                "exists": os.path.exists(file_path),
+                                "path": file_path
+                            }
+                        except Exception as file_e:
+                            static_files_info["files"][file_key] = {
+                                "exists": False,
+                                "error": str(file_e)
+                            }
+                else:
+                    debug_info["errors"].append(f"STATIC_ROOT directory does not exist: {static_root}")
             else:
-                debug_info["static_files"] = {
-                    "static_root": static_root,
-                    "exists": False
-                }
+                debug_info["errors"].append("STATIC_ROOT not configured")
+            
+            debug_info["static_files"] = static_files_info
+            
         except Exception as e:
-            debug_info["static_files"] = {"error": str(e)}
-            debug_info["errors"].append(f"Static files error: {str(e)}")
+            debug_info["static_files"] = {
+                "error": str(e),
+                "static_root": "unknown",
+                "exists": False
+            }
+            debug_info["errors"].append(f"Static files check error: {str(e)}")
         
         # Verificar endpoints del chat
         try:
