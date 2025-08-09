@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot Debug - Aplyfly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                    <i class="fas fa-bug text-red-500 mr-2"></i>
+                    ChatBot Debug Panel
+                </h1>
+                <p class="text-gray-600">Herramienta de diagnóstico para el chatbot de Aplyfly</p>
+            </div>
+
+            <!-- Status General -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-heartbeat text-green-500 mr-2"></i>
+                    Estado General
+                </h2>
+                <div id="general-status" class="space-y-3">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse mr-3"></div>
+                        <span class="text-gray-600">Cargando estado...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Chat -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-comments text-blue-500 mr-2"></i>
+                    Probar Chat
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mensaje de Prueba:</label>
+                        <input type="text" id="test-message" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               placeholder="Hola, ¿cómo están?"
+                               value="Hola, ¿pueden ayudarme con un proyecto web?">
+                    </div>
+                    <button id="test-chat-btn" 
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Enviar Prueba
+                    </button>
+                    <div id="test-result" class="hidden">
+                        <h3 class="font-medium text-gray-800 mb-2">Resultado:</h3>
+                        <div class="bg-gray-50 p-4 rounded-md">
+                            <pre id="test-response" class="text-sm text-gray-700 whitespace-pre-wrap"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información Detallada -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-info-circle text-purple-500 mr-2"></i>
+                    Información Detallada
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-medium text-gray-800 mb-2">OpenAI Status</h3>
+                        <div id="openai-info" class="bg-gray-50 p-3 rounded text-sm">
+                            <div class="animate-pulse">Cargando...</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800 mb-2">Base de Datos</h3>
+                        <div id="db-info" class="bg-gray-50 p-3 rounded text-sm">
+                            <div class="animate-pulse">Cargando...</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800 mb-2">Archivos Estáticos</h3>
+                        <div id="static-info" class="bg-gray-50 p-3 rounded text-sm">
+                            <div class="animate-pulse">Cargando...</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800 mb-2">Endpoints API</h3>
+                        <div id="endpoints-info" class="bg-gray-50 p-3 rounded text-sm">
+                            <div class="animate-pulse">Cargando...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Refresh Button -->
+            <div class="text-center">
+                <button id="refresh-btn" 
+                        class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md transition-colors">
+                    <i class="fas fa-sync-alt mr-2"></i>
+                    Actualizar Estado
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ChatDebugger {
+            constructor() {
+                this.init();
+            }
+
+            async init() {
+                await this.loadDebugInfo();
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                document.getElementById('refresh-btn').addEventListener('click', () => {
+                    this.loadDebugInfo();
+                });
+
+                document.getElementById('test-chat-btn').addEventListener('click', () => {
+                    this.testChat();
+                });
+            }
+
+            async loadDebugInfo() {
+                try {
+                    this.showLoading();
+                    const response = await fetch('/api/debug/chat/');
+                    const data = await response.json();
+                    this.displayDebugInfo(data);
+                } catch (error) {
+                    this.showError('Error cargando información de debug: ' + error.message);
+                }
+            }
+
+            showLoading() {
+                document.getElementById('general-status').innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse mr-3"></div>
+                        <span class="text-gray-600">Cargando estado...</span>
+                    </div>
+                `;
+            }
+
+            showError(message) {
+                document.getElementById('general-status').innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <span class="text-red-600">${message}</span>
+                    </div>
+                `;
+            }
+
+            displayDebugInfo(data) {
+                // Estado general
+                const statusColor = data.status === 'running' ? 'green' : 
+                                   data.status === 'degraded' ? 'yellow' : 'red';
+                document.getElementById('general-status').innerHTML = `
+                    <div class="flex items-center mb-2">
+                        <div class="w-3 h-3 bg-${statusColor}-500 rounded-full mr-3"></div>
+                        <span class="font-medium">Estado: ${data.status}</span>
+                    </div>
+                    <div class="text-sm text-gray-600">${data.summary}</div>
+                    ${data.errors.length > 0 ? `<div class="mt-2 text-sm text-red-600">Errores: ${data.errors.join(', ')}</div>` : ''}
+                `;
+
+                // OpenAI info
+                document.getElementById('openai-info').innerHTML = this.formatObject(data.openai_status);
+                
+                // DB info
+                document.getElementById('db-info').innerHTML = this.formatObject(data.database_status);
+                
+                // Static files info
+                document.getElementById('static-info').innerHTML = this.formatObject(data.static_files);
+                
+                // Endpoints info
+                document.getElementById('endpoints-info').innerHTML = this.formatObject(data.chat_endpoints);
+            }
+
+            formatObject(obj) {
+                return Object.entries(obj).map(([key, value]) => {
+                    const valueStr = typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value);
+                    const valueClass = this.getValueClass(key, value);
+                    return `<div class="mb-1"><strong>${key}:</strong> <span class="${valueClass}">${valueStr}</span></div>`;
+                }).join('');
+            }
+
+            getValueClass(key, value) {
+                if (key.includes('error') && value) return 'text-red-600';
+                if (key.includes('exists') || key.includes('connected')) {
+                    return value ? 'text-green-600' : 'text-red-600';
+                }
+                if (key.includes('count') && typeof value === 'number') {
+                    return value > 0 ? 'text-green-600' : 'text-yellow-600';
+                }
+                return 'text-gray-700';
+            }
+
+            async testChat() {
+                const message = document.getElementById('test-message').value.trim();
+                if (!message) {
+                    alert('Por favor ingresa un mensaje');
+                    return;
+                }
+
+                const btn = document.getElementById('test-chat-btn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner animate-spin mr-2"></i>Enviando...';
+
+                try {
+                    const response = await fetch('/api/debug/test-chat/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+
+                    const data = await response.json();
+                    
+                    document.getElementById('test-result').classList.remove('hidden');
+                    document.getElementById('test-response').textContent = JSON.stringify(data, null, 2);
+
+                } catch (error) {
+                    document.getElementById('test-result').classList.remove('hidden');
+                    document.getElementById('test-response').textContent = `Error: ${error.message}`;
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Enviar Prueba';
+                }
+            }
+        }
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            new ChatDebugger();
+        });
+    </script>
+</body>
+</html>

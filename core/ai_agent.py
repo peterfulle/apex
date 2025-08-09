@@ -15,12 +15,14 @@ class AplyflyChatAgent:
     """
     
     def __init__(self):
+        self._init_error = None  # Para almacenar errores de inicialización
         try:
             # Configuración de Azure OpenAI con validación
             endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
             api_key = os.getenv("AZURE_OPENAI_API_KEY")
             
             if not endpoint or not api_key:
+                self._init_error = "Variables de entorno de Azure OpenAI no configuradas"
                 logger.warning("Variables de entorno de Azure OpenAI no configuradas, usando respuestas de fallback")
                 self.client = None
             else:
@@ -39,13 +41,16 @@ class AplyflyChatAgent:
                     logger.info(f"AplyflyChatAgent inicializado correctamente con modelo: {self.deployment_name}")
                     
                 except TypeError as te:
+                    self._init_error = f"Error de compatibilidad OpenAI: {str(te)}"
                     logger.warning(f"Error de compatibilidad OpenAI: {str(te)}")
                     self.client = None
                 except Exception as ee:
+                    self._init_error = f"Error general OpenAI: {str(ee)}"
                     logger.warning(f"Error general OpenAI: {str(ee)}")
                     self.client = None
             
         except Exception as e:
+            self._init_error = f"Error inicializando AplyflyChatAgent: {str(e)}"
             logger.warning(f"Error inicializando AplyflyChatAgent: {str(e)}")
             # En producción, usar respuestas de fallback si Azure OpenAI no está disponible
             self.client = None
