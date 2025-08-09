@@ -12,9 +12,9 @@ from core.models import Service
 # Crear servicios modernos
 services_data = [
     {
-        'title': 'Desarrollo de Apps Web',
-        'icon': 'fas fa-laptop-code',
-        'description': 'Aplicaciones web modernas con React, Vue.js y Django. Interfaces responsive, PWAs y sistemas escalables que se adaptan perfectamente a cualquier dispositivo.',
+        'title': 'Desarrollo de Aplicaciones y Software SaaS',
+        'icon': 'fas fa-code',
+        'description': 'Aplicaciones web modernas y software como servicio (SaaS) escalables. Soluciones completas desde MVP hasta plataformas empresariales con tecnologías cutting-edge.',
         'order': 1
     },
     {
@@ -42,9 +42,9 @@ services_data = [
         'order': 5
     },
     {
-        'title': 'Consultoría Técnica',
-        'icon': 'fas fa-lightbulb',
-        'description': 'Auditorías de código, arquitectura de software, migración a cloud, optimización de performance y mentoring técnico para equipos de desarrollo.',
+        'title': 'Arquitectura de Software con IA',
+        'icon': 'fas fa-brain',
+        'description': 'Potenciamos tu negocio con arquitecturas inteligentes. Integración de IA, machine learning, automatización y chatbots para transformar procesos empresariales.',
         'order': 6
     }
 ]

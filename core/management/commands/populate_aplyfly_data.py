@@ -62,8 +62,8 @@ class Command(BaseCommand):
         # Crear servicios si no existen
         services_data = [
             {
-                'title': 'Desarrollo Web Personalizado',
-                'description': 'Creamos aplicaciones web escalables y modernas utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos.',
+                'title': 'Desarrollo de Aplicaciones y Software SaaS',
+                'description': 'Creamos aplicaciones web modernas y software como servicio (SaaS) escalables. Soluciones completas desde MVP hasta plataformas empresariales.',
                 'icon': 'fas fa-code'
             },
             {
@@ -82,9 +82,9 @@ class Command(BaseCommand):
                 'icon': 'fas fa-server'
             },
             {
-                'title': 'Consultoría Técnica',
-                'description': 'Asesoramiento especializado en arquitectura de software, migración de sistemas y optimización de procesos.',
-                'icon': 'fas fa-lightbulb'
+                'title': 'Arquitectura de Software con IA',
+                'description': 'Potenciamos tu negocio con arquitecturas inteligentes. Integración de IA, machine learning y automatización para transformar procesos empresariales.',
+                'icon': 'fas fa-brain'
             },
             {
                 'title': 'DevOps y Cloud',

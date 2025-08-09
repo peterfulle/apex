@@ -30,11 +30,11 @@ class Testimonial(models.Model):
 
 class ContactMessage(models.Model):
     PROJECT_TYPES = [
-        ('web-app', 'Aplicación Web'),
+        ('saas-app', 'Desarrollo de Aplicaciones y Software SaaS'),
         ('mobile-app', 'Aplicación Móvil'),
         ('enterprise', 'Sistema Empresarial'),
         ('api', 'API/Backend'),
-        ('consulting', 'Consultoría Técnica'),
+        ('ai-architecture', 'Arquitectura de Software con IA'),
         ('other', 'Otro'),
     ]
     

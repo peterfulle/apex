@@ -1,0 +1,5 @@
+/Users/peterfulle/apex/.venv/bin/python manage.py runserver 0.0.0.0:8000
+
+
+pkill -f "runserver"
+lsof -ti:8000 | xargs kill -9

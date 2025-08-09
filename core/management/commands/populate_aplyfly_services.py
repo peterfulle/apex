@@ -11,9 +11,9 @@ class Command(BaseCommand):
         # Crear servicios de Aplyfly
         services_data = [
             {
-                'title': 'Desarrollo Web Personalizado',
-                'icon': 'fas fa-globe-americas',
-                'description': 'Creamos sitios web y aplicaciones web a medida usando tecnologías modernas como React, Vue, Django y Node.js. Experiencias digitales optimizadas para todos los dispositivos.',
+                'title': 'Desarrollo de Aplicaciones y Software SaaS',
+                'icon': 'fas fa-code',
+                'description': 'Creamos aplicaciones web modernas y software como servicio (SaaS) escalables. Soluciones completas desde MVP hasta plataformas empresariales con tecnologías cutting-edge.',
                 'order': 1
             },
             {
@@ -41,9 +41,9 @@ class Command(BaseCommand):
                 'order': 5
             },
             {
-                'title': 'Consultoría Técnica',
-                'icon': 'fas fa-lightbulb',
-                'description': 'Auditorías de código, arquitectura de software, optimización de rendimiento y estrategias de escalabilidad para tu proyecto.',
+                'title': 'Arquitectura de Software con IA',
+                'icon': 'fas fa-brain',
+                'description': 'Potenciamos tu negocio con arquitecturas inteligentes. Integración de IA, machine learning, automatización y chatbots para transformar procesos empresariales.',
                 'order': 6
             }
         ]
