@@ -28,17 +28,17 @@
     </div>
     
     <!-- Ventana del chat (estructura limpia y funcional) -->
-    <div id="chat-window" class="absolute bottom-16 right-0 w-80 sm:w-[420px] h-[500px] sm:h-[600px] bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-gray-200/50 transform scale-0 opacity-0 transition-all duration-300 origin-bottom-right backdrop-blur-sm flex flex-col">
+    <div id="chat-window" class="absolute bottom-12 right-0 w-80 sm:w-[420px] h-[90vh] sm:h-[90vh] max-h-[90vh] bg-white rounded-lg sm:rounded-xl shadow-2xl border border-gray-200/50 transform scale-0 opacity-0 transition-all duration-300 origin-bottom-right backdrop-blur-sm flex flex-col">
         
         <!-- Header FIJO del chat -->
-        <div class="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white p-4 sm:p-5 rounded-t-2xl sm:rounded-t-3xl shadow-lg relative flex-shrink-0">
+        <div class="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white p-4 sm:p-5 rounded-t-lg sm:rounded-t-xl shadow-lg relative flex-shrink-0">
             <!-- Línea superior decorativa -->
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300"></div>
             
             <div class="flex items-center justify-between relative z-10">
                 <div class="flex items-center space-x-3 sm:space-x-4">
                     <!-- Avatar del bot con animación -->
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/25 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/40 shadow-lg relative">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/25 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/40 shadow-lg relative">
                         <img src="/static/images/ai.png" alt="AplyBot" class="w-6 h-6 sm:w-7 sm:h-7 filter brightness-0 invert">
                         <!-- Indicador de estado -->
                         <div class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white animate-pulse">
@@ -97,8 +97,8 @@
                     <div class="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
                         <img src="/static/images/ai.png" alt="AplyBot" class="w-3 h-3 sm:w-4 sm:h-4 filter brightness-0 invert">
                     </div>
-                    <div class="bg-white rounded-2xl rounded-tl-lg p-3 sm:p-4 shadow-sm border border-gray-100 max-w-xs">
-                        <p class="text-gray-800 text-xs sm:text-sm leading-relaxed">
+                    <div class="bg-white rounded-lg rounded-tl-sm p-3 sm:p-4 shadow-sm border border-gray-100 max-w-xs">
+                        <p class="text-gray-800 text-xs leading-relaxed">
                             ¡Hola! 👋 Soy <strong>AplyBot</strong> de Aplyfly.
                             <br><br>
                             Te ayudo con info sobre desarrollo web, IA, apps móviles y más.
@@ -110,19 +110,19 @@
             </div>
             
             <!-- Área de input FIJA en la parte inferior -->
-            <div class="p-3 sm:p-4 bg-white border-t border-gray-100 rounded-b-2xl sm:rounded-b-3xl flex-shrink-0">
+            <div class="p-3 sm:p-4 bg-white border-t border-gray-100 rounded-b-lg sm:rounded-b-xl flex-shrink-0">
                 <!-- Sugerencias rápidas compactas -->
                 <div id="quick-suggestions" class="mb-2 sm:mb-3 flex flex-wrap gap-1 sm:gap-2">
-                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-full hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Qué servicios de desarrollo web ofrecen?">
+                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-md hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Qué servicios de desarrollo web ofrecen?">
                         💻 Desarrollo web
                     </button>
-                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-full hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Cómo integran inteligencia artificial?">
+                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-md hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Cómo integran inteligencia artificial?">
                         🤖 Inteligencia Artificial
                     </button>
-                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-full hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Desarrollan apps móviles nativas?">
+                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-md hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Desarrollan apps móviles nativas?">
                         📱 Apps móviles
                     </button>
-                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-full hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Cuánto cuesta un proyecto web completo?">
+                    <button class="suggestion-btn text-xs px-2 py-1 sm:px-3 sm:py-1.5 bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 rounded-md hover:from-cyan-100 hover:to-blue-100 hover:text-cyan-700 transition-all duration-200 border border-gray-200 hover:border-cyan-300" data-message="¿Cuánto cuesta un proyecto web completo?">
                         💰 Presupuesto
                     </button>
                 </div>
@@ -132,8 +132,8 @@
                     <div class="flex-1 relative">
                         <textarea 
                             id="chat-input" 
-                            placeholder="Escribe tu pregunta sobre desarrollo, IA, apps móviles..."
-                            class="w-full px-3 py-2 sm:px-4 sm:py-3 pr-10 sm:pr-12 bg-gray-50 border border-gray-200 rounded-xl sm:rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-xs sm:text-sm"
+                            placeholder=""
+                            class="w-full px-3 py-2 sm:px-4 sm:py-3 pr-10 sm:pr-12 bg-gray-50 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-xs"
                             rows="1"
                             maxlength="500"></textarea>
                         
@@ -146,16 +146,16 @@
                         <!-- Botón exportar chat -->
                         <button 
                             id="export-chat" 
-                            class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 flex items-center justify-center"
+                            class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-lg hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 flex items-center justify-center"
                             title="Exportar conversación">
-                            <i class="fas fa-download text-xs sm:text-sm"></i>
+                            <i class="fas fa-download text-xs"></i>
                         </button>
                         
                         <!-- Botón enviar -->
                         <button 
                             id="send-btn" 
-                            class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
-                            <i class="fas fa-paper-plane text-xs sm:text-sm"></i>
+                            class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                            <i class="fas fa-paper-plane text-xs"></i>
                         </button>
                     </div>
                 </div>
@@ -181,11 +181,11 @@
 <!-- Modal de Información -->
 <div id="info-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden">
     <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 opacity-0 transition-all duration-300" id="info-modal-content">
+        <div class="bg-white rounded-lg shadow-2xl max-w-md w-full p-6 transform scale-95 opacity-0 transition-all duration-300" id="info-modal-content">
             <!-- Header del Modal -->
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
                         <img src="/static/images/ai.png" alt="AplyBot" class="w-6 h-6 filter brightness-0 invert">
                     </div>
                     <div>
@@ -200,9 +200,9 @@
             
             <!-- Contenido del Modal -->
             <div class="space-y-4">
-                <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4">
-                    <h4 class="font-semibold text-gray-800 mb-2">🤖 ¿Qué puedo hacer?</h4>
-                    <ul class="text-sm text-gray-700 space-y-1">
+                <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-2 text-sm">🤖 ¿Qué puedo hacer?</h4>
+                    <ul class="text-xs text-gray-700 space-y-1">
                         <li>• Información sobre servicios de desarrollo</li>
                         <li>• Presupuestos y consultas técnicas</li>
                         <li>• Asesoría en tecnologías y proyectos</li>
@@ -210,17 +210,17 @@
                     </ul>
                 </div>
                 
-                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4">
-                    <h4 class="font-semibold text-gray-800 mb-2">📞 Contacto Directo</h4>
-                    <p class="text-sm text-gray-700">
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-2 text-sm">📞 Contacto Directo</h4>
+                    <p class="text-xs text-gray-700">
                         <strong>Email:</strong> contacto@aplifly.com<br>
                         <strong>Web:</strong> www.aplyfly.com
                     </p>
                 </div>
                 
-                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4">
-                    <h4 class="font-semibold text-gray-800 mb-2">💡 Consejos</h4>
-                    <p class="text-sm text-gray-700">
+                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-2 text-sm">💡 Consejos</h4>
+                    <p class="text-xs text-gray-700">
                         Puedes usar los botones de sugerencias o escribir directamente tus preguntas. ¡Estoy aquí para ayudarte!
                     </p>
                 </div>

@@ -354,9 +354,11 @@ class AplyflyChatWidget {
         messageDiv.className = 'flex items-start space-x-3 justify-end animate-slideInRight';
         
         messageDiv.innerHTML = `
-            <div class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-2xl rounded-tr-md p-4 shadow-sm max-w-xs">
-                <p class="text-sm leading-relaxed">${this.escapeHtml(message)}</p>
-                <div class="text-xs text-cyan-100 mt-2 text-right">${this.getCurrentTime()}</div>
+            <div class="flex flex-col items-end space-y-1">
+                <div class="text-xs text-gray-400">${this.getCurrentTime()}</div>
+                <div class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg rounded-tr-sm p-3 shadow-sm max-w-xs">
+                    <p class="text-xs leading-relaxed">${this.escapeHtml(message)}</p>
+                </div>
             </div>
             <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
                 <i class="fas fa-user text-gray-600 text-xs"></i>
