@@ -1,0 +1,272 @@
+/* ===== APLYFLY CHAT WIDGET STYLES ===== */
+
+/* Animaciones personalizadas */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(15px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-15px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes headerGlow {
+    0%, 100% { box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3); }
+    50% { box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5); }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.4s ease-out;
+}
+
+.animate-slideInRight {
+    animation: slideInRight 0.4s ease-out;
+}
+
+.animate-slideInLeft {
+    animation: slideInLeft 0.4s ease-out;
+}
+
+/* Header mejorado con efectos */
+#chat-window .bg-gradient-to-r {
+    position: relative;
+}
+
+/* Scroll personalizado */
+#chat-messages::-webkit-scrollbar {
+    width: 3px;
+}
+
+#chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#chat-messages::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #06b6d4, #3b82f6);
+    border-radius: 10px;
+}
+
+#chat-messages::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #0891b2, #2563eb);
+}
+
+/* Estado abierto del chat */
+#chat-window.open {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Efecto typewriter para respuestas del bot */
+.typewriter-text {
+    border-right: 1px solid #06b6d4;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { border-color: #06b6d4; }
+    51%, 100% { border-color: transparent; }
+}
+
+/* Altura específica para escritorio */
+@media (min-width: 641px) {
+    #chat-window {
+        width: 420px !important;
+        height: 600px !important;
+        max-height: 80vh !important;
+    }
+}
+
+/* Asegurar que el chat window use flexbox correctamente */
+#chat-window {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Contenido del chat con overflow visible para el header */
+#chat-window .flex-1.flex.flex-col {
+    overflow: visible !important;
+    min-height: 0 !important;
+    flex: 1 !important;
+}
+
+/* Área de mensajes con scroll independiente */
+#chat-messages {
+    min-height: 200px !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    flex: 1 !important;
+}
+
+/* Botones del header siempre visibles y clickeables */
+#chat-window button {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 101 !important;
+}
+
+/* Mejorar visibilidad de botones del header */
+#chat-window button {
+    cursor: pointer;
+    user-select: none;
+}
+
+#chat-window button:active {
+    transform: scale(0.95);
+}
+
+/* Asegurar que los iconos sean visibles */
+#chat-window button i {
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Efectos especiales para botones del header */
+#chat-window .bg-gradient-to-r button:hover {
+    background: rgba(255,255,255,0.5) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
+#chat-window .bg-gradient-to-r button:active {
+    transform: scale(0.95) !important;
+    background: rgba(255,255,255,0.6) !important;
+}
+
+/* Asegurar área clickeable */
+#minimize-chat {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    z-index: 30 !important;
+}
+
+/* Responsive mejorado para móviles */
+@media (max-width: 640px) {
+    #aplyfly-chat-widget {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+    }
+    
+    #chat-window {
+        position: fixed !important;
+        bottom: 5rem !important;
+        right: 1rem !important;
+        left: 1rem !important;
+        width: auto !important;
+        height: 400px !important;
+        max-height: 70vh !important;
+    }
+    
+    #chat-toggle-btn {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+    }
+    
+    /* Ajustar mensajes en móvil */
+    #chat-messages .max-w-xs {
+        max-width: calc(100vw - 8rem);
+    }
+    
+    /* Sugerencias responsivas */
+    #quick-suggestions {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    
+    .suggestion-btn {
+        flex-shrink: 0;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #chat-window {
+        height: 350px !important;
+        max-height: 65vh !important;
+    }
+    
+    #chat-messages {
+        height: 200px !important;
+    }
+    
+    /* Texto más pequeño en móviles muy pequeños */
+    #chat-messages .text-xs {
+        font-size: 11px;
+    }
+    
+    #chat-messages .text-sm {
+        font-size: 12px;
+    }
+}
+
+/* Mejoras visuales adicionales */
+.suggestion-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+}
+
+/* Gradiente animado para el botón principal */
+#chat-toggle-btn button {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Mejoras para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .animate-ping,
+    .animate-pulse,
+    .animate-bounce,
+    .animate-fadeIn,
+    .animate-slideInRight,
+    .animate-slideInLeft {
+        animation: none;
+    }
+}
+
+/* Estados de focus mejorados */
+#chat-input:focus {
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+    border-color: #06b6d4;
+}
+
+/* Estilo para mensajes del usuario */
+.user-message {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    color: white;
+    border-radius: 1.5rem;
+    border-bottom-right-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-left: auto;
+    max-width: 16rem;
+    word-wrap: break-word;
+}
+
+/* Estilo para mensajes del bot */
+.bot-message {
+    background: white;
+    color: #374151;
+    border-radius: 1.5rem;
+    border-top-left-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-right: auto;
+    max-width: 16rem;
+    word-wrap: break-word;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

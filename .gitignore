@@ -1,4 +1,4 @@
-echo "# Python
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -41,7 +41,7 @@ venv.bak/
 .vscode/
 *.swp
 *.swo
-.DS_Store" > .gitignore
+.DS_Store
 
 # amplify
 node_modules

@@ -48,6 +48,10 @@
     <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.9.4"></script>
     
+    <!-- Chat Widget Styles -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/chat_widget.css' %}">
+    
     {% block extra_head %}{% endblock %}
 </head>
 <body class="font-sans antialiased text-gray-800 bg-white">
@@ -163,11 +167,7 @@
                     <ul class="mt-4 space-y-2">
                         <li class="flex items-center">
                             <i class="w-5 mr-2 text-gray-400 fa-solid fa-envelope"></i>
-                            <a href="mailto:info@aplyfly.com" class="text-gray-400 hover:text-cyan-400">info@aplyfly.com</a>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="w-5 mr-2 text-gray-400 fa-solid fa-phone"></i>
-                            <a href="tel:+1234567890" class="text-gray-400 hover:text-cyan-400">+123 456 7890</a>
+                            <a href="mailto:contacto@aplifly.com" class="text-gray-400 hover:text-cyan-400">contacto@aplifly.com</a>
                         </li>
                         <li class="flex items-center">
                             <i class="w-5 mr-2 text-gray-400 fa-solid fa-location-dot"></i>
@@ -181,10 +181,18 @@
                 <p class="text-center text-gray-400">
                     © {{ current_year }} Aplyfly. Todos los derechos reservados.
                 </p>
+                <p class="mt-2 text-center text-gray-500 text-sm">
+                    Aplifly SpA<br>
+                    78.220.659-1<br>
+                    Chile
+                </p>
             </div>
         </div>
     </footer>
     
+    <!-- Chat Widget -->
+    {% include 'chat_widget.html' %}
+
     <!-- Notification for messages -->
     {% if messages %}
     <div class="fixed bottom-4 right-4 z-50" x-data="{ show: true }" x-init="setTimeout(() => { show = false }, 5000)" x-show="show"
@@ -215,6 +223,9 @@
         {% endfor %}
     </div>
     {% endif %}
+    
+    <!-- Chat Widget JavaScript -->
+    <script src="{% static 'js/chat_widget.js' %}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>
