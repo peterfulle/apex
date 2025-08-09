@@ -21,23 +21,24 @@ class AplyflyChatAgent:
             api_key = os.getenv("AZURE_OPENAI_API_KEY")
             
             if not endpoint or not api_key:
-                logger.error("Faltan variables de entorno de Azure OpenAI")
-                raise ValueError("AZURE_OPENAI_ENDPOINT y AZURE_OPENAI_API_KEY son requeridas")
-            
-            self.client = AzureOpenAI(
-                api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-15-preview"),
-                azure_endpoint=endpoint,
-                api_key=api_key,
-            )
-            
-            self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o")
-            self.max_tokens = int(os.getenv("CHAT_MAX_TOKENS", "1000"))
-            self.temperature = float(os.getenv("CHAT_TEMPERATURE", "0.7"))
-            
-            logger.info(f"AplyflyChatAgent inicializado correctamente con modelo: {self.deployment_name}")
+                logger.warning("Variables de entorno de Azure OpenAI no configuradas, usando respuestas de fallback")
+                self.client = None
+            else:
+                # Inicialización simplificada para evitar problemas de compatibilidad
+                self.client = AzureOpenAI(
+                    api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-15-preview"),
+                    azure_endpoint=endpoint,
+                    api_key=api_key
+                )
+                
+                self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o")
+                self.max_tokens = int(os.getenv("CHAT_MAX_TOKENS", "1000"))
+                self.temperature = float(os.getenv("CHAT_TEMPERATURE", "0.7"))
+                
+                logger.info(f"AplyflyChatAgent inicializado correctamente con modelo: {self.deployment_name}")
             
         except Exception as e:
-            logger.error(f"Error inicializando AplyflyChatAgent: {str(e)}")
+            logger.warning(f"Error inicializando AplyflyChatAgent: {str(e)}")
             # En producción, usar respuestas de fallback si Azure OpenAI no está disponible
             self.client = None
         
