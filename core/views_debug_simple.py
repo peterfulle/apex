@@ -104,7 +104,7 @@ def simple_debug_status(request):
             debug_info["status"] = "healthy"
             debug_info["summary"] = "Verificaciones básicas pasaron correctamente"
         
-        return JsonResponse(debug_info, indent=2)
+        return JsonResponse(debug_info)
         
     except Exception as e:
         # Fallback extremo

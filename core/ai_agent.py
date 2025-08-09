@@ -29,7 +29,7 @@ class AplyflyChatAgent:
                 # Inicialización robusta del cliente Azure OpenAI
                 try:
                     self.client = AzureOpenAI(
-                        api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-15-preview"),
+                        api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2023-12-01-preview"),
                         azure_endpoint=endpoint,
                         api_key=api_key
                     )
