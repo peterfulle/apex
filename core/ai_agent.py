@@ -24,18 +24,26 @@ class AplyflyChatAgent:
                 logger.warning("Variables de entorno de Azure OpenAI no configuradas, usando respuestas de fallback")
                 self.client = None
             else:
-                # Inicialización simplificada para evitar problemas de compatibilidad
-                self.client = AzureOpenAI(
-                    api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-15-preview"),
-                    azure_endpoint=endpoint,
-                    api_key=api_key
-                )
-                
-                self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o")
-                self.max_tokens = int(os.getenv("CHAT_MAX_TOKENS", "1000"))
-                self.temperature = float(os.getenv("CHAT_TEMPERATURE", "0.7"))
-                
-                logger.info(f"AplyflyChatAgent inicializado correctamente con modelo: {self.deployment_name}")
+                # Inicialización robusta del cliente Azure OpenAI
+                try:
+                    self.client = AzureOpenAI(
+                        api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-15-preview"),
+                        azure_endpoint=endpoint,
+                        api_key=api_key
+                    )
+                    
+                    self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o")
+                    self.max_tokens = int(os.getenv("CHAT_MAX_TOKENS", "1000"))
+                    self.temperature = float(os.getenv("CHAT_TEMPERATURE", "0.7"))
+                    
+                    logger.info(f"AplyflyChatAgent inicializado correctamente con modelo: {self.deployment_name}")
+                    
+                except TypeError as te:
+                    logger.warning(f"Error de compatibilidad OpenAI: {str(te)}")
+                    self.client = None
+                except Exception as ee:
+                    logger.warning(f"Error general OpenAI: {str(ee)}")
+                    self.client = None
             
         except Exception as e:
             logger.warning(f"Error inicializando AplyflyChatAgent: {str(e)}")
