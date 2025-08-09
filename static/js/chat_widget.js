@@ -31,6 +31,20 @@ class AplyflyChatWidget {
         this.charCounter = document.getElementById('char-counter');
         this.quickSuggestions = document.getElementById('quick-suggestions');
         
+        // Nuevos botones de control
+        this.clearChatBtn = document.getElementById('clear-chat');
+        this.infoChatBtn = document.getElementById('info-chat');
+        this.exportChatBtn = document.getElementById('export-chat');
+        
+        // Modal de información
+        this.infoModal = document.getElementById('info-modal');
+        this.closeModalBtn = document.getElementById('close-info-modal');
+        
+        // Indicadores de estado
+        this.connectionStatus = document.getElementById('connection-status');
+        this.statusText = document.getElementById('status-text');
+        this.statusNotification = document.getElementById('status-notification');
+        
         // Iconos
         this.chatIcon = document.getElementById('chat-icon');
         this.closeIcon = document.getElementById('close-icon');
@@ -39,7 +53,11 @@ class AplyflyChatWidget {
             widget: !!this.widget,
             toggleBtn: !!this.toggleBtn,
             chatWindow: !!this.chatWindow,
-            minimizeBtn: !!this.minimizeBtn
+            minimizeBtn: !!this.minimizeBtn,
+            clearChatBtn: !!this.clearChatBtn,
+            infoChatBtn: !!this.infoChatBtn,
+            exportChatBtn: !!this.exportChatBtn,
+            infoModal: !!this.infoModal
         });
     }
     
@@ -92,15 +110,51 @@ class AplyflyChatWidget {
         if (this.quickSuggestions) {
             this.quickSuggestions.addEventListener('click', (e) => {
                 if (e.target.classList.contains('suggestion-btn')) {
-                    this.handleSuggestionClick(e.target.textContent.trim());
+                    const message = e.target.getAttribute('data-message');
+                    if (message) {
+                        this.chatInput.value = message;
+                        this.sendMessage();
+                    } else {
+                        this.handleSuggestionClick(e.target.textContent.trim());
+                    }
+                }
+            });
+        }
+        
+        // Nuevos botones de control
+        if (this.clearChatBtn) {
+            this.clearChatBtn.addEventListener('click', () => this.clearChat());
+        }
+        
+        if (this.infoChatBtn) {
+            this.infoChatBtn.addEventListener('click', () => this.openInfoModal());
+        }
+        
+        if (this.exportChatBtn) {
+            this.exportChatBtn.addEventListener('click', () => this.exportChat());
+        }
+        
+        // Modal de información
+        if (this.closeModalBtn) {
+            this.closeModalBtn.addEventListener('click', () => this.closeInfoModal());
+        }
+        
+        if (this.infoModal) {
+            this.infoModal.addEventListener('click', (e) => {
+                if (e.target === this.infoModal) {
+                    this.closeInfoModal();
                 }
             });
         }
         
         // Cerrar con ESC
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen) {
-                this.closeChat();
+            if (e.key === 'Escape') {
+                if (this.infoModal && !this.infoModal.classList.contains('hidden')) {
+                    this.closeInfoModal();
+                } else if (this.isOpen) {
+                    this.closeChat();
+                }
             }
         });
         
@@ -124,7 +178,10 @@ class AplyflyChatWidget {
     openChat() {
         console.log('📖 Opening chat');
         this.isOpen = true;
-        this.chatWindow.classList.add('open');
+        
+        // Cambiar clases para abrir el chat
+        this.chatWindow.classList.remove('scale-0', 'opacity-0');
+        this.chatWindow.classList.add('scale-100', 'opacity-100');
         
         // Cambiar iconos
         if (this.chatIcon) this.chatIcon.classList.add('hidden');
@@ -135,6 +192,9 @@ class AplyflyChatWidget {
             if (this.chatInput) this.chatInput.focus();
         }, 300);
         
+        // Actualizar estado de conexión
+        this.updateConnectionStatus(true);
+        
         // Analytics (opcional)
         this.trackEvent('chat_opened');
     }
@@ -142,7 +202,10 @@ class AplyflyChatWidget {
     closeChat() {
         console.log('📕 Closing chat');
         this.isOpen = false;
-        this.chatWindow.classList.remove('open');
+        
+        // Cambiar clases para cerrar el chat
+        this.chatWindow.classList.remove('scale-100', 'opacity-100');
+        this.chatWindow.classList.add('scale-0', 'opacity-0');
         
         // Cambiar iconos
         if (this.closeIcon) this.closeIcon.classList.add('hidden');
@@ -173,9 +236,12 @@ class AplyflyChatWidget {
         try {
             // Enviar a la API
             await this.sendToAPI(message);
+            this.updateConnectionStatus(true);
         } catch (error) {
             this.hideTypingIndicator();
             this.addBotMessage('Disculpa, hubo un error de conexión. Por favor intenta nuevamente o contacta directamente a info@aplyfly.com 🔧');
+            this.updateConnectionStatus(false);
+            this.showStatusNotification('Error de conexión', 'error');
             console.error('Error en chat:', error);
         }
     }
@@ -186,6 +252,7 @@ class AplyflyChatWidget {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': this.getCSRFToken(),
                 },
                 body: JSON.stringify({
                     message: message,
@@ -205,6 +272,29 @@ class AplyflyChatWidget {
             console.error('Error en API:', error);
             throw error;
         }
+    }
+    
+    getCSRFToken() {
+        const name = 'csrftoken';
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        // También intentar obtenerlo de meta tag si existe
+        if (!cookieValue) {
+            const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+            if (csrfMetaTag) {
+                cookieValue = csrfMetaTag.getAttribute('content');
+            }
+        }
+        return cookieValue;
     }
     
     async handleStreamingResponse(response) {
@@ -374,13 +464,131 @@ class AplyflyChatWidget {
     updateCharCounter() {
         if (this.chatInput && this.charCounter) {
             const count = this.chatInput.value.length;
-            this.charCounter.textContent = `${count}/300`;
+            this.charCounter.textContent = `${count}/500`;
             
-            if (count > 250) {
+            if (count > 450) {
                 this.charCounter.classList.add('text-red-500');
-            } else {
+                this.charCounter.classList.remove('text-yellow-500');
+            } else if (count > 400) {
+                this.charCounter.classList.add('text-yellow-500');
                 this.charCounter.classList.remove('text-red-500');
+            } else {
+                this.charCounter.classList.remove('text-red-500', 'text-yellow-500');
             }
+        }
+    }
+    
+    clearChat() {
+        if (confirm('¿Estás seguro de que quieres limpiar toda la conversación?')) {
+            // Limpiar mensajes excepto el de bienvenida
+            const messages = this.messagesContainer.querySelectorAll('.animate-slideInLeft, .animate-slideInRight, .animate-fadeIn');
+            const welcomeMessage = this.messagesContainer.querySelector('.animate-fadeIn');
+            
+            // Remover todos los mensajes excepto el de bienvenida
+            messages.forEach(msg => {
+                if (msg !== welcomeMessage) {
+                    msg.remove();
+                }
+            });
+            
+            // Mostrar sugerencias nuevamente
+            if (this.quickSuggestions) {
+                this.quickSuggestions.style.display = 'flex';
+            }
+            
+            // Limpiar historial de conversación
+            this.conversationHistory = [];
+            
+            this.showStatusNotification('Chat limpiado exitosamente', 'success');
+        }
+    }
+    
+    openInfoModal() {
+        if (this.infoModal) {
+            this.infoModal.classList.remove('hidden');
+            setTimeout(() => {
+                const modalContent = document.getElementById('info-modal-content');
+                if (modalContent) {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }
+            }, 10);
+        }
+    }
+    
+    closeInfoModal() {
+        const modalContent = document.getElementById('info-modal-content');
+        if (modalContent) {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+        }
+        
+        setTimeout(() => {
+            if (this.infoModal) {
+                this.infoModal.classList.add('hidden');
+            }
+        }, 300);
+    }
+    
+    exportChat() {
+        if (this.conversationHistory.length === 0) {
+            this.showStatusNotification('No hay mensajes para exportar', 'error');
+            return;
+        }
+
+        const chatData = {
+            exported_at: new Date().toISOString(),
+            total_messages: this.conversationHistory.length,
+            conversation: this.conversationHistory
+        };
+
+        const dataStr = JSON.stringify(chatData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `aplybot-chat-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        this.showStatusNotification('Chat exportado exitosamente', 'success');
+    }
+    
+    showStatusNotification(message, type = 'success') {
+        if (!this.statusNotification) return;
+        
+        const notification = this.statusNotification;
+        const messageSpan = document.getElementById('notification-text');
+        
+        if (messageSpan) {
+            messageSpan.textContent = message;
+        }
+        
+        if (type === 'error') {
+            notification.firstElementChild.className = 'bg-gradient-to-r from-red-100 to-pink-100 text-red-800 px-3 py-2 rounded-lg border border-red-200';
+        } else {
+            notification.firstElementChild.className = 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 px-3 py-2 rounded-lg border border-emerald-200';
+        }
+        
+        notification.classList.remove('opacity-0', 'translate-y-2');
+        notification.classList.add('opacity-100', 'translate-y-0');
+        
+        setTimeout(() => {
+            notification.classList.remove('opacity-100', 'translate-y-0');
+            notification.classList.add('opacity-0', 'translate-y-2');
+        }, 3000);
+    }
+    
+    updateConnectionStatus(isConnected) {
+        if (!this.connectionStatus || !this.statusText) return;
+        
+        if (isConnected) {
+            this.connectionStatus.className = 'w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse shadow-sm';
+            this.statusText.textContent = 'Conectado • Aplyfly';
+        } else {
+            this.connectionStatus.className = 'w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse shadow-sm';
+            this.statusText.textContent = 'Desconectado • Reintentando...';
         }
     }
     
@@ -434,4 +642,72 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('❌ Chat widget element not found in DOM');
     }
+    
+    // Agregar estilos CSS adicionales para animaciones
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .animate-slideInLeft {
+            animation: slideInLeft 0.3s ease-out;
+        }
+        
+        .animate-slideInRight {
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        /* Mejorar scrollbar en el chat */
+        #chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        #chat-messages::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 2px;
+        }
+        
+        #chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Transiciones del chat window */
+        #chat-window {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom right;
+        }
+        
+        /* Efecto typewriter para mensajes streaming */
+        .typewriter-text::after {
+            content: '|';
+            opacity: 1;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
 });
