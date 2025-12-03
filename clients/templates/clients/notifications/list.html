@@ -1,0 +1,113 @@
+{% extends 'clients/base_dashboard.html' %}
+
+{% block title %}Notificaciones - Aplyfly{% endblock %}
+
+{% block page_title %}Notificaciones{% endblock %}
+{% block page_subtitle %}Mantente al día con las actualizaciones{% endblock %}
+
+{% block content %}
+<!-- Filter Tabs -->
+<div class="mb-6 flex gap-2">
+    <button class="px-4 py-2 bg-cyan-500 text-slate-950 font-medium rounded-lg text-sm">
+        Todas
+    </button>
+    <button class="px-4 py-2 bg-slate-800 text-slate-400 hover:text-slate-100 font-medium rounded-lg text-sm transition-colors">
+        No Leídas
+    </button>
+    <button class="px-4 py-2 bg-slate-800 text-slate-400 hover:text-slate-100 font-medium rounded-lg text-sm transition-colors">
+        Leídas
+    </button>
+</div>
+
+<!-- Notifications List -->
+{% if notifications %}
+    <div class="space-y-3">
+        {% for notification in notifications %}
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800 hover:border-cyan-500/30 transition-all {% if not notification.is_read %}bg-cyan-500/5{% endif %}">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0
+                        {% if notification.type == 'project' %}bg-blue-500/10{% elif notification.type == 'request' %}bg-emerald-500/10{% elif notification.type == 'message' %}bg-purple-500/10{% else %}bg-cyan-500/10{% endif %}">
+                        <i class="text-xl
+                            {% if notification.type == 'project' %}fas fa-folder text-blue-400
+                            {% elif notification.type == 'request' %}fas fa-concierge-bell text-emerald-400
+                            {% elif notification.type == 'message' %}fas fa-envelope text-purple-400
+                            {% else %}fas fa-bell text-cyan-400{% endif %}"></i>
+                    </div>
+                    
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-start justify-between gap-4 mb-2">
+                            <h3 class="text-slate-100 font-semibold">{{ notification.title }}</h3>
+                            {% if not notification.is_read %}
+                                <span class="w-2 h-2 bg-cyan-400 rounded-full flex-shrink-0 mt-2"></span>
+                            {% endif %}
+                        </div>
+                        <p class="text-slate-400 text-sm mb-3">{{ notification.message }}</p>
+                        <div class="flex items-center gap-4 text-xs text-slate-500">
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-clock"></i>
+                                {{ notification.created_at|timesince }} atrás
+                            </span>
+                            {% if notification.link %}
+                                <a href="{{ notification.link }}" class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                    <span>Ver detalles</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    {% if not notification.is_read %}
+                        <button class="px-3 py-1.5 text-xs bg-slate-800 text-slate-400 hover:text-slate-100 rounded-lg transition-colors">
+                            Marcar leída
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <div class="mt-8 flex justify-center">
+            <nav class="flex items-center gap-2">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                {% endif %}
+                
+                <span class="px-4 py-2 bg-cyan-500 text-slate-950 rounded-lg font-medium">
+                    {{ page_obj.number }}
+                </span>
+                
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    {% endif %}
+    
+    <!-- Actions -->
+    <div class="mt-6 flex justify-end gap-3">
+        <button class="px-4 py-2 bg-slate-800 text-slate-400 hover:text-slate-100 rounded-lg transition-colors text-sm">
+            Marcar todas como leídas
+        </button>
+        <button class="px-4 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors text-sm">
+            Eliminar leídas
+        </button>
+    </div>
+{% else %}
+    <!-- Empty State -->
+    <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-12 border border-slate-800 text-center">
+        <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-bell-slash text-slate-600 text-3xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-slate-100 mb-2">No tienes notificaciones</h3>
+        <p class="text-slate-400 max-w-md mx-auto">
+            Te notificaremos aquí cuando haya actualizaciones en tus proyectos o solicitudes.
+        </p>
+    </div>
+{% endif %}
+{% endblock %}

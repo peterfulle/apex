@@ -1,0 +1,866 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Servicios - Aplyfly{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-black">
+    <!-- Animated Grid Background -->
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23374151" fill-opacity="0.1"%3E%3Cpath d="M0 0h40v40H0z"/%3E%3Cpath d="M20 20h20v20H20z" fill="%234f46e5" fill-opacity="0.05"/%3E%3C/g%3E%3C/svg%3E')] animate-pulse"></div>
+    </div>
+    
+    <!-- Floating Code Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-10 left-5 text-cyan-400/30 text-xs font-mono transform rotate-12 animate-float">
+            class ServiceEngine:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.quality = "premium"
+        </div>
+        <div class="absolute top-32 right-10 text-emerald-400/30 text-xs font-mono transform -rotate-6 animate-float-delayed">
+            def deliver_excellence():<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return solutions.transform(ideas)
+        </div>
+        <div class="absolute bottom-40 left-8 text-purple-400/30 text-xs font-mono transform rotate-6 animate-float">
+            import innovation<br>
+            from experience import mastery<br>
+            success = True
+        </div>
+        <div class="absolute bottom-20 right-5 text-orange-400/30 text-xs font-mono transform -rotate-12 animate-float-delayed">
+            # Crafting digital experiences<br>
+            while True:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;create_amazing_software()
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Header con Status Badge -->
+        <div class="text-center mb-16">
+            <!-- Status Badge -->
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-cyan-500/10 backdrop-blur-sm border border-cyan-500/20 mb-6">
+                <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                <span class="text-cyan-400 font-medium text-sm tracking-wide">Servicios de clase mundial</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Nuestros <span class="text-cyan-400">&lt;</span>Servicios<span class="text-cyan-400">/&gt;</span>
+            </h1>
+            
+            <!-- Typewriter Effect -->
+            <div class="text-2xl sm:text-3xl text-gray-300 mb-8 font-light">
+                <span id="typewriter" class="border-r-2 border-cyan-400"></span>
+            </div>
+            
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
+                Soluciones digitales <strong class="text-white">a medida</strong> para impulsar tu negocio hacia el futuro.
+                Cada línea de código cuenta, cada proyecto es único.
+            </p>
+            
+            <!-- Key Stats -->
+            <div class="grid grid-cols-3 gap-6 max-w-md mx-auto mb-8">
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-cyan-400 mb-1" data-count="15">0</div>
+                    <div class="text-gray-400 text-xs md:text-sm">Tecnologías</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-emerald-400 mb-1" data-count="24">0</div>
+                    <div class="text-gray-400 text-xs md:text-sm">Soporte 24/7</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-purple-400 mb-1" data-count="100">0</div>
+                    <div class="text-gray-400 text-xs md:text-sm">% Calidad</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {% for service in services %}
+            <div class="service-card group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-500 hover:transform hover:scale-105 hover:rotate-1 border border-gray-700/50 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/20 gpu-accelerated">
+                <!-- Floating Tech Icon -->
+                <div class="absolute -top-4 -right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center animate-bounce">
+                        <i class="fas fa-code text-white text-xs"></i>
+                    </div>
+                </div>
+                
+                <!-- Service Icon -->
+                <div class="relative mb-6">
+                    <div class="tech-icon w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 rounded-2xl flex items-center justify-center group-hover:from-cyan-500/30 group-hover:to-cyan-600/30 transition-all duration-300 border border-cyan-500/20">
+                        <i class="{{ service.icon }} text-3xl text-cyan-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <!-- Glow Effect -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                
+                <!-- Service Content -->
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors duration-300">
+                    {{ service.title }}
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                    {{ service.description }}
+                </p>
+                
+                <!-- Service Features -->
+                <div class="space-y-3">
+                    {% if service.title == "Servicios de Inteligencia Artificial" %}
+                        <div class="flex items-center text-sm text-cyan-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                            <span>GPT-4, Claude AI, LangChain</span>
+                        </div>
+                        <div class="flex items-center text-sm text-emerald-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <span>Agentes IA generativa</span>
+                        </div>
+                        <div class="flex items-center text-sm text-purple-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.4s;"></div>
+                            <span>SaaS impulsado por IA</span>
+                        </div>
+                    {% elif service.title == "WebApps de Alto Rendimiento" %}
+                        <div class="flex items-center text-sm text-cyan-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                            <span>Django + React stack</span>
+                        </div>
+                        <div class="flex items-center text-sm text-emerald-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <span>PostgreSQL & Redis</span>
+                        </div>
+                        <div class="flex items-center text-sm text-purple-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.4s;"></div>
+                            <span>Cloud-native & escalable</span>
+                        </div>
+                    {% elif service.title == "Desarrollo Web Personalizado" %}
+                        <div class="flex items-center text-sm text-cyan-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                            <span>GPT-4, Claude AI, LangChain</span>
+                        </div>
+                        <div class="flex items-center text-sm text-emerald-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <span>Agentes IA generativa</span>
+                        </div>
+                        <div class="flex items-center text-sm text-purple-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.4s;"></div>
+                            <span>SaaS impulsado por IA</span>
+                        </div>
+                    {% elif service.title == "Aplicaciones Móviles" %}
+                        <div class="flex items-center text-sm text-cyan-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                            <span>Django + React stack potente</span>
+                        </div>
+                        <div class="flex items-center text-sm text-emerald-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <span>PostgreSQL & microservicios</span>
+                        </div>
+                        <div class="flex items-center text-sm text-purple-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.4s;"></div>
+                            <span>APIs REST & GraphQL</span>
+                        </div>
+                    {% elif service.title == "Sistemas Empresariales" %}
+                        <div class="flex items-center text-sm text-cyan-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                            <span>ERP & CRM personalizados</span>
+                        </div>
+                        <div class="flex items-center text-sm text-emerald-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <span>Integración con sistemas existentes</span>
+                        </div>
+                        <div class="flex items-center text-sm text-purple-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.4s;"></div>
+                            <span>Escalabilidad empresarial</span>
+                        </div>
+                    {% else %}
+                        <div class="flex items-center text-sm text-cyan-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                            <span>Tecnologías de vanguardia</span>
+                        </div>
+                        <div class="flex items-center text-sm text-emerald-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <span>Soporte especializado 24/7</span>
+                        </div>
+                        <div class="flex items-center text-sm text-purple-400 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse" style="animation-delay: 0.4s;"></div>
+                            <span>Mantenimiento continuo</span>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Service Action -->
+                <div class="mt-6">
+                    {% if service.title == "Desarrollo Web Personalizado" %}
+                        <a href="{% url 'servicios_ia' %}" class="inline-flex items-center text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">
+                            Más info
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    {% elif service.title == "Aplicaciones Móviles" %}
+                        <a href="#contact" class="inline-flex items-center text-emerald-400 font-semibold hover:text-emerald-300 transition-colors">
+                            Más info
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    {% else %}
+                        <a href="#contact" class="inline-flex items-center text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">
+                            Más info
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    {% endif %}
+                </div>
+                
+                <!-- Hover Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            </div>
+            {% empty %}
+            <div class="lg:col-span-3">
+                <div class="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-12 text-center border border-gray-700/50 shimmer">
+                    <!-- Loading Animation -->
+                    <div class="flex justify-center mb-6">
+                        <div class="relative">
+                            <div class="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 rounded-2xl flex items-center justify-center animate-pulse">
+                                <i class="fas fa-code text-3xl text-cyan-400"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-cyan-500/20 rounded-2xl blur-xl animate-pulse"></div>
+                        </div>
+                    </div>
+                    <p class="text-xl text-gray-300">Cargando nuestros servicios...</p>
+                    <div class="mt-4 flex justify-center">
+                        <div class="w-8 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="relative bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-600/10 rounded-3xl p-12 text-center border border-cyan-500/20 backdrop-blur-sm overflow-hidden">
+            <!-- Background Effect -->
+            <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-purple-500/5 blur-3xl"></div>
+            
+            <!-- Content -->
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                    ¿Listo para <span class="text-cyan-400">innovar con IA</span> y WebApps potentes?
+                </h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    Nuestro equipo de <strong class="text-white">expertos en IA y desarrollo full-stack</strong> está listo para transformar tu negocio 
+                    con soluciones inteligentes y tecnologías de vanguardia.
+                </p>
+                
+                <!-- Process Steps -->
+                <div class="grid md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-black font-bold">1</span>
+                        </div>
+                        <h4 class="text-white font-semibold mb-2">Consulta IA Gratuita</h4>
+                        <p class="text-gray-400 text-sm">Analizamos tu caso de uso y definimos la estrategia IA</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-black font-bold">2</span>
+                        </div>
+                        <h4 class="text-white font-semibold mb-2">Desarrollo con IA</h4>
+                        <p class="text-gray-400 text-sm">Implementamos soluciones IA con stack moderno</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-black font-bold">3</span>
+                        </div>
+                        <h4 class="text-white font-semibold mb-2">Deploy Inteligente</h4>
+                        <p class="text-gray-400 text-sm">Lanzamiento escalable con monitoreo IA continuo</p>
+                    </div>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'servicios_ia' %}" 
+                       class="group relative px-8 py-4 bg-cyan-500 text-black font-semibold rounded-lg hover:bg-cyan-400 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center">
+                        <span class="relative z-10 flex items-center">
+                            <i class="fas fa-brain mr-2"></i>
+                            Explorar Servicios IA
+                        </span>
+                        <div class="absolute inset-0 bg-white/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                    <a href="{% url 'index' %}#contact" 
+                       class="px-8 py-4 bg-gray-800/80 backdrop-blur-sm text-white font-semibold rounded-lg border border-gray-600/50 hover:bg-gray-700/80 hover:border-cyan-400/50 transition-all duration-300 inline-flex items-center justify-center group">
+                        <i class="fas fa-rocket mr-2 group-hover:text-cyan-400 transition-colors"></i>
+                        <span class="group-hover:text-cyan-400 transition-colors">Iniciar Proyecto</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-4 right-4 text-cyan-400/20 text-xs font-mono animate-pulse">
+                // AI-powered innovation
+            </div>
+            <div class="absolute bottom-4 left-4 text-purple-400/20 text-xs font-mono animate-pulse">
+                console.log("Intelligent solutions");
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-400 animate-bounce">
+        <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+</section>
+
+<!-- Technologies Section -->
+<section class="relative bg-gradient-to-br from-gray-800 via-gray-900 to-black py-20 overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23374151" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+    </div>
+    
+    <!-- Floating Code Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 text-cyan-400/20 text-xs font-mono transform rotate-3 animate-float">
+            const technologies = [<br>
+            &nbsp;&nbsp;"React", "Python", "Node.js"<br>
+            ];
+        </div>
+        <div class="absolute top-40 right-16 text-emerald-400/20 text-xs font-mono transform -rotate-3 animate-float-delayed">
+            import { expertise } from 'experience';<br>
+            export default innovation;
+        </div>
+    </div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Tecnologías que <span class="text-cyan-400">Dominamos</span>
+            </h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Trabajamos con las herramientas más <strong class="text-white">avanzadas</strong> del mercado 
+                para garantizar soluciones robustas y escalables
+            </p>
+            <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto mt-6"></div>
+        </div>
+        
+        <!-- Main Technologies Grid -->
+        <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-12">
+            <!-- Lenguajes de Programación -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-cyan-500/20 group-hover:to-cyan-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-cyan-500/50">
+                    <i class="fab fa-python text-2xl text-cyan-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-cyan-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-cyan-400 transition-colors">Python</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-yellow-500/20 group-hover:to-yellow-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-yellow-500/50">
+                    <i class="fab fa-js-square text-2xl text-yellow-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-yellow-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-yellow-400 transition-colors">JavaScript</span>
+            </div>
+            
+            <!-- Frontend Frameworks -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-blue-500/20 group-hover:to-blue-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-blue-500/50">
+                    <i class="fab fa-react text-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-blue-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-blue-400 transition-colors">React</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-emerald-500/20 group-hover:to-emerald-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-emerald-500/50">
+                    <i class="fab fa-vuejs text-2xl text-emerald-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-emerald-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-emerald-400 transition-colors">Vue.js</span>
+            </div>
+            
+            <!-- Backend Framework -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-green-500/20 group-hover:to-green-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-green-500/50">
+                    <i class="fas fa-leaf text-2xl text-green-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-green-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-green-400 transition-colors">Django</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-green-500/20 group-hover:to-green-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-green-500/50">
+                    <i class="fab fa-node-js text-2xl text-green-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-green-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-green-400 transition-colors">Node.js</span>
+            </div>
+            
+            <!-- UI Frameworks -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-cyan-500/20 group-hover:to-cyan-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-cyan-500/50">
+                    <i class="fas fa-wind text-2xl text-cyan-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-cyan-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-cyan-400 transition-colors">Tailwind</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-purple-500/20 group-hover:to-purple-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-purple-500/50">
+                    <i class="fab fa-bootstrap text-2xl text-purple-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-purple-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-purple-400 transition-colors">Bootstrap</span>
+            </div>
+            
+            <!-- Cloud & Hosting -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-blue-500/20 group-hover:to-blue-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-blue-500/50">
+                    <i class="fab fa-microsoft text-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-blue-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-blue-400 transition-colors">Azure</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-orange-500/20 group-hover:to-orange-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-orange-500/50">
+                    <i class="fab fa-aws text-2xl text-orange-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-orange-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-orange-400 transition-colors">AWS</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-emerald-500/20 group-hover:to-emerald-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-emerald-500/50">
+                    <i class="fas fa-server text-2xl text-emerald-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-emerald-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-emerald-400 transition-colors">Render</span>
+            </div>
+            
+            <!-- DevOps -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-indigo-500/20 group-hover:to-indigo-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-indigo-500/50">
+                    <i class="fab fa-docker text-2xl text-indigo-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-indigo-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-indigo-400 transition-colors">Docker</span>
+            </div>
+            
+            <!-- CDN & Performance -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-orange-500/20 group-hover:to-orange-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-orange-500/50">
+                    <i class="fas fa-cloud text-2xl text-orange-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-orange-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-orange-400 transition-colors">Cloudflare</span>
+            </div>
+            
+            <!-- Animation Libraries -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-green-500/20 group-hover:to-green-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-green-500/50">
+                    <i class="fas fa-magic text-2xl text-green-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-green-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-green-400 transition-colors">GSAP</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-purple-500/20 group-hover:to-purple-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-purple-500/50">
+                    <i class="fas fa-play text-2xl text-purple-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-purple-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-purple-400 transition-colors">Framer Motion</span>
+            </div>
+            
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-cyan-500/20 group-hover:to-cyan-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-cyan-500/50">
+                    <i class="fas fa-star text-2xl text-cyan-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-cyan-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-cyan-400 transition-colors">AOS</span>
+            </div>
+            
+            <!-- JavaScript Libraries -->
+            <div class="group text-center">
+                <div class="relative w-16 h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-blue-500/20 group-hover:to-blue-600/20 transition-all duration-300 border border-gray-600/50 group-hover:border-blue-500/50">
+                    <i class="fab fa-js text-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute inset-0 bg-blue-500/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <span class="text-gray-300 text-xs font-medium group-hover:text-blue-400 transition-colors">jQuery</span>
+            </div>
+        </div>
+        
+        <!-- Technology Categories -->
+        <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700/30">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-center">
+                    <i class="fas fa-code mr-2 text-cyan-400"></i>
+                    Frontend & UI
+                </h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm border border-cyan-500/30 hover:bg-cyan-500/30 transition-colors cursor-default">React</span>
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors cursor-default">Vue.js</span>
+                    <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm border border-purple-500/30 hover:bg-purple-500/30 transition-colors cursor-default">Next.js</span>
+                    <span class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-full text-sm border border-indigo-500/30 hover:bg-indigo-500/30 transition-colors cursor-default">Tailwind</span>
+                    <span class="px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full text-sm border border-pink-500/30 hover:bg-pink-500/30 transition-colors cursor-default">Bootstrap</span>
+                </div>
+            </div>
+            
+            <div class="text-center bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700/30">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-center">
+                    <i class="fas fa-server mr-2 text-green-400"></i>
+                    Backend & APIs
+                </h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm border border-green-500/30 hover:bg-green-500/30 transition-colors cursor-default">Django</span>
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm border border-blue-500/30 hover:bg-blue-500/30 transition-colors cursor-default">FastAPI</span>
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors cursor-default">Node.js</span>
+                    <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm border border-yellow-500/30 hover:bg-yellow-500/30 transition-colors cursor-default">Express</span>
+                </div>
+            </div>
+            
+            <div class="text-center bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700/30">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-center">
+                    <i class="fas fa-cloud mr-2 text-blue-400"></i>
+                    Cloud & Hosting
+                </h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm border border-blue-500/30 hover:bg-blue-500/30 transition-colors cursor-default">Azure</span>
+                    <span class="px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-sm border border-orange-500/30 hover:bg-orange-500/30 transition-colors cursor-default">AWS</span>
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors cursor-default">Render</span>
+                    <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm border border-purple-500/30 hover:bg-purple-500/30 transition-colors cursor-default">Cloudflare</span>
+                </div>
+            </div>
+            
+            <div class="text-center bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700/30">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-center">
+                    <i class="fas fa-magic mr-2 text-purple-400"></i>
+                    Animación & UX
+                </h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm border border-green-500/30 hover:bg-green-500/30 transition-colors cursor-default">GSAP</span>
+                    <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm border border-purple-500/30 hover:bg-purple-500/30 transition-colors cursor-default">Framer Motion</span>
+                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm border border-cyan-500/30 hover:bg-cyan-500/30 transition-colors cursor-default">AOS</span>
+                    <span class="px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full text-sm border border-pink-500/30 hover:bg-pink-500/30 transition-colors cursor-default">Animate.css</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modern Tech Features -->
+        <div class="mt-12 text-center">
+            <div class="inline-flex flex-wrap justify-center items-center gap-4 p-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-2xl border border-cyan-500/20">
+                <div class="flex items-center text-sm text-gray-300">
+                    <i class="fas fa-shield-alt text-cyan-400 mr-2"></i>
+                    <span><strong class="text-white">Seguridad:</strong> reCAPTCHA, HSTS</span>
+                </div>
+                <div class="flex items-center text-sm text-gray-300">
+                    <i class="fas fa-bolt text-emerald-400 mr-2"></i>
+                    <span><strong class="text-white">Performance:</strong> HTTP/3, PWA</span>
+                </div>
+                <div class="flex items-center text-sm text-gray-300">
+                    <i class="fas fa-mobile-alt text-purple-400 mr-2"></i>
+                    <span><strong class="text-white">Mobile:</strong> Progressive Web Apps</span>
+                </div>
+                <div class="flex items-center text-sm text-gray-300">
+                    <i class="fas fa-search text-orange-400 mr-2"></i>
+                    <span><strong class="text-white">SEO:</strong> Open Graph, Meta Tags</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Animations matching home page */
+    @keyframes float {
+        0%, 100% { 
+            transform: translateY(0px) rotate(12deg); 
+        }
+        50% { 
+            transform: translateY(-20px) rotate(12deg); 
+        }
+    }
+    
+    @keyframes float-delayed {
+        0%, 100% { 
+            transform: translateY(0px) rotate(-6deg); 
+        }
+        50% { 
+            transform: translateY(-15px) rotate(-6deg); 
+        }
+    }
+    
+    @keyframes typewriter {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+    
+    @keyframes blink {
+        0%, 50% { border-color: transparent; }
+        51%, 100% { border-color: #00D9FF; }
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes glow {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.5), 0 0 40px rgba(6, 182, 212, 0.2);
+        }
+    }
+    
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+        animation: float-delayed 6s ease-in-out infinite 2s;
+    }
+    
+    .animate-slideInUp {
+        animation: slideInUp 0.6s ease-out forwards;
+    }
+    
+    .animate-glow {
+        animation: glow 2s ease-in-out infinite;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #1f2937;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #06b6d4;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #0891b2;
+    }
+    
+    /* Typewriter effect */
+    #typewriter {
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typewriter 4s steps(40, end), blink 0.8s infinite;
+        animation-delay: 0.5s;
+        animation-fill-mode: forwards;
+        width: 0;
+    }
+    
+    /* Custom gradient backgrounds */
+    .bg-code-bg {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    }
+    
+    .border-code-border {
+        border-color: #374151;
+    }
+    
+    .text-code-text {
+        color: #e2e8f0;
+    }
+    
+    /* Service card hover effects */
+    .service-card {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .service-card:hover {
+        transform: translateY(-8px) scale(1.02) rotate(1deg);
+    }
+    
+    /* Staggered animation for service cards */
+    .service-card:nth-child(1) { animation-delay: 0.1s; }
+    .service-card:nth-child(2) { animation-delay: 0.2s; }
+    .service-card:nth-child(3) { animation-delay: 0.3s; }
+    .service-card:nth-child(4) { animation-delay: 0.4s; }
+    .service-card:nth-child(5) { animation-delay: 0.5s; }
+    .service-card:nth-child(6) { animation-delay: 0.6s; }
+    
+    /* Tech icon hover effects */
+    .tech-icon {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .tech-icon:hover {
+        transform: translateY(-4px) scale(1.1);
+    }
+    
+    /* Background patterns */
+    .pattern-dots {
+        background-image: radial-gradient(circle, #374151 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+    
+    /* Loading animation */
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    .shimmer {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .shimmer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 2s infinite;
+    }
+    
+    /* Counter animation */
+    .counter {
+        transition: all 0.3s ease;
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+        .service-card:hover {
+            transform: translateY(-4px) scale(1.01);
+        }
+    }
+    
+    /* Performance optimizations */
+    .gpu-accelerated {
+        transform: translateZ(0);
+        will-change: transform;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Typewriter effect
+    const typewriter = document.getElementById('typewriter');
+    const messages = [
+        'Creamos software excepcional',
+        'Transformamos ideas en realidad',
+        'Desarrollamos el futuro hoy',
+        'Tu éxito es nuestro código'
+    ];
+    
+    let messageIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function type() {
+        const currentMessage = messages[messageIndex];
+        
+        if (isDeleting) {
+            typewriter.textContent = currentMessage.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typewriter.textContent = currentMessage.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        let speed = isDeleting ? 50 : 100;
+        
+        if (!isDeleting && charIndex === currentMessage.length) {
+            speed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            messageIndex = (messageIndex + 1) % messages.length;
+            speed = 500;
+        }
+        
+        setTimeout(type, speed);
+    }
+    
+    // Start typewriter after a delay
+    setTimeout(type, 1000);
+    
+    // Counter animation
+    function animateCounter(element, target) {
+        let count = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            count += increment;
+            if (count >= target) {
+                count = target;
+                clearInterval(timer);
+            }
+            element.textContent = Math.floor(count);
+        }, 40);
+    }
+    
+    // Intersection Observer for counter animation
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.dataset.count);
+                animateCounter(entry.target, target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all counter elements
+    document.querySelectorAll('[data-count]').forEach(counter => {
+        observer.observe(counter);
+    });
+    
+    // Service cards animation on scroll
+    const serviceCards = document.querySelectorAll('.service-card');
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-slideInUp');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    serviceCards.forEach(card => {
+        cardObserver.observe(card);
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Add parallax effect to floating elements
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelectorAll('.animate-float, .animate-float-delayed');
+        
+        parallax.forEach(element => {
+            const speed = 0.5;
+            element.style.transform += ` translateY(${scrolled * speed}px)`;
+        });
+    });
+});
+</script>
+{% endblock %}

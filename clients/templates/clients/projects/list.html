@@ -1,0 +1,129 @@
+{% extends 'clients/base_dashboard.html' %}
+
+{% block title %}Mis Proyectos - Aplyfly{% endblock %}
+
+{% block page_title %}Proyectos{% endblock %}
+{% block page_subtitle %}Gestiona todos tus proyectos{% endblock %}
+
+{% block content %}
+<!-- Filter Bar -->
+<div class="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+    <div class="flex gap-2">
+        <button class="px-4 py-2 bg-cyan-500 text-slate-950 font-medium rounded-lg text-sm">
+            Todos
+        </button>
+        <button class="px-4 py-2 bg-slate-800 text-slate-400 hover:text-slate-100 font-medium rounded-lg text-sm transition-colors">
+            En Desarrollo
+        </button>
+        <button class="px-4 py-2 bg-slate-800 text-slate-400 hover:text-slate-100 font-medium rounded-lg text-sm transition-colors">
+            Completados
+        </button>
+    </div>
+    
+    <a href="{% url 'clients:project_create' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500 text-slate-950 font-medium rounded-lg hover:bg-cyan-400 transition-all text-sm">
+        <i class="fas fa-plus"></i>
+        <span>Nuevo Proyecto</span>
+    </a>
+</div>
+
+<!-- Projects Grid -->
+{% if page_obj %}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {% for project in page_obj %}
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800 hover:border-cyan-500/50 transition-all group">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-slate-100 mb-2 group-hover:text-cyan-400 transition-colors">
+                            {{ project.title }}
+                        </h3>
+                        <p class="text-slate-400 text-sm line-clamp-2 mb-4">
+                            {{ project.description }}
+                        </p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-medium
+                        {% if project.status == 'submitted' or project.status == 'in_review' %}bg-blue-500/10 text-blue-400 border border-blue-500/20
+                        {% elif project.status == 'in_development' or project.status == 'testing' %}bg-cyan-500/10 text-cyan-400 border border-cyan-500/20
+                        {% elif project.status == 'completed' %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20
+                        {% elif project.status == 'on_hold' %}bg-yellow-500/10 text-yellow-400 border border-yellow-500/20
+                        {% elif project.status == 'cancelled' %}bg-red-500/10 text-red-400 border border-red-500/20
+                        {% else %}bg-slate-500/10 text-slate-400 border border-slate-500/20{% endif %}">
+                        {{ project.get_status_display }}
+                    </span>
+                </div>
+                
+                <div class="flex items-center gap-4 text-sm text-slate-500 mb-4">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-calendar"></i>
+                        {{ project.created_at|date:"d M Y" }}
+                    </span>
+                    {% if project.deadline %}
+                        <span class="flex items-center gap-2">
+                            <i class="fas fa-clock"></i>
+                            {{ project.deadline|date:"d M Y" }}
+                        </span>
+                    {% endif %}
+                </div>
+                
+                <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                    <div class="flex items-center gap-2">
+                        {% if project.budget_range %}
+                            <span class="text-slate-100 font-semibold">
+                                {{ project.budget_range }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'clients:project_detail' project.pk %}" 
+                       class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                        <span>Ver detalles</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <div class="mt-8 flex justify-center">
+            <nav class="flex items-center gap-2">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                {% endif %}
+                
+                <span class="px-4 py-2 bg-cyan-500 text-slate-950 rounded-lg font-medium">
+                    {{ page_obj.number }}
+                </span>
+                
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    {% endif %}
+{% else %}
+    <!-- Empty State -->
+    <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-12 border border-slate-800 text-center">
+        <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-folder-open text-slate-600 text-3xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-slate-100 mb-2">No tienes proyectos aún</h3>
+        <p class="text-slate-400 mb-6 max-w-md mx-auto">
+            Comienza creando tu primer proyecto. Podrás hacer seguimiento del progreso y gestionar todos los detalles.
+        </p>
+        <a href="{% url 'clients:project_create' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 text-slate-950 font-medium rounded-lg hover:bg-cyan-400 transition-all">
+            <i class="fas fa-plus"></i>
+            <span>Crear Primer Proyecto</span>
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

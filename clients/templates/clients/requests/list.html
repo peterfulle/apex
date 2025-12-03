@@ -1,0 +1,130 @@
+{% extends 'clients/base_dashboard.html' %}
+
+{% block title %}Mis Solicitudes - Aplyfly{% endblock %}
+
+{% block page_title %}Solicitudes de Servicio{% endblock %}
+{% block page_subtitle %}Gestiona tus solicitudes de cotización{% endblock %}
+
+{% block content %}
+<!-- Filter Bar -->
+<div class="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+    <div class="flex gap-2">
+        <button class="px-4 py-2 bg-cyan-500 text-slate-950 font-medium rounded-lg text-sm">
+            Todas
+        </button>
+        <button class="px-4 py-2 bg-slate-800 text-slate-400 hover:text-slate-100 font-medium rounded-lg text-sm transition-colors">
+            Pendientes
+        </button>
+        <button class="px-4 py-2 bg-slate-800 text-slate-400 hover:text-slate-100 font-medium rounded-lg text-sm transition-colors">
+            Respondidas
+        </button>
+    </div>
+    
+    <a href="{% url 'clients:service_request_create' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500 text-slate-950 font-medium rounded-lg hover:bg-cyan-400 transition-all text-sm">
+        <i class="fas fa-plus"></i>
+        <span>Nueva Solicitud</span>
+    </a>
+</div>
+
+<!-- Requests List -->
+{% if service_requests %}
+    <div class="space-y-4">
+        {% for request in service_requests %}
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800 hover:border-cyan-500/50 transition-all">
+                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-concierge-bell text-cyan-400 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-slate-100 mb-2">
+                                    {{ request.title }}
+                                </h3>
+                                <p class="text-slate-400 text-sm line-clamp-2 mb-3">
+                                    {{ request.description|truncatechars:120 }}
+                                </p>
+                                <div class="flex flex-wrap items-center gap-3 text-sm">
+                                    <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-medium">
+                                        {{ request.get_service_type_display }}
+                                    </span>
+                                    <span class="px-3 py-1 rounded-full text-xs font-medium
+                                        {% if request.status == 'pending' %}bg-yellow-500/10 text-yellow-400 border border-yellow-500/20
+                                        {% elif request.status == 'in_review' %}bg-cyan-500/10 text-cyan-400 border border-cyan-500/20
+                                        {% elif request.status == 'quoted' %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20
+                                        {% else %}bg-slate-500/10 text-slate-400 border border-slate-500/20{% endif %}">
+                                        {{ request.get_status_display }}
+                                    </span>
+                                    <span class="text-slate-500 flex items-center gap-1">
+                                        <i class="fas fa-calendar text-xs"></i>
+                                        {{ request.created_at|date:"d M Y" }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if request.budget_min and request.budget_max %}
+                            <div class="flex items-center gap-2 text-slate-300 ml-16">
+                                <i class="fas fa-dollar-sign text-slate-500"></i>
+                                <span class="font-semibold">
+                                    ${{ request.budget_min|floatformat:0 }} - ${{ request.budget_max|floatformat:0 }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <a href="{% url 'clients:service_request_detail' request.pk %}" 
+                       class="inline-flex items-center gap-2 px-6 py-3 bg-slate-800 text-slate-100 font-medium rounded-lg hover:bg-slate-700 transition-all text-sm">
+                        <span>Ver Detalles</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <div class="mt-8 flex justify-center">
+            <nav class="flex items-center gap-2">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                {% endif %}
+                
+                <span class="px-4 py-2 bg-cyan-500 text-slate-950 rounded-lg font-medium">
+                    {{ page_obj.number }}
+                </span>
+                
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 bg-slate-800 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    {% endif %}
+{% else %}
+    <!-- Empty State -->
+    <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-12 border border-slate-800 text-center">
+        <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-concierge-bell text-slate-600 text-3xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-slate-100 mb-2">No tienes solicitudes aún</h3>
+        <p class="text-slate-400 mb-6 max-w-md mx-auto">
+            Solicita una cotización para cualquier servicio de desarrollo. Te responderemos en breve con una propuesta personalizada.
+        </p>
+        <a href="{% url 'clients:service_request_create' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 text-slate-950 font-medium rounded-lg hover:bg-cyan-400 transition-all">
+            <i class="fas fa-plus"></i>
+            <span>Crear Primera Solicitud</span>
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

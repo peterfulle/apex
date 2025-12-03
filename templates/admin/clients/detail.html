@@ -1,0 +1,240 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block title %}{{ client.get_full_name|default:client.email }} - Admin{% endblock %}
+
+{% block page_title %}{{ client.get_full_name|default:client.email }}{% endblock %}
+{% block page_subtitle %}
+    <div class="flex items-center gap-3">
+        {% if client.company %}
+        <span class="text-slate-400">{{ client.company }}</span>
+        <span class="text-slate-600">•</span>
+        {% endif %}
+        <span class="text-slate-400">Cliente desde {{ client.date_joined|date:"M Y" }}</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Back Button -->
+    <a href="{% url 'admin_panel:clients' %}" 
+       class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 transition-all">
+        <i class="fas fa-arrow-left"></i>
+        <span>Volver a Clientes</span>
+    </a>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Client Info Column -->
+        <div class="space-y-6">
+            <!-- Profile Card -->
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20">
+                <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4">
+                        {% if client.avatar %}
+                            <img src="{{ client.avatar.url }}" alt="" class="w-full h-full rounded-full object-cover">
+                        {% else %}
+                            {{ client.first_name.0|default:client.email.0|upper }}
+                        {% endif %}
+                    </div>
+                    
+                    <h2 class="text-xl font-bold text-slate-100 mb-1">
+                        {{ client.get_full_name|default:client.email }}
+                    </h2>
+                    
+                    {% if client.company %}
+                    <p class="text-slate-400 mb-4">{{ client.company }}</p>
+                    {% endif %}
+                    
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium
+                        {% if client.is_active %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20
+                        {% else %}bg-red-500/10 text-red-400 border border-red-500/20{% endif %}">
+                        <i class="fas {% if client.is_active %}fa-check-circle{% else %}fa-times-circle{% endif %}"></i>
+                        <span>{% if client.is_active %}Activo{% else %}Inactivo{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-address-card text-cyan-400"></i>
+                    Información de Contacto
+                </h3>
+                
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <p class="text-slate-500 text-xs mb-1">Email</p>
+                        <a href="mailto:{{ client.email }}" 
+                           class="flex items-center gap-2 text-slate-300 hover:text-cyan-400 transition-colors">
+                            <i class="fas fa-envelope w-4"></i>
+                            <span>{{ client.email }}</span>
+                        </a>
+                    </div>
+                    
+                    {% if client.phone %}
+                    <div>
+                        <p class="text-slate-500 text-xs mb-1">Teléfono</p>
+                        <a href="tel:{{ client.phone }}" 
+                           class="flex items-center gap-2 text-slate-300 hover:text-cyan-400 transition-colors">
+                            <i class="fas fa-phone w-4"></i>
+                            <span>{{ client.phone }}</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if client.address %}
+                    <div>
+                        <p class="text-slate-500 text-xs mb-1">Dirección</p>
+                        <div class="flex items-start gap-2 text-slate-300">
+                            <i class="fas fa-map-marker-alt w-4 mt-1"></i>
+                            <span>{{ client.address }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Stats Card -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-chart-bar text-cyan-400"></i>
+                    Estadísticas
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-400 text-sm">Total Proyectos</span>
+                        <span class="text-2xl font-bold text-cyan-400">{{ projects.count }}</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-400 text-sm">Activos</span>
+                        <span class="text-xl font-bold text-yellow-400">
+                            {{ projects|length|default:0 }}
+                        </span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-400 text-sm">Completados</span>
+                        <span class="text-xl font-bold text-emerald-400">
+                            {{ projects|selectattr:"status", "equalto", "completed"|list|length|default:0 }}
+                        </span>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-slate-800">
+                        <div class="flex items-center justify-between">
+                            <span class="text-slate-400 text-sm">Registrado</span>
+                            <span class="text-slate-300 text-sm">{{ client.date_joined|date:"d M Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Projects Column -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Projects List -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-slate-100">Proyectos del Cliente</h3>
+                    <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full text-sm font-medium">
+                        {{ projects.count }} total
+                    </span>
+                </div>
+                
+                {% if projects %}
+                <div class="space-y-4">
+                    {% for project in projects %}
+                    <div class="p-4 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-all group border border-slate-700">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors mb-2">
+                                    {{ project.title }}
+                                </h4>
+                                <p class="text-sm text-slate-400 line-clamp-2">
+                                    {{ project.description }}
+                                </p>
+                            </div>
+                            <span class="ml-4 px-3 py-1 rounded-full text-xs font-medium flex-shrink-0
+                                {% if project.status == 'submitted' %}bg-blue-500/10 text-blue-400 border border-blue-500/20
+                                {% elif project.status == 'in_development' or project.status == 'testing' %}bg-cyan-500/10 text-cyan-400 border border-cyan-500/20
+                                {% elif project.status == 'completed' %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20
+                                {% elif project.status == 'on_hold' %}bg-yellow-500/10 text-yellow-400 border border-yellow-500/20
+                                {% elif project.status == 'cancelled' %}bg-red-500/10 text-red-400 border border-red-500/20
+                                {% else %}bg-slate-500/10 text-slate-400 border border-slate-500/20{% endif %}">
+                                {{ project.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-xs text-slate-500">
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-calendar"></i>
+                                    {{ project.created_at|date:"d M Y" }}
+                                </span>
+                                {% if project.budget_range %}
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    {{ project.budget_range }}
+                                </span>
+                                {% endif %}
+                                <span class="flex items-center gap-1 px-2 py-1 rounded
+                                    {% if project.priority == 'urgent' %}bg-red-500/10 text-red-400
+                                    {% elif project.priority == 'high' %}bg-orange-500/10 text-orange-400
+                                    {% else %}bg-slate-500/10 text-slate-400{% endif %}">
+                                    <i class="fas fa-flag"></i>
+                                    {{ project.get_priority_display }}
+                                </span>
+                            </div>
+                            
+                            <a href="{% url 'admin_panel:project_detail' project.pk %}" 
+                               class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                                <span>Ver detalles</span>
+                                <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-12">
+                    <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-inbox text-slate-600 text-2xl"></i>
+                    </div>
+                    <p class="text-slate-400">Este cliente aún no tiene proyectos</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Activity Timeline -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-xl font-semibold text-slate-100 mb-6 flex items-center gap-2">
+                    <i class="fas fa-history text-cyan-400"></i>
+                    Actividad Reciente
+                </h3>
+                
+                <div class="space-y-4">
+                    {% for project in projects|slice:":5" %}
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 bg-cyan-500/20 rounded-full flex items-center justify-center border-2 border-cyan-500">
+                                <i class="fas fa-circle text-cyan-400 text-xs"></i>
+                            </div>
+                            {% if not forloop.last %}
+                            <div class="w-0.5 h-full bg-slate-700 mt-2"></div>
+                            {% endif %}
+                        </div>
+                        <div class="flex-1 pb-6">
+                            <p class="text-slate-200 font-medium">{{ project.title }}</p>
+                            <p class="text-slate-500 text-sm">{{ project.created_at|date:"d M Y, H:i" }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-center text-slate-500 py-8">No hay actividad reciente</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

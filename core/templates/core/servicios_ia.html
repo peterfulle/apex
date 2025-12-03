@@ -1,0 +1,419 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Servicios de IA - Aplyfly{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-black">
+    <!-- Animated Grid Background -->
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23374151" fill-opacity="0.1"%3E%3Cpath d="M0 0h40v40H0z"/%3E%3Cpath d="M20 20h20v20H20z" fill="%234f46e5" fill-opacity="0.05"/%3E%3C/g%3E%3C/svg%3E')] animate-pulse"></div>
+    </div>
+    
+    <!-- Floating Code Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-10 left-5 text-cyan-400/30 text-xs font-mono transform rotate-12 animate-float">
+            import openai<br>
+            class AIAgent:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.intelligence = "advanced"
+        </div>
+        <div class="absolute top-32 right-10 text-emerald-400/30 text-xs font-mono transform -rotate-6 animate-float-delayed">
+            def generate_solution():<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return ai.create_intelligent_response()
+        </div>
+        <div class="absolute bottom-40 left-8 text-purple-400/30 text-xs font-mono transform rotate-6 animate-float">
+            from langchain import agents<br>
+            intelligence = True<br>
+            automation = "complete"
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <!-- Status Badge -->
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-cyan-500/10 backdrop-blur-sm border border-cyan-500/20 mb-6">
+                <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                <span class="text-cyan-400 font-medium text-sm tracking-wide">Servicios de Inteligencia Artificial</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Servicios de <span class="text-cyan-400">IA</span> Avanzada
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
+                Transformamos tu negocio con <strong class="text-white">Inteligencia Artificial</strong> de última generación.
+                Agentes inteligentes, automatización y SaaS impulsado por IA.
+            </p>
+        </div>
+
+        <!-- AI Services Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <!-- Asistentes IA -->
+            <div class="service-card group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-500 hover:transform hover:scale-105 border border-gray-700/50 hover:border-cyan-500/50">
+                <div class="relative mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 rounded-2xl flex items-center justify-center transition-all duration-300 border border-cyan-500/20">
+                        <i class="fas fa-robot text-3xl text-cyan-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors duration-300">
+                    Asistentes IA Generativa
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Desarrollamos asistentes inteligentes personalizados que comprenden tu negocio y automatizan tareas complejas usando GPT-4, Claude y tecnologías de vanguardia.
+                </p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center text-sm text-cyan-400">
+                        <div class="w-2 h-2 bg-cyan-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>OpenAI GPT-4, Claude AI</span>
+                    </div>
+                    <div class="flex items-center text-sm text-emerald-400">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>LangChain, Vector Databases</span>
+                    </div>
+                    <div class="flex items-center text-sm text-purple-400">
+                        <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Integración empresarial completa</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <a href="#contact" class="inline-flex items-center text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">
+                        Más info
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Chatbots Inteligentes -->
+            <div class="service-card group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-500 hover:transform hover:scale-105 border border-gray-700/50 hover:border-emerald-500/50">
+                <div class="relative mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 rounded-2xl flex items-center justify-center transition-all duration-300 border border-emerald-500/20">
+                        <i class="fas fa-comments text-3xl text-emerald-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors duration-300">
+                    Chatbots IA Avanzados
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Chatbots que entienden contexto, aprenden de cada conversación y proporcionan respuestas precisas 24/7. Perfectos para atención al cliente y ventas.
+                </p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center text-sm text-emerald-400">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Procesamiento de lenguaje natural</span>
+                    </div>
+                    <div class="flex items-center text-sm text-blue-400">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Integración multicanal</span>
+                    </div>
+                    <div class="flex items-center text-sm text-purple-400">
+                        <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Aprendizaje continuo</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <a href="#contact" class="inline-flex items-center text-emerald-400 font-semibold hover:text-emerald-300 transition-colors">
+                        Más info
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Análisis Predictivo -->
+            <div class="service-card group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-500 hover:transform hover:scale-105 border border-gray-700/50 hover:border-purple-500/50">
+                <div class="relative mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center transition-all duration-300 border border-purple-500/20">
+                        <i class="fas fa-chart-line text-3xl text-purple-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors duration-300">
+                    Análisis Predictivo IA
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Predecimos tendencias, comportamientos y resultados usando machine learning avanzado para optimizar decisiones de negocio en tiempo real.
+                </p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center text-sm text-purple-400">
+                        <div class="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Machine Learning avanzado</span>
+                    </div>
+                    <div class="flex items-center text-sm text-pink-400">
+                        <div class="w-2 h-2 bg-pink-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Visualización inteligente</span>
+                    </div>
+                    <div class="flex items-center text-sm text-orange-400">
+                        <div class="w-2 h-2 bg-orange-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Predicciones en tiempo real</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <a href="#contact" class="inline-flex items-center text-purple-400 font-semibold hover:text-purple-300 transition-colors">
+                        Más info
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Automatización Inteligente -->
+            <div class="service-card group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-500 hover:transform hover:scale-105 border border-gray-700/50 hover:border-orange-500/50">
+                <div class="relative mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-2xl flex items-center justify-center transition-all duration-300 border border-orange-500/20">
+                        <i class="fas fa-cogs text-3xl text-orange-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-orange-400 transition-colors duration-300">
+                    Automatización IA
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Automatizamos procesos complejos con IA que toma decisiones inteligentes, reduce errores humanos y acelera operaciones empresariales.
+                </p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center text-sm text-orange-400">
+                        <div class="w-2 h-2 bg-orange-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>RPA + IA híbrida</span>
+                    </div>
+                    <div class="flex items-center text-sm text-yellow-400">
+                        <div class="w-2 h-2 bg-yellow-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Toma de decisiones autónoma</span>
+                    </div>
+                    <div class="flex items-center text-sm text-red-400">
+                        <div class="w-2 h-2 bg-red-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Optimización continua</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <a href="#contact" class="inline-flex items-center text-orange-400 font-semibold hover:text-orange-300 transition-colors">
+                        Más info
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SaaS IA -->
+            <div class="service-card group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-500 hover:transform hover:scale-105 border border-gray-700/50 hover:border-blue-500/50">
+                <div class="relative mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-2xl flex items-center justify-center transition-all duration-300 border border-blue-500/20">
+                        <i class="fas fa-cloud text-3xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
+                    SaaS IA Personalizado
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Desarrollamos plataformas SaaS impulsadas por IA, escalables y seguras, diseñadas específicamente para revolucionar tu industria.
+                </p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center text-sm text-blue-400">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Arquitectura cloud-native</span>
+                    </div>
+                    <div class="flex items-center text-sm text-indigo-400">
+                        <div class="w-2 h-2 bg-indigo-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>IA integrada desde el core</span>
+                    </div>
+                    <div class="flex items-center text-sm text-teal-400">
+                        <div class="w-2 h-2 bg-teal-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Escalabilidad automática</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <a href="#contact" class="inline-flex items-center text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+                        Más info
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Consultoría IA -->
+            <div class="service-card group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-500 hover:transform hover:scale-105 border border-gray-700/50 hover:border-green-500/50">
+                <div class="relative mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-2xl flex items-center justify-center transition-all duration-300 border border-green-500/20">
+                        <i class="fas fa-lightbulb text-3xl text-green-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">
+                    Consultoría IA Estratégica
+                </h3>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Te guiamos en la implementación estratégica de IA en tu organización, desde la evaluación hasta la ejecución completa.
+                </p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center text-sm text-green-400">
+                        <div class="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Audit IA completo</span>
+                    </div>
+                    <div class="flex items-center text-sm text-lime-400">
+                        <div class="w-2 h-2 bg-lime-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Roadmap personalizado</span>
+                    </div>
+                    <div class="flex items-center text-sm text-emerald-400">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></div>
+                        <span>Capacitación de equipos</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <a href="#contact" class="inline-flex items-center text-green-400 font-semibold hover:text-green-300 transition-colors">
+                        Más info
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-800">
+    <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¿Listo para implementar IA en tu negocio?</h2>
+                <p class="text-xl text-gray-400">
+                    Conversemos sobre tu proyecto de inteligencia artificial
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-8">Contacto directo</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-cyan-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">Email</p>
+                                <a href="mailto:contacto@aplifly.com" class="text-white hover:text-cyan-400 transition-colors">contacto@aplifly.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-robot text-cyan-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">Consulta IA gratuita</p>
+                                <p class="text-white">45 minutos de análisis estratégico</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div>
+                    <form method="post" action="{% url 'contact' %}" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Nombre completo</label>
+                            <input type="text" name="name" required 
+                                   class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Email corporativo</label>
+                            <input type="email" name="email" required 
+                                   class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Empresa</label>
+                            <input type="text" name="company" 
+                                   class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Tipo de proyecto IA</label>
+                            <select name="subject" required 
+                                    class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-cyan-500 focus:outline-none">
+                                <option value="">Selecciona un servicio</option>
+                                <option value="Asistentes IA">Asistentes IA Generativa</option>
+                                <option value="Chatbots IA">Chatbots IA Avanzados</option>
+                                <option value="Análisis Predictivo">Análisis Predictivo IA</option>
+                                <option value="Automatización IA">Automatización IA</option>
+                                <option value="SaaS IA">SaaS IA Personalizado</option>
+                                <option value="Consultoría IA">Consultoría IA Estratégica</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Detalles del proyecto IA</label>
+                            <textarea name="message" rows="4" required 
+                                      placeholder="Describe tu visión del proyecto de IA, objetivos específicos y cómo planeas usar la inteligencia artificial..."
+                                      class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-cyan-500 focus:outline-none resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full px-8 py-3 bg-cyan-500 text-black font-semibold rounded-lg hover:bg-cyan-400 transition-colors">
+                            <i class="fas fa-rocket mr-2"></i>
+                            Solicitar consulta IA gratuita
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Animations matching home page */
+    @keyframes float {
+        0%, 100% { 
+            transform: translateY(0px) rotate(12deg); 
+        }
+        50% { 
+            transform: translateY(-20px) rotate(12deg); 
+        }
+    }
+    
+    @keyframes float-delayed {
+        0%, 100% { 
+            transform: translateY(0px) rotate(-6deg); 
+        }
+        50% { 
+            transform: translateY(-15px) rotate(-6deg); 
+        }
+    }
+    
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+        animation: float-delayed 6s ease-in-out infinite 2s;
+    }
+    
+    /* Service card hover effects */
+    .service-card {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .service-card:hover {
+        transform: translateY(-8px) scale(1.02);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends 'clients/base_dashboard.html' %}
+
+{% block title %}Mi Perfil - Aplyfly{% endblock %}
+
+{% block page_title %}Mi Perfil{% endblock %}
+{% block page_subtitle %}Administra tu información personal{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Profile Sidebar -->
+    <div class="lg:col-span-1">
+        <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800 text-center">
+            <!-- Avatar with upload -->
+            <div class="relative inline-block mb-4" x-data="{ uploading: false }">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" 
+                         alt="{{ user.get_full_name }}"
+                         class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-slate-800">
+                {% else %}
+                    <div class="w-24 h-24 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto border-4 border-slate-800">
+                        <span class="text-white font-bold text-3xl">{{ user.first_name.0|upper }}{{ user.last_name.0|upper }}</span>
+                    </div>
+                {% endif %}
+                
+                <!-- Upload button overlay -->
+                <label for="avatar-upload" class="absolute bottom-0 right-0 w-8 h-8 bg-cyan-500 hover:bg-cyan-400 rounded-full flex items-center justify-center cursor-pointer transition-all shadow-lg">
+                    <i class="fas fa-camera text-slate-950 text-sm"></i>
+                </label>
+                <form method="post" enctype="multipart/form-data" id="avatar-form" class="hidden">
+                    {% csrf_token %}
+                    <input type="file" 
+                           id="avatar-upload" 
+                           name="avatar" 
+                           accept="image/*"
+                           @change="uploading = true; document.getElementById('avatar-form').submit()"
+                           class="hidden">
+                </form>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-slate-100 mb-1">{{ user.get_full_name }}</h3>
+            <p class="text-slate-400 text-sm mb-4">{{ user.email }}</p>
+            <div class="flex items-center justify-center gap-2 text-sm text-slate-500 mb-6">
+                <i class="fas fa-calendar"></i>
+                <span>Miembro desde {{ user.date_joined|date:"M Y" }}</span>
+            </div>
+            
+            {% if user.avatar %}
+                <form method="post" action="{% url 'clients:remove_avatar' %}" class="mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full px-4 py-2.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 font-medium rounded-lg transition-colors text-sm">
+                        <i class="fas fa-trash mr-2"></i>
+                        Eliminar Foto
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+        
+        <!-- Quick Stats -->
+        <div class="mt-6 bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+            <h4 class="text-slate-300 font-semibold mb-4">Estadísticas</h4>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-slate-400 text-sm">Proyectos</span>
+                    <span class="text-slate-100 font-semibold">{{ total_projects|default:0 }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-slate-400 text-sm">Solicitudes</span>
+                    <span class="text-slate-100 font-semibold">{{ total_requests|default:0 }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-slate-400 text-sm">Completados</span>
+                    <span class="text-emerald-400 font-semibold">{{ completed_projects|default:0 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Profile Form -->
+    <div class="lg:col-span-2">
+        <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-8 border border-slate-800">
+            <h3 class="text-lg font-semibold text-slate-100 mb-6">Información Personal</h3>
+            
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="id_first_name" class="block text-sm font-medium text-slate-300 mb-2">
+                            Nombre
+                        </label>
+                        <input type="text" 
+                               name="first_name" 
+                               id="id_first_name"
+                               value="{{ user.first_name }}"
+                               class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                    </div>
+                    
+                    <div>
+                        <label for="id_last_name" class="block text-sm font-medium text-slate-300 mb-2">
+                            Apellido
+                        </label>
+                        <input type="text" 
+                               name="last_name" 
+                               id="id_last_name"
+                               value="{{ user.last_name }}"
+                               class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="id_email" class="block text-sm font-medium text-slate-300 mb-2">
+                        Email
+                    </label>
+                    <input type="email" 
+                           name="email" 
+                           id="id_email"
+                           value="{{ user.email }}"
+                           class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                </div>
+                
+                <div>
+                    <label for="id_phone" class="block text-sm font-medium text-slate-300 mb-2">
+                        Teléfono
+                    </label>
+                    <input type="tel" 
+                           name="phone" 
+                           id="id_phone"
+                           value="{{ user.phone|default:'' }}"
+                           class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                </div>
+                
+                <div>
+                    <label for="id_company" class="block text-sm font-medium text-slate-300 mb-2">
+                        Empresa
+                    </label>
+                    <input type="text" 
+                           name="company" 
+                           id="id_company"
+                           value="{{ user.company|default:'' }}"
+                           class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                </div>
+                
+                <div class="flex items-center gap-4 pt-6 border-t border-slate-800">
+                    <button type="submit" 
+                            class="px-8 py-3 bg-cyan-500 text-slate-950 font-semibold rounded-lg hover:bg-cyan-400 transition-all">
+                        Guardar Cambios
+                    </button>
+                    <button type="reset" 
+                            class="px-8 py-3 bg-slate-800 text-slate-300 font-semibold rounded-lg hover:bg-slate-700 transition-all">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Change Password -->
+        <div class="mt-6 bg-slate-900/50 backdrop-blur-sm rounded-xl p-8 border border-slate-800">
+            <h3 class="text-lg font-semibold text-slate-100 mb-6">Cambiar Contraseña</h3>
+            
+            <form method="post" action="{% url 'clients:change_password' %}" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="id_old_password" class="block text-sm font-medium text-slate-300 mb-2">
+                        Contraseña Actual
+                    </label>
+                    <input type="password" 
+                           name="old_password" 
+                           id="id_old_password"
+                           class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                </div>
+                
+                <div>
+                    <label for="id_new_password1" class="block text-sm font-medium text-slate-300 mb-2">
+                        Nueva Contraseña
+                    </label>
+                    <input type="password" 
+                           name="new_password1" 
+                           id="id_new_password1"
+                           class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                </div>
+                
+                <div>
+                    <label for="id_new_password2" class="block text-sm font-medium text-slate-300 mb-2">
+                        Confirmar Nueva Contraseña
+                    </label>
+                    <input type="password" 
+                           name="new_password2" 
+                           id="id_new_password2"
+                           class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all">
+                </div>
+                
+                <button type="submit" 
+                        class="px-8 py-3 bg-cyan-500 text-slate-950 font-semibold rounded-lg hover:bg-cyan-400 transition-all">
+                    Cambiar Contraseña
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

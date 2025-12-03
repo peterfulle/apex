@@ -1,0 +1,26 @@
+services:
+  # Web Service
+  - type: web
+    name: aplyfly
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mydevsite.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.10
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: WEB_CONCURRENCY
+        value: 4
+
+databases:
+  - name: aplyfly-db
+    databaseName: aplyfly
+    user: aplyfly
+    region: oregon
+    plan: free

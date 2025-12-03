@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags Ultra-Optimizado -->
+    <title>{{ post.meta_title|default:post.title }}</title>
+    <meta name="description" content="{{ post.meta_description }}">
+    {% if post.meta_keywords %}<meta name="keywords" content="{{ post.meta_keywords }}">{% endif %}
+    <meta name="author" content="{{ post.author.get_full_name|default:post.author.username }}">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="{{ post.canonical_url|default:post.get_absolute_url }}">
+    
+    <!-- SEO Avanzado -->
+    <meta name="language" content="es">
+    <meta name="geo.region" content="CO">
+    <meta name="geo.placename" content="Colombia">
+    <meta name="rating" content="general">
+    <meta name="revisit-after" content="7 days">
+    <meta http-equiv="Content-Language" content="es">
+    
+    <!-- Rich Snippets -->
+    <meta name="thumbnail" content="{% if post.featured_image %}{{ post.featured_image.url }}{% endif %}">
+    <meta name="abstract" content="{{ post.excerpt }}">
+    <meta name="topic" content="{{ post.category.name|default:'Tecnología' }}">
+    <meta name="summary" content="{{ post.meta_description }}">
+    <meta name="Classification" content="Business">
+    <meta name="designer" content="Aplyfly">
+    <meta name="copyright" content="Aplyfly 2025">
+    <meta name="reply-to" content="info@aplyfly.com">
+    <meta name="owner" content="Aplyfly">
+    <meta name="url" content="{{ post.canonical_url|default:post.get_absolute_url }}">
+    <meta name="identifier-URL" content="{{ post.canonical_url|default:post.get_absolute_url }}">
+    <meta name="directory" content="submission">
+    <meta name="category" content="{{ post.category.name|default:'Technology' }}">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="target" content="all">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    {% if post.is_news %}
+    <!-- Google News Meta Tags -->
+    <meta name="news_keywords" content="{{ post.meta_keywords }}{% if post.news_keywords_extra %}, {{ post.news_keywords_extra }}{% endif %}">
+    <meta name="syndication-source" content="https://aplyfly.com{{ post.get_absolute_url }}">
+    <meta name="original-source" content="https://aplyfly.com{{ post.get_absolute_url }}">
+    <meta name="standout" content="https://aplyfly.com{{ post.get_absolute_url }}">
+    <meta name="article.published" content="{{ post.published_at|date:'c' }}">
+    <meta name="article.modified" content="{{ post.updated_at|date:'c' }}">
+    
+    <!-- Google News - Publisher Specific -->
+    <meta property="article:publisher" content="https://aplyfly.com">
+    <meta property="article:opinion" content="false">
+    <meta property="article:content_tier" content="free">
+    
+    <!-- Google News - Geographic -->
+    <meta property="article:section" content="{{ post.category.name|default:'Technology' }}">
+    {% if post.news_location %}
+    <meta name="geo.placename" content="{{ post.news_location }}">
+    {% endif %}
+    <meta name="geo.position" content="4.7110;-74.0721">
+    <meta name="ICBM" content="4.7110, -74.0721">
+    <meta name="DC.title" content="{{ post.title }}">
+    {% endif %}
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://aplyfly.com{{ post.get_absolute_url }}">
+    <meta property="og:title" content="{{ post.og_title|default:post.title }}">
+    <meta property="og:description" content="{{ post.og_description|default:post.meta_description }}">
+    {% if post.og_image %}
+    <meta property="og:image" content="{{ post.og_image.url }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    {% elif post.featured_image %}
+    <meta property="og:image" content="{{ post.featured_image.url }}">
+    {% endif %}
+    <meta property="article:published_time" content="{{ post.published_at|date:'c' }}">
+    <meta property="article:modified_time" content="{{ post.updated_at|date:'c' }}">
+    <meta property="article:author" content="{{ post.author.get_full_name|default:post.author.username }}">
+    {% if post.category %}<meta property="article:section" content="{{ post.category.name }}">{% endif %}
+    {% for tag in post.get_tags_list %}
+    <meta property="article:tag" content="{{ tag }}">
+    {% endfor %}
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://aplyfly.com{{ post.get_absolute_url }}">
+    <meta name="twitter:title" content="{{ post.og_title|default:post.title }}">
+    <meta name="twitter:description" content="{{ post.og_description|default:post.meta_description }}">
+    {% if post.og_image %}
+    <meta name="twitter:image" content="{{ post.og_image.url }}">
+    {% elif post.featured_image %}
+    <meta name="twitter:image" content="{{ post.featured_image.url }}">
+    {% endif %}
+    
+    <!-- Schema.org Structured Data - Article ULTRA OPTIMIZADO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "{{ post.schema_type|default:'TechArticle' }}",
+      "headline": "{{ post.title|escapejs }}",
+      "alternativeHeadline": "{{ post.meta_title|escapejs }}",
+      "description": "{{ post.meta_description|escapejs }}",
+      "image": {
+        "@type": "ImageObject",
+        "url": {% if post.featured_image %}"{{ request.scheme }}://{{ request.get_host }}{{ post.featured_image.url }}"{% else %}"{{ request.scheme }}://{{ request.get_host }}/static/images/default-blog.jpg"{% endif %},
+        "width": 1200,
+        "height": 630
+      },
+      "datePublished": "{{ post.published_at|date:'c' }}",
+      "dateModified": "{{ post.updated_at|date:'c' }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ post.author.get_full_name|default:post.author.username|escapejs }}",
+        "jobTitle": "Ingeniera Comercial - Experta en IA",
+        "description": "Especialista en Inteligencia Artificial y Transformación Digital Empresarial",
+        "url": "{{ request.scheme }}://{{ request.get_host }}/sobre-nosotros/",
+        "sameAs": [
+          "https://www.linkedin.com/in/carolina-saez-ia/",
+          "https://twitter.com/carolinasaez_ai"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Aplyfly",
+        "description": "Desarrollo de Software e Inteligencia Artificial Empresarial",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png",
+          "width": 600,
+          "height": 60
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/aplyfly",
+          "https://twitter.com/aplyfly",
+          "https://github.com/aplyfly"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+57-300-000-0000",
+          "contactType": "Customer Service",
+          "areaServed": "CO",
+          "availableLanguage": ["es", "en"]
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}"
+      },
+      "wordCount": {{ post.content|wordcount }},
+      "timeRequired": "PT{{ post.reading_time }}M",
+      "keywords": "{{ post.meta_keywords|default:''|escapejs }}",
+      "articleSection": "{{ post.category.name|default:'Tecnología' }}",
+      "articleBody": "{{ post.excerpt|striptags|escapejs }}",
+      "inLanguage": "es-CO",
+      "copyrightYear": "2025",
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "Aplyfly"
+      },
+      "abstract": "{{ post.excerpt|striptags|escapejs }}",
+      "educationalLevel": "Professional",
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Empresas y Profesionales de TI"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Agentes de Inteligencia Artificial",
+        "description": "Sistemas autónomos de IA para automatización empresarial"
+      },
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "Machine Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Automatización Empresarial"
+        },
+        {
+          "@type": "Thing",
+          "name": "Inteligencia Artificial"
+        },
+        {
+          "@type": "Thing",
+          "name": "Transformación Digital"
+        }
+      ],
+      "commentCount": 0,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "{{ post.views_count|default:1 }}",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "interactionStatistic": {
+        "@type": "InteractionCounter",
+        "interactionType": "https://schema.org/ReadAction",
+        "userInteractionCount": {{ post.views_count|default:0 }}
+      }
+    }
+    </script>
+    
+    {% if post.is_news %}
+    <!-- NewsArticle Schema para Google News -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{{ post.title|escapejs }}",
+      "alternativeHeadline": "{{ post.meta_title|escapejs }}",
+      "description": "{{ post.meta_description|escapejs }}",
+      "image": {
+        "@type": "ImageObject",
+        "url": {% if post.featured_image %}"{{ request.scheme }}://{{ request.get_host }}{{ post.featured_image.url }}"{% else %}"{{ request.scheme }}://{{ request.get_host }}/static/images/default-blog.jpg"{% endif %},
+        "width": 1200,
+        "height": 630
+      },
+      "datePublished": "{{ post.published_at|date:'c' }}",
+      "dateModified": "{{ post.updated_at|date:'c' }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ post.author.get_full_name|default:post.author.username|escapejs }}",
+        "jobTitle": "Ingeniera Comercial - Experta en IA"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Aplyfly Tech News",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}"
+      },
+      "articleSection": "{{ post.category.name|default:'Technology News' }}",
+      "keywords": "{{ post.meta_keywords|default:''|escapejs }}{% if post.news_keywords_extra %}, {{ post.news_keywords_extra|escapejs }}{% endif %}",
+      {% if post.news_location %}
+      "contentLocation": {
+        "@type": "Place",
+        "name": "{{ post.news_location }}"
+      },
+      {% endif %}
+      "backstory": "{{ post.excerpt|striptags|escapejs }}",
+      "isAccessibleForFree": "True",
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "Aplyfly Blog",
+        "url": "{{ request.scheme }}://{{ request.get_host }}/blog/"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [".prose", "h1", "h2"]
+      }
+    }
+    </script>
+    {% endif %}
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "{{ request.scheme }}://{{ request.get_host }}/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "{{ request.scheme }}://{{ request.get_host }}/blog/"
+        }{% if post.category %},
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ post.category.name }}",
+          "item": "{{ request.scheme }}://{{ request.get_host }}/blog/categoria/{{ post.category.slug }}/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "{{ post.title|truncatewords:10 }}",
+          "item": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}"
+        }
+        {% else %},
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ post.title|truncatewords:10 }}",
+          "item": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}"
+        }
+        {% endif %}
+      ]
+    }
+    </script>
+    
+    <!-- Organization Schema para Autoridad -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Aplyfly",
+      "alternateName": "Aplyfly IA",
+      "url": "{{ request.scheme }}://{{ request.get_host }}",
+      "logo": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png",
+      "description": "Empresa líder en desarrollo de software e implementación de agentes de inteligencia artificial para empresas",
+      "email": "info@aplyfly.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CO",
+        "addressLocality": "Bogotá"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/aplyfly",
+        "https://twitter.com/aplyfly",
+        "https://github.com/aplyfly"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
+    
+    <!-- FAQ Schema para Featured Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué son los agentes de IA empresariales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los agentes de inteligencia artificial empresariales son sistemas autónomos capaces de percibir su entorno, tomar decisiones y ejecutar acciones para alcanzar objetivos específicos sin intervención humana constante. Estos agentes pueden automatizar procesos complejos, mejorar la eficiencia operativa y reducir costos operativos hasta en un 60%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta implementar agentes IA en una empresa?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El costo de implementación de agentes IA varía según la complejidad del proyecto, pero típicamente el ROI positivo se alcanza entre 6-12 meses. La inversión inicial se recupera rápidamente gracias a la reducción de costos operativos del 40-60% y el aumento de productividad de 3-5x en tareas automatizadas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuáles son los beneficios de los agentes IA para empresas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los principales beneficios incluyen: reducción de costos operativos del 40-60%, aumento de productividad 3-5x en tareas repetitivas, mejora en precisión del 99%+ en procesamiento de datos, disponibilidad 24/7 sin interrupciones, escalabilidad instantánea para manejar picos de demanda, y ROI positivo típicamente en 6-12 meses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué tecnologías utilizan los agentes IA empresariales en 2025?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los agentes IA modernos utilizan Large Language Models (LLMs) como GPT-4, Claude 3 y Gemini Pro, técnicas de Machine Learning y Deep Learning, Retrieval-Augmented Generation (RAG) para acceso a conocimiento empresarial, procesamiento de lenguaje natural (NLP), y sistemas de aprendizaje continuo que mejoran con cada interacción."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- HowTo Schema para Tutorial -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Cómo Implementar Agentes IA en tu Empresa",
+      "description": "Guía paso a paso para implementar agentes de inteligencia artificial en operaciones empresariales",
+      "totalTime": "PT3M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Identificación de Casos de Uso",
+          "text": "Identifica procesos repetitivos con alto volumen de transacciones, tareas que requieren análisis de grandes cantidades de datos, operaciones que generan cuellos de botella, y áreas con altos costos operativos.",
+          "url": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}#identificacion"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Selección de Tecnología y Partner",
+          "text": "Elige la plataforma adecuada (OpenAI, Azure AI, Google AI), trabaja con expertos en desarrollo de agentes IA empresariales, y asegura integración con sistemas existentes como ERP y CRM.",
+          "url": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}#seleccion"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Desarrollo y Entrenamiento",
+          "text": "Define objetivos claros, recopila datasets de entrenamiento de calidad, diseña flujos conversacionales, entrena el modelo con datos empresariales específicos, y realiza testing riguroso.",
+          "url": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}#desarrollo"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Despliegue y Monitoreo",
+          "text": "Monitorea métricas de rendimiento en tiempo real, recopila feedback de usuarios, implementa mejoras basadas en datos de uso real, y escala gradualmente a más procesos.",
+          "url": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}#despliegue"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        {% if post.is_news %}
+        /* Estilos para artículos de NOTICIAS - Fondo Blanco */
+        body {
+            background-color: #ffffff !important;
+            color: #1e293b !important;
+        }
+        .bg-slate-950 { background-color: #ffffff !important; }
+        .bg-slate-900 { background-color: #f8fafc !important; }
+        .bg-slate-800 { background-color: #f1f5f9 !important; }
+        .text-slate-100 { color: #1e293b !important; }
+        .text-slate-200 { color: #334155 !important; }
+        .text-slate-300 { color: #475569 !important; }
+        .text-slate-400 { color: #64748b !important; }
+        .text-slate-500 { color: #94a3b8 !important; }
+        .border-slate-800 { border-color: #e2e8f0 !important; }
+        nav { background-color: #ffffff !important; border-bottom: 1px solid #e2e8f0 !important; }
+        footer { background-color: #f8fafc !important; border-top: 1px solid #e2e8f0 !important; }
+        {% endif %}
+        
+        .prose {
+            max-width: none;
+        }
+        .prose p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            {% if post.is_news %}
+            color: #1e293b;
+            {% else %}
+            color: #cbd5e1;
+            {% endif %}
+        }
+        .prose h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            {% if post.is_news %}
+            color: #0891b2;
+            {% else %}
+            color: #22d3ee;
+            {% endif %}
+        }
+        .prose h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            {% if post.is_news %}
+            color: #0e7490;
+            {% else %}
+            color: #67e8f9;
+            {% endif %}
+        }
+        .prose ul, .prose ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .prose li {
+            margin-bottom: 0.5rem;
+            {% if post.is_news %}
+            color: #334155;
+            {% else %}
+            color: #cbd5e1;
+            {% endif %}
+        }
+        .prose a {
+            {% if post.is_news %}
+            color: #0891b2;
+            {% else %}
+            color: #22d3ee;
+            {% endif %}
+            text-decoration: underline;
+        }
+        .prose a:hover {
+            {% if post.is_news %}
+            color: #0e7490;
+            {% else %}
+            color: #67e8f9;
+            {% endif %}
+        }
+        .prose strong {
+            {% if post.is_news %}
+            color: #0f172a;
+            {% else %}
+            color: #f1f5f9;
+            {% endif %}
+            font-weight: 600;
+        }
+        .prose blockquote {
+            {% if post.is_news %}
+            border-left: 4px solid #0891b2;
+            color: #475569;
+            {% else %}
+            border-left: 4px solid #22d3ee;
+            color: #94a3b8;
+            {% endif %}
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+        .prose img {
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+        .prose code {
+            {% if post.is_news %}
+            background-color: #f1f5f9;
+            color: #0891b2;
+            {% else %}
+            background-color: #1e293b;
+            color: #22d3ee;
+            {% endif %}
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+        .prose pre {
+            {% if post.is_news %}
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            {% else %}
+            background-color: #1e293b;
+            {% endif %}
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body class="font-sans bg-slate-950 text-slate-100">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="{% url 'index' %}" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    Aplyfly
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="{% url 'index' %}" class="text-slate-300 hover:text-white transition-colors">Inicio</a>
+                    <a href="{% url 'blog:list' %}" class="text-cyan-400 font-semibold">Blog</a>
+                    <a href="{% url 'clients:login' %}" class="px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-400 transition-all">
+                        Portal Clientes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="pt-24 pb-6 px-6 bg-slate-900/50">
+        <div class="max-w-4xl mx-auto">
+            <nav class="flex items-center gap-2 text-sm text-slate-500">
+                <a href="{% url 'index' %}" class="hover:text-cyan-400 transition-colors">Inicio</a>
+                <i class="fas fa-chevron-right text-xs"></i>
+                <a href="{% url 'blog:list' %}" class="hover:text-cyan-400 transition-colors">Blog</a>
+                {% if post.category %}
+                <i class="fas fa-chevron-right text-xs"></i>
+                <a href="{% url 'blog:category' post.category.slug %}" class="hover:text-cyan-400 transition-colors">{{ post.category.name }}</a>
+                {% endif %}
+                <i class="fas fa-chevron-right text-xs"></i>
+                <span class="text-slate-400">{{ post.title|truncatewords:5 }}</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Article Header -->
+    <article class="pb-20 px-6">
+        <header class="max-w-4xl mx-auto mb-12">
+            <div class="flex flex-wrap items-center gap-3 mb-6">
+                {% if post.category %}
+                <a href="{% url 'blog:category' post.category.slug %}" 
+                   class="inline-block px-4 py-2 bg-cyan-500/10 text-cyan-400 rounded-full text-sm font-semibold hover:bg-cyan-500/20 transition-colors">
+                    {{ post.category.name }}
+                </a>
+                {% endif %}
+                
+                {% if post.is_news %}
+                <span class="inline-flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-400 rounded-full text-sm font-semibold border border-red-500/30 animate-pulse">
+                    <i class="fas fa-newspaper"></i>
+                    NOTICIA DESTACADA
+                </span>
+                {% endif %}
+                
+                {% if post.news_location %}
+                <span class="inline-flex items-center gap-2 px-3 py-1 bg-slate-800 text-slate-400 rounded-full text-xs">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ post.news_location }}
+                </span>
+                {% endif %}
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">{{ post.title }}</h1>
+            
+            <!-- Updated Badge para SEO Freshness -->
+            {% if post.updated_at != post.published_at %}
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-lg mb-6">
+                <i class="fas fa-sync-alt text-green-400"></i>
+                <span class="text-green-400 font-semibold text-sm">
+                    Actualizado: {{ post.updated_at|date:"d M, Y" }}
+                </span>
+            </div>
+            {% endif %}
+            
+            <div class="flex flex-wrap items-center gap-6 text-slate-400 mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                        {{ post.author.get_full_name.0|default:post.author.username.0|upper }}{{ post.author.last_name.0|default:'S'|upper }}
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-200">{{ post.author.get_full_name|default:post.author.username }}</p>
+                        <p class="text-sm text-cyan-400">Ingeniera Comercial - Experta en IA</p>
+                    </div>
+                </div>
+                <span class="flex items-center gap-2">
+                    <i class="far fa-calendar text-cyan-400"></i>
+                    {{ post.published_at|date:"d M, Y" }}
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="far fa-clock"></i>
+                    {{ post.reading_time }} min lectura
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="far fa-eye"></i>
+                    {{ post.views_count }} vistas
+                </span>
+            </div>
+            
+            {% if post.featured_image %}
+            <img src="{{ post.featured_image.url }}" 
+                 alt="{{ post.featured_image_alt|default:post.title }}" 
+                 class="w-full rounded-2xl shadow-2xl mb-8">
+            {% endif %}
+            
+            <!-- Social Share Buttons -->
+            <div class="flex items-center gap-4 mb-8 pb-8 border-b border-slate-800">
+                <span class="font-semibold text-slate-300">Compartir:</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}" 
+                   target="_blank"
+                   class="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fab fa-facebook-f text-white"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}&text={{ post.title|urlencode }}" 
+                   target="_blank"
+                   class="w-10 h-10 bg-sky-500 hover:bg-sky-600 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fab fa-twitter text-white"></i>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}" 
+                   target="_blank"
+                   class="w-10 h-10 bg-blue-700 hover:bg-blue-800 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fab fa-linkedin-in text-white"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send?text={{ post.title|urlencode }}%20{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}" 
+                   target="_blank"
+                   class="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fab fa-whatsapp text-white"></i>
+                </a>
+            </div>
+        </header>
+        
+        <!-- Article Content -->
+        <div class="max-w-4xl mx-auto">
+            <div class="prose prose-lg">
+                {{ post.content|safe }}
+            </div>
+            
+            <!-- Tags -->
+            {% if post.tags %}
+            <div class="mt-12 pt-8 border-t border-slate-800">
+                <h3 class="text-lg font-semibold mb-4">Tags:</h3>
+                <div class="flex flex-wrap gap-2">
+                    {% for tag in post.get_tags_list %}
+                    <a href="{% url 'blog:list' %}?tag={{ tag }}" 
+                       class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-full text-sm transition-colors">
+                        #{{ tag }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Author Bio - Carolina Saez -->
+        <div class="max-w-4xl mx-auto mt-12 p-8 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-cyan-500/20 shadow-xl">
+            <div class="flex items-start gap-6">
+                <div class="w-24 h-24 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-3xl font-bold flex-shrink-0 shadow-lg">
+                    {{ post.author.get_full_name.0|default:post.author.username.0|upper }}{{ post.author.get_full_name.1|default:post.author.username.1|upper }}
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                        <h3 class="text-2xl font-bold text-white">{{ post.author.get_full_name|default:post.author.username }}</h3>
+                        <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-semibold border border-cyan-500/30">
+                            ✓ Verificada
+                        </span>
+                    </div>
+                    <p class="text-cyan-400 font-semibold mb-3">
+                        <i class="fas fa-briefcase mr-2"></i>Ingeniera Comercial | Experta en Inteligencia Artificial
+                    </p>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        Especialista en desarrollo e implementación de <strong>agentes de IA empresariales</strong> con experiencia en transformación digital de empresas en Latinoamérica. Ingeniera Comercial con enfoque en <strong>automatización inteligente</strong>, machine learning y soluciones de IA para negocios.
+                    </p>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Apasionada por la innovación tecnológica y el impacto de la inteligencia artificial en el ámbito empresarial. Colabora con equipos para diseñar e implementar soluciones de IA que optimizan procesos y mejoran la eficiencia operacional.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <a href="https://www.linkedin.com/in/carolina-saez-ia/" target="_blank" rel="nofollow" class="text-slate-400 hover:text-cyan-400 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="https://twitter.com/carolinasaez_ai" target="_blank" rel="nofollow" class="text-slate-400 hover:text-cyan-400 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="mailto:csaez@aplyfly.com" class="text-slate-400 hover:text-cyan-400 transition-colors">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                        <span class="ml-auto text-slate-500 text-sm">
+                            <i class="fas fa-newspaper mr-2"></i>{{ post.author.blogpost_set.count }} artículos publicados
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Posts -->
+        {% if related_posts %}
+        <section class="max-w-4xl mx-auto mt-16">
+            <h2 class="text-3xl font-bold mb-8">Artículos Relacionados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for related in related_posts|slice:":2" %}
+                <a href="{{ related.get_absolute_url }}" class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group">
+                    {% if related.featured_image %}
+                    <img src="{{ related.featured_image.url }}" 
+                         alt="{{ related.featured_image_alt|default:related.title }}" 
+                         class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    {% endif %}
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">{{ related.title }}</h3>
+                        <p class="text-slate-400 text-sm mb-4">{{ related.excerpt|truncatewords:20 }}</p>
+                        <div class="flex items-center gap-4 text-xs text-slate-500">
+                            <span><i class="far fa-calendar mr-1"></i>{{ related.published_at|date:"d M, Y" }}</span>
+                            <span><i class="far fa-clock mr-1"></i>{{ related.reading_time }} min</span>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        
+        <!-- CTA Section -->
+        <div class="max-w-4xl mx-auto mt-16 p-8 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-2xl border border-cyan-500/20 text-center">
+            <h3 class="text-2xl font-bold mb-4">¿Listo para transformar tu negocio?</h3>
+            <p class="text-slate-400 mb-6 max-w-2xl mx-auto">
+                Desarrollamos soluciones de IA personalizadas y agentes inteligentes para automatizar y optimizar tus procesos empresariales.
+            </p>
+            <a href="{% url 'clients:register' %}" 
+               class="inline-block px-8 py-4 bg-cyan-500 text-white rounded-lg hover:bg-cyan-400 transition-all font-semibold text-lg">
+                Iniciar Proyecto <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto text-center text-slate-500">
+            <p>&copy; 2025 Aplyfly. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,281 @@
+{% extends 'clients/base_dashboard.html' %}
+
+{% block title %}{{ project.title }} - Aplyfly{% endblock %}
+
+{% block page_title %}{{ project.title }}{% endblock %}
+{% block page_subtitle %}
+    <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold
+            {% if project.status == 'submitted' %}bg-blue-500/20 text-blue-400
+            {% elif project.status == 'in_progress' %}bg-yellow-500/20 text-yellow-400
+            {% elif project.status == 'completed' %}bg-green-500/20 text-green-400
+            {% elif project.status == 'cancelled' %}bg-red-500/20 text-red-400
+            {% else %}bg-slate-500/20 text-slate-400{% endif %}">
+            {% if project.status == 'submitted' %}Enviado
+            {% elif project.status == 'in_progress' %}En Progreso
+            {% elif project.status == 'completed' %}Completado
+            {% elif project.status == 'cancelled' %}Cancelado
+            {% else %}{{ project.status }}{% endif %}
+        </span>
+        <span class="px-3 py-1 rounded-full text-xs font-semibold
+            {% if project.priority == 'urgent' %}bg-red-500/20 text-red-400
+            {% elif project.priority == 'high' %}bg-orange-500/20 text-orange-400
+            {% elif project.priority == 'medium' %}bg-yellow-500/20 text-yellow-400
+            {% else %}bg-blue-500/20 text-blue-400{% endif %}">
+            {% if project.priority == 'urgent' %}Urgente
+            {% elif project.priority == 'high' %}Alta
+            {% elif project.priority == 'medium' %}Media
+            {% else %}Baja{% endif %}
+        </span>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Quick Actions -->
+    <div class="flex items-center justify-between">
+        <a href="{% url 'clients:projects' %}" 
+           class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 transition-all flex items-center gap-2">
+            <i class="fas fa-arrow-left"></i>
+            <span>Volver a Proyectos</span>
+        </a>
+        
+        <div class="flex items-center gap-3">
+            {% if project.status == 'submitted' %}
+            <button class="px-4 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition-all flex items-center gap-2 border border-red-500/20">
+                <i class="fas fa-times-circle"></i>
+                <span>Cancelar Proyecto</span>
+            </button>
+            {% endif %}
+            <button class="px-4 py-2 bg-cyan-500/10 text-cyan-400 rounded-lg hover:bg-cyan-500/20 transition-all flex items-center gap-2 border border-cyan-500/20">
+                <i class="fas fa-edit"></i>
+                <span>Editar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left Column - Main Details -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Description -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-align-left text-cyan-400"></i>
+                    Descripción del Proyecto
+                </h3>
+                <p class="text-slate-300 leading-relaxed whitespace-pre-line">{{ project.description }}</p>
+            </div>
+
+            <!-- Requirements -->
+            {% if project.requirements %}
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-list-check text-emerald-400"></i>
+                    Requisitos Técnicos
+                </h3>
+                <p class="text-slate-300 leading-relaxed whitespace-pre-line">{{ project.requirements }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Attachments -->
+            {% if project.requirements_document or attachments %}
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-paperclip text-purple-400"></i>
+                    Archivos Adjuntos
+                </h3>
+                
+                <div class="space-y-3">
+                    {% if project.requirements_document %}
+                    <a href="{{ project.requirements_document.url }}" 
+                       target="_blank"
+                       class="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-all group border border-slate-700">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-file-pdf text-red-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-slate-200 font-medium group-hover:text-cyan-400 transition-colors">
+                                    Documento de Requisitos
+                                </p>
+                                <p class="text-slate-500 text-sm">PDF Document</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-download text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
+                    </a>
+                    {% endif %}
+                    
+                    {% for attachment in attachments %}
+                    <a href="{{ attachment.file.url }}" 
+                       target="_blank"
+                       class="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-all group border border-slate-700">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                                {% if 'image' in attachment.file_type %}
+                                <i class="fas fa-image text-blue-400"></i>
+                                {% elif 'pdf' in attachment.file_type %}
+                                <i class="fas fa-file-pdf text-red-400"></i>
+                                {% elif 'zip' in attachment.file_type %}
+                                <i class="fas fa-file-archive text-yellow-400"></i>
+                                {% else %}
+                                <i class="fas fa-file text-slate-400"></i>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <p class="text-slate-200 font-medium group-hover:text-cyan-400 transition-colors">
+                                    {{ attachment.file_name }}
+                                </p>
+                                <p class="text-slate-500 text-sm">{{ attachment.file_type }} • {{ attachment.file_size|filesizeformat }}</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-download text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Reference URLs -->
+            {% if project.reference_urls %}
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-link text-blue-400"></i>
+                    URLs de Referencia
+                </h3>
+                <div class="space-y-2">
+                    {% for url in project.reference_urls.splitlines %}
+                    {% if url.strip %}
+                    <a href="{{ url }}" 
+                       target="_blank"
+                       class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm group">
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                        <span class="group-hover:underline">{{ url }}</span>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Special Notes -->
+            {% if project.special_notes %}
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-sticky-note text-yellow-400"></i>
+                    Notas Especiales
+                </h3>
+                <p class="text-slate-300 leading-relaxed whitespace-pre-line">{{ project.special_notes }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column - Info Cards -->
+        <div class="space-y-6">
+            <!-- Project Info -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-info-circle text-cyan-400"></i>
+                    Información del Proyecto
+                </h3>
+                
+                <div class="space-y-4">
+                    {% if project.category %}
+                    <div>
+                        <p class="text-slate-500 text-sm mb-1">Categoría</p>
+                        <div class="flex items-center gap-2">
+                            <i class="{{ project.category.icon }} text-cyan-400"></i>
+                            <p class="text-slate-200 font-medium">{{ project.category.name }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div>
+                        <p class="text-slate-500 text-sm mb-1">Presupuesto</p>
+                        <p class="text-slate-200 font-medium text-lg">{{ project.budget_range }}</p>
+                    </div>
+                    
+                    {% if project.estimated_duration %}
+                    <div>
+                        <p class="text-slate-500 text-sm mb-1">Duración Estimada</p>
+                        <p class="text-slate-200 font-medium">{{ project.estimated_duration }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.start_date %}
+                    <div>
+                        <p class="text-slate-500 text-sm mb-1">Fecha de Inicio</p>
+                        <p class="text-slate-200 font-medium">{{ project.start_date|date:"d M Y" }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.deadline %}
+                    <div>
+                        <p class="text-slate-500 text-sm mb-1">Fecha Límite</p>
+                        <p class="text-slate-200 font-medium">{{ project.deadline|date:"d M Y" }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <div>
+                        <p class="text-slate-500 text-sm mb-1">Creado</p>
+                        <p class="text-slate-200 font-medium">{{ project.created_at|date:"d M Y, H:i" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline/Status Updates -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-slate-800">
+                <h3 class="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fas fa-clock text-blue-400"></i>
+                    Línea de Tiempo
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center border-2 border-green-500">
+                                <i class="fas fa-check text-green-400 text-xs"></i>
+                            </div>
+                            <div class="w-0.5 h-full bg-slate-700 mt-2"></div>
+                        </div>
+                        <div class="flex-1 pb-6">
+                            <p class="text-slate-200 font-medium">Proyecto Enviado</p>
+                            <p class="text-slate-500 text-sm">{{ project.created_at|date:"d M Y, H:i" }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center border-2 border-slate-600">
+                                <i class="fas fa-hourglass-half text-slate-400 text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-slate-400 font-medium">En Revisión</p>
+                            <p class="text-slate-500 text-sm">Pendiente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Card -->
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-headset text-cyan-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-slate-100 font-semibold mb-2">¿Necesitas Ayuda?</h3>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Nuestro equipo está disponible para responder tus preguntas
+                    </p>
+                    <a href="{% url 'clients:service_requests' %}" 
+                       class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-400 transition-all font-medium text-sm">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>Enviar Mensaje</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
