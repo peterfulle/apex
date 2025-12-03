@@ -147,3 +147,27 @@ LOGOUT_REDIRECT_URL = '/'
 # Archivos estáticos en producción
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Configuraciones de seguridad para producción (HTTPS)
+if not DEBUG:
+    # Forzar HTTPS
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    
+    # HSTS (HTTP Strict Transport Security)
+    SECURE_HSTS_SECONDS = 31536000  # 1 año
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    
+    # Otros headers de seguridad
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    
+    # CSRF trusted origins para Render
+    CSRF_TRUSTED_ORIGINS = [
+        'https://*.onrender.com',
+        'https://aplyfly.com',
+        'https://www.aplyfly.com',
+    ]
